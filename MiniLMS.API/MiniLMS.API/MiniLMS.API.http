@@ -1,0 +1,6 @@
+@MiniLMS.API_HostAddress = http://localhost:5037
+
+GET {{MiniLMS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

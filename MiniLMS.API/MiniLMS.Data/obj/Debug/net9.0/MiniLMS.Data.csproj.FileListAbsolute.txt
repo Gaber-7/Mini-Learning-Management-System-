@@ -1,0 +1,14 @@
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\bin\Debug\net9.0\MiniLMS.Data.deps.json
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\bin\Debug\net9.0\MiniLMS.Data.runtimeconfig.json
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\bin\Debug\net9.0\MiniLMS.Data.dll
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\bin\Debug\net9.0\MiniLMS.Data.pdb
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.csproj.AssemblyReference.cache
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.AssemblyInfoInputs.cache
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.AssemblyInfo.cs
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.csproj.CoreCompileInputs.cache
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.dll
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\refint\MiniLMS.Data.dll
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.pdb
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\MiniLMS.Data.genruntimeconfig.cache
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Data\obj\Debug\net9.0\ref\MiniLMS.Data.dll
