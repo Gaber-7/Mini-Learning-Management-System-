@@ -8,7 +8,7 @@ namespace MiniLMS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin")] // حماية المتحكم ليدخله الآدمن فقط
+    [Authorize(Roles = "Admin")] 
     public class AdminCoursesController : ControllerBase
     {
         private readonly ICourseService _courseService;
@@ -56,7 +56,6 @@ namespace MiniLMS.API.Controllers
             return NoContent();
         }
 
-        // إضافة درس
         [HttpPost("{courseId}/lessons")]
         public async Task<IActionResult> AddLesson(int courseId, [FromBody] CreateLessonDto dto)
         {
@@ -65,7 +64,6 @@ namespace MiniLMS.API.Controllers
             return Ok(lesson);
         }
 
-        // ترتيب الدروس
         [HttpPost("{courseId}/lessons/reorder")]
         public async Task<IActionResult> ReorderLessons(int courseId, [FromBody] List<int> lessonIds)
         {
@@ -73,7 +71,7 @@ namespace MiniLMS.API.Controllers
             if (!success) return BadRequest(new { message = "Failed to reorder lessons" });
             return Ok(new { message = "Lessons reordered successfully" });
         }
-        // نشر الكورس
+
         [HttpPost("{courseId}/publish")]
         public async Task<IActionResult> Publish(int courseId)
         {
@@ -85,7 +83,7 @@ namespace MiniLMS.API.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return BadRequest(new { message = ex.Message }); // إرجاع رسالة خطأ في حال الكورس فارغ
+                return BadRequest(new { message = ex.Message }); 
             }
         }
     }

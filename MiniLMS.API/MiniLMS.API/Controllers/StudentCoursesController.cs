@@ -8,7 +8,7 @@ namespace MiniLMS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Student")] // للطلاب فقط
+    [Authorize(Roles = "Student")]
     public class StudentCoursesController : ControllerBase
     {
         private readonly IStudentService _studentService;
@@ -17,8 +17,6 @@ namespace MiniLMS.API.Controllers
         {
             _studentService = studentService;
         }
-
-        // جلب المعرف الفعلي للطالب الموثق عبر التوكن
         private int GetCurrentUserId()
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier);

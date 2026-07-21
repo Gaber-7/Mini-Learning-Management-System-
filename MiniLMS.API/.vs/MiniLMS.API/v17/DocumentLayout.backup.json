@@ -1,0 +1,511 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|solutionrelative:minilms.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.api\\controllers\\studentcoursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|solutionrelative:minilms.api\\controllers\\studentcoursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|solutionrelative:minilms.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|solutionrelative:minilms.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.api\\controllers\\admincoursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|solutionrelative:minilms.api\\controllers\\admincoursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|solutionrelative:minilms.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\models\\lesson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\models\\lesson.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\models\\lessonprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\models\\lessonprogress.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\models\\enrollment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.api\\minilms.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{9595C1F8-C982-4A4C-82D1-89B16181F30A}|MiniLMS.API\\MiniLMS.API.csproj|solutionrelative:minilms.api\\minilms.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\services\\courseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\interfaces\\icourseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\interfaces\\icourseservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\mapping\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\mapping\\mappingprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\coursedetailsforstudentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\coursedetailsforstudentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\lessonprogressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\lessonprogressdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\enrollmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\enrollmentdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\createlessondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\createlessondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\lessondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\lessondto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\createcoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\createcoursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\coursedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.business\\dtos\\authresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E392A817-F213-4370-95B3-626AD0D1E7C9}|MiniLMS.Business\\MiniLMS.Business.csproj|solutionrelative:minilms.business\\dtos\\authresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\models\\course.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|c:\\users\\el3atty\\source\\repos\\employee management system using angular \u0026 dot net core api\\minilms.api\\minilms.data\\migrations\\20260718161838_createuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}|MiniLMS.Data\\MiniLMS.Data.csproj|solutionrelative:minilms.data\\migrations\\20260718161838_createuserstable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Lesson.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Lesson.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Models\\Lesson.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Lesson.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Models\\Lesson.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T14:48:36.473Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StudentCoursesController.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Controllers\\StudentCoursesController.cs",
+              "RelativeDocumentMoniker": "MiniLMS.API\\Controllers\\StudentCoursesController.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Controllers\\StudentCoursesController.cs",
+              "RelativeToolTip": "MiniLMS.API\\Controllers\\StudentCoursesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T16:37:26.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "MiniLMS.API\\Controllers\\AuthController.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "MiniLMS.API\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:29:54.327Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\appsettings.json",
+              "RelativeDocumentMoniker": "MiniLMS.API\\appsettings.json",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\appsettings.json",
+              "RelativeToolTip": "MiniLMS.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-15T16:09:07.093Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Program.cs",
+              "RelativeDocumentMoniker": "MiniLMS.API\\Program.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Program.cs",
+              "RelativeToolTip": "MiniLMS.API\\Program.cs",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAAAH8AAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:06:36.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AdminCoursesController.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Controllers\\AdminCoursesController.cs",
+              "RelativeDocumentMoniker": "MiniLMS.API\\Controllers\\AdminCoursesController.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Controllers\\AdminCoursesController.cs",
+              "RelativeToolTip": "MiniLMS.API\\Controllers\\AdminCoursesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T16:35:29.809Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T14:54:22.542Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "20260718161838_CreateUsersTable.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Migrations\\20260718161838_CreateUsersTable.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Migrations\\20260718161838_CreateUsersTable.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Migrations\\20260718161838_CreateUsersTable.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Migrations\\20260718161838_CreateUsersTable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-18T16:18:39.006Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "MiniLMS.API\\Properties\\launchSettings.json",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\Properties\\launchSettings.json",
+              "RelativeToolTip": "MiniLMS.API\\Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-18T16:27:09.797Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Enrollment.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Enrollment.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Models\\Enrollment.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Enrollment.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Models\\Enrollment.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T14:49:44.955Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LessonProgress.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\LessonProgress.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Models\\LessonProgress.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\LessonProgress.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Models\\LessonProgress.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T14:51:03.7Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "StudentService.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Services\\StudentService.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\Services\\StudentService.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Services\\StudentService.cs",
+              "RelativeToolTip": "MiniLMS.Business\\Services\\StudentService.cs",
+              "ViewState": "AgIAAHcAAAAAAAAAAAAAAL0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T16:30:14.949Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IStudentService.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Interfaces\\IStudentService.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\Interfaces\\IStudentService.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Interfaces\\IStudentService.cs",
+              "RelativeToolTip": "MiniLMS.Business\\Interfaces\\IStudentService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T16:29:06.176Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MiniLMS.API.csproj",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\MiniLMS.API.csproj",
+              "RelativeDocumentMoniker": "MiniLMS.API\\MiniLMS.API.csproj",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.API\\MiniLMS.API.csproj",
+              "RelativeToolTip": "MiniLMS.API\\MiniLMS.API.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-16T03:23:09.621Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CourseService.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Services\\CourseService.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\Services\\CourseService.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Services\\CourseService.cs",
+              "RelativeToolTip": "MiniLMS.Business\\Services\\CourseService.cs",
+              "ViewState": "AgIAAGcAAAAAAAAAAAAAAHEAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T15:56:15.398Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ICourseService.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Interfaces\\ICourseService.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\Interfaces\\ICourseService.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Interfaces\\ICourseService.cs",
+              "RelativeToolTip": "MiniLMS.Business\\Interfaces\\ICourseService.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAcwAsAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T15:55:30.212Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MappingProfile.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Mapping\\MappingProfile.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\Mapping\\MappingProfile.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Mapping\\MappingProfile.cs",
+              "RelativeToolTip": "MiniLMS.Business\\Mapping\\MappingProfile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:52:36.877Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "LessonProgressDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\LessonProgressDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\LessonProgressDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\LessonProgressDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\LessonProgressDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:50:22.202Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CourseDetailsForStudentDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CourseDetailsForStudentDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\CourseDetailsForStudentDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CourseDetailsForStudentDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\CourseDetailsForStudentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:51:00.347Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "EnrollmentDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\EnrollmentDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\EnrollmentDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\EnrollmentDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\EnrollmentDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:49:55.564Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "CreateLessonDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CreateLessonDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\CreateLessonDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CreateLessonDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\CreateLessonDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:48:47.608Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "LessonDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\LessonDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\LessonDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\LessonDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\LessonDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:48:03.57Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "CreateCourseDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CreateCourseDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\CreateCourseDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CreateCourseDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\CreateCourseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:47:26.988Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "CourseDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CourseDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\CourseDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\CourseDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\CourseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T03:46:45.385Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Services\\AuthService.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\Services\\AuthService.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Services\\AuthService.cs",
+              "RelativeToolTip": "MiniLMS.Business\\Services\\AuthService.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAIBJwBcAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T02:53:56.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "IAuthService.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Interfaces\\IAuthService.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\Interfaces\\IAuthService.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\Interfaces\\IAuthService.cs",
+              "RelativeToolTip": "MiniLMS.Business\\Interfaces\\IAuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-16T02:47:29.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "AuthResponseDto.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\AuthResponseDto.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Business\\DTOs\\AuthResponseDto.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\DTOs\\AuthResponseDto.cs",
+              "RelativeToolTip": "MiniLMS.Business\\DTOs\\AuthResponseDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T23:53:48.675Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Course.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Course.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Models\\Course.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Course.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Models\\Course.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAMBdwBIAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T14:46:41.035Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Student.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Student.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Models\\Student.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\Student.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Models\\Student.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAxwBkAAABjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T14:45:42.499Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\User.cs",
+              "RelativeDocumentMoniker": "MiniLMS.Data\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular \u0026 Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\Models\\User.cs",
+              "RelativeToolTip": "MiniLMS.Data\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-15T14:43:58.733Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

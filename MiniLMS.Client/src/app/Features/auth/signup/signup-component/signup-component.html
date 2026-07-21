@@ -1,0 +1,150 @@
+<div class="container-fluid vh-100 bg-light">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-11 col-sm-8 col-md-6 col-lg-5">
+
+      <div class="card shadow border-0 rounded-4">
+        <div class="card-body p-4">
+
+          <div class="text-center mb-4">
+            <h2 class="fw-bold">Student Registration</h2>
+            <p class="text-muted">
+              Join us and start your learning journey today
+            </p>
+          </div>
+
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+            <!-- Full Name -->
+            <div class="mb-3">
+              <label for="fullName" class="form-label">
+                Full Name
+              </label>
+
+              <input
+                id="fullName"
+                type="text"
+                formControlName="fullName"
+                class="form-control"
+                placeholder="Enter your full name">
+
+              <div
+                *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.errors?.['required']"
+                class="text-danger small mt-1">
+                Full name is required.
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">
+                Email Address
+              </label>
+
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                class="form-control"
+                placeholder="name@example.com">
+
+              <div
+                *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.errors?.['required']"
+                class="text-danger small mt-1">
+                Email address is required.
+              </div>
+
+              <div
+                *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.errors?.['email']"
+                class="text-danger small mt-1">
+                Please enter a valid email address.
+              </div>
+            </div>
+
+            <!-- Username -->
+            <div class="mb-3">
+              <label for="username" class="form-label">
+                Username
+              </label>
+
+              <input
+                id="username"
+                type="text"
+                formControlName="username"
+                class="form-control"
+                placeholder="Choose a username">
+
+              <div
+                *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.errors?.['required']"
+                class="text-danger small mt-1">
+                Username is required.
+              </div>
+
+              <div
+                *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.errors?.['minlength']"
+                class="text-danger small mt-1">
+                Username must be at least 3 characters.
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                Password
+              </label>
+
+              <input
+                id="password"
+                type="password"
+                formControlName="password"
+                class="form-control"
+                placeholder="Enter your password">
+
+              <div
+                *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.errors?.['required']"
+                class="text-danger small mt-1">
+                Password is required.
+              </div>
+
+              <div
+                *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.errors?.['minlength']"
+                class="text-danger small mt-1">
+                Password must be at least 6 characters.
+              </div>
+            </div>
+
+            <!-- Register Button -->
+            <div class="d-grid mt-4">
+              <button
+                type="submit"
+                class="btn btn-success"
+                [disabled]="isLoading">
+
+                <span
+                  *ngIf="isLoading"
+                  class="spinner-border spinner-border-sm me-2">
+                </span>
+
+                {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+              </button>
+            </div>
+
+            <div class="text-center mt-4">
+              <span class="text-muted">
+                Already have an account?
+              </span>
+
+              <a
+                routerLink="/login"
+                class="text-decoration-none fw-semibold">
+                Login
+              </a>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

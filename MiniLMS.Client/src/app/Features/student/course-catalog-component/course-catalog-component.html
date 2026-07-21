@@ -1,0 +1,96 @@
+<div class="container py-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold">
+      Available Courses Catalog
+    </h1>
+
+    <button
+      class="btn btn-outline-danger"
+      (click)="authService.logout()">
+      Logout
+    </button>
+  </div>
+
+  <!-- Search & Filter -->
+  <div class="card shadow-sm border-0 mb-4">
+    <div class="card-body">
+      <div class="row g-3">
+
+        <div class="col-md-8">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="searchTerm"
+            (input)="applyFilter()"
+            placeholder="Search courses...">
+        </div>
+
+        <div class="col-md-4">
+          <select
+            class="form-select"
+            [(ngModel)]="selectedCategory"
+            (change)="applyFilter()">
+
+            <option value="">All Categories</option>
+
+            <option
+              *ngFor="let cat of categories"
+              [value]="cat">
+              {{ cat }}
+            </option>
+
+          </select>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Courses -->
+  <div class="row g-4">
+
+    <div
+      class="col-md-6 col-lg-4"
+      *ngFor="let course of filteredCourses">
+
+      <div class="card h-100 shadow-sm border-0">
+
+        <div class="card-body">
+
+          <span class="badge bg-primary mb-3">
+            {{ course.category }}
+          </span>
+
+          <h5 class="card-title fw-bold">
+            {{ course.title }}
+          </h5>
+
+          <p class="card-text text-muted">
+            {{ course.description }}
+          </p>
+
+        </div>
+
+        <div class="card-footer bg-white border-top d-flex justify-content-between align-items-center">
+
+          <small class="text-muted">
+            {{ course.lessonsCount || 0 }} Lessons
+          </small>
+
+          <button
+            class="btn btn-primary"
+            (click)="enroll(course.id)">
+            Enroll Now
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

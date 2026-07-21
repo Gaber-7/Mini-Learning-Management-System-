@@ -12,24 +12,19 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-// 1. إضافة DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 2. إضافة الخدمات
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
-// 2. حقن الخدمات والـ Repositories الجديدة
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 
-// 3. إضافة Controllers
+// Controllers
 builder.Services.AddControllers();
 
-// 4. إعداد JWT Authentication
+// JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"]!;
 builder.Services.AddAuthentication(options =>
 {
@@ -50,10 +45,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// 5. إضافة Authorization
+// Authorization
 builder.Services.AddAuthorization(); 
 
-// 6. إضافة CORS
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
@@ -64,13 +59,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-// 7. إضافة Swagger/OpenAPI
-builder.Services.AddEndpointsApiExplorer(); // Swagger
+// Swagger/OpenAPI
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MiniLMS API", Version = "v1" });
 
-    // إضافة دعم JWT في Swagger
+  
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "JWT Authorization header using the Bearer scheme. Enter 'Bearer' [space] and then your token",
@@ -119,10 +114,8 @@ using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
-    // التأكد من أن قاعدة البيانات منشأة
     context.Database.EnsureCreated();
 
-    // التحقق مما إذا كان حساب الآدمن موجوداً مسبقاً
     if (!context.Users.Any(u => u.Username.ToLower() == "admin"))
     {
         var adminUser = new User
@@ -131,7 +124,6 @@ using (var scope = app.Services.CreateScope())
             Role = "Admin"
         };
 
-        // هنا يقوم السيرفر نفسه بتوليد الهاش بشكل برميجي سليم ومطابق للمواصفات 100%
         var passwordHasher = new PasswordHasher<User>();
         adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "Admin@123");
 

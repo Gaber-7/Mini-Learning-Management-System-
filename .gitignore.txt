@@ -1,26 +1,19 @@
-# استبعاد مجلدات Visual Studio
+# Visual Studio
 .vs/
-**/.vs/
-
-# استبعاد مجلدات البناء والترجمة
-bin/
-obj/
-**/bin/
-**/obj/
-
-# استبعاد مجلدات الحزم
-packages/
-node_modules/
-
-# استبعاد ملفات المستخدم
 *.user
 *.suo
-*.userosscache
-*.sln.docstates
-*.vsidx
 
-# استبعاد ملفات النظام
-Thumbs.db
-Desktop.ini
+# Build folders
+bin/
+obj/
+
+# Angular
+node_modules/
+dist/
+
+# Logs
 *.log
-*.tmp
+
+# OS
+.DS_Store
+Thumbs.db

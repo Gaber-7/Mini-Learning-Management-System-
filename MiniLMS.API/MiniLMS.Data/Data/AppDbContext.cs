@@ -26,33 +26,28 @@ namespace MiniLMS.Data.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // 1. تحديد علاقة One-to-One بين User و Student
             modelBuilder.Entity<Student>()
                 .HasOne(s => s.User)
                 .WithOne(u => u.Student)
                 .HasForeignKey<Student>(s => s.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // 2. منع تكرار اشتراك نفس الطالب في نفس الكورس مرتين
             modelBuilder.Entity<Enrollment>()
                 .HasIndex(e => new { e.StudentId, e.CourseId })
                 .IsUnique();
 
-            // ★★★ العلاقات الجديدة لـ LessonProgress ★★★
-
-            // 3. علاقة LessonProgress مع Enrollment (مع منع Cascade Delete)
             modelBuilder.Entity<LessonProgress>()
                 .HasOne(lp => lp.Enrollment)
                 .WithMany(e => e.LessonProgresses)
                 .HasForeignKey(lp => lp.EnrollmentId)
-                .OnDelete(DeleteBehavior.Restrict);  // منع Cascade Delete
+                .OnDelete(DeleteBehavior.Restrict); 
 
-            // 4. علاقة LessonProgress مع Lesson (مع منع Cascade Delete)
+
             modelBuilder.Entity<LessonProgress>()
                 .HasOne(lp => lp.Lesson)
                 .WithMany(l => l.LessonProgresses)
                 .HasForeignKey(lp => lp.LessonId)
-                .OnDelete(DeleteBehavior.Restrict);  // منع Cascade Delete
+                .OnDelete(DeleteBehavior.Restrict);  
 
    
         }
