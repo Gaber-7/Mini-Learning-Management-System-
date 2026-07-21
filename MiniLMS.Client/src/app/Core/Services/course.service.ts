@@ -6,61 +6,162 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = 'https://localhost:7070/api/Courses';
 
-  constructor(private http: HttpClient) {}
+  private adminApiUrl =
+    'https://localhost:7070/api/AdminCourses';
 
-  // 1. كتالوج الكورسات المتاحة
-  getPublishedCourses(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/published`);
+  private studentApiUrl =
+    'https://localhost:7070/api/StudentCourses';
+
+  constructor(private http: HttpClient) { }
+
+  // ==========================================
+  // STUDENT AREA
+  // ==========================================
+
+  // Available Courses
+  getPublishedCourses(
+    search?: string,
+    category?: string
+  ): Observable<any[]> {
+
+    let url =
+      `${this.studentApiUrl}/available`;
+
+    const params: string[] = [];
+
+    if (search) {
+      params.push(`search=${search}`);
+    }
+
+    if (category) {
+      params.push(`category=${category}`);
+    }
+
+    if (params.length > 0) {
+      url += `?${params.join('&')}`;
+    }
+
+    return this.http.get<any[]>(url);
   }
 
-  // 2. التسجيل في كورس
-  enrollInCourse(courseId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${courseId}/enroll`, {});
+  // Enroll Course
+  enrollInCourse(
+    courseId: number
+  ): Observable<any> {
+
+    return this.http.post(
+      `${this.studentApiUrl}/enroll/${courseId}`,
+      {}
+    );
   }
 
-  // 3. الكورسات المسجل بها الطالب (Dashboard)
+  // My Courses
   getEnrolledCourses(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/enrolled`);
+
+    return this.http.get<any[]>(
+      `${this.studentApiUrl}/my-courses`
+    );
   }
 
-  // 4. تحديث حالة الدرس (مكتمل أو غير مكتمل)
-  toggleLessonCompletion(courseId: number, lessonId: number, isCompleted: boolean): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${courseId}/lessons/${lessonId}/complete`, { isCompleted });
+  // Course Details
+  getCourseDetails(
+    courseId: number
+  ): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.studentApiUrl}/details/${courseId}`
+    );
   }
 
+  // Complete Lesson
+  toggleLessonCompletion(
+enrollmentId: number, lessonId: number, nextState: boolean  ): Observable<any> {
+
+    return this.http.post(
+      `${this.studentApiUrl}/enrollments/${enrollmentId}/complete-lesson/${lessonId}`,
+      {}
+    );
+  }
+
+  // ==========================================
+  // ADMIN AREA
+  // ==========================================
+
+  // Get All Courses
   getAllCourses(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}`);
-}
 
-// 2. إنشاء كورس جديد
-createCourse(courseData: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}`, courseData);
-}
+    return this.http.get<any[]>(
+      `${this.adminApiUrl}`
+    );
+  }
 
-// 3. تعديل كورس الحالي
-updateCourse(courseId: number, courseData: any): Observable<any> {
-  return this.http.put(`${this.apiUrl}/${courseId}`, courseData);
-}
+  // Create Course
+  createCourse(
+    courseData: any
+  ): Observable<any> {
 
-// 4. نشر الكورس (Publish Action)
-publishCourse(courseId: number): Observable<any> {
-  return this.http.post(`${this.apiUrl}/${courseId}/publish`, {});
-}
+    return this.http.post(
+      `${this.adminApiUrl}`,
+      courseData
+    );
+  }
 
-// 5. إدارة الدروس (إضافة درس جديد)
-addLesson(courseId: number, lessonData: any): Observable<any> {
-  return this.http.post(`${this.apiUrl}/${courseId}/lessons`, lessonData);
-}
+  // Update Course
+  updateCourse(
+    courseId: number,
+    courseData: any
+  ): Observable<any> {
 
-// 6. حذف درس معين
-deleteLesson(courseId: number, lessonId: number): Observable<any> {
-  return this.http.delete(`${this.apiUrl}/${courseId}/lessons/${lessonId}`);
-}
+    return this.http.put(
+      `${this.adminApiUrl}/${courseId}`,
+      courseData
+    );
+  }
 
-// 7. جلب الطلاب المسجلين في كورس معين ونسبة تقدمهم
-getCourseStudentsProgress(courseId: number): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}/${courseId}/students-progress`);
-}
+  // Delete Course
+  deleteCourse(
+    courseId: number
+  ): Observable<any> {
+
+    return this.http.delete(
+      `${this.adminApiUrl}/${courseId}`
+    );
+  }
+
+  // Publish Course
+  publishCourse(
+    courseId: number
+  ): Observable<any> {
+
+    return this.http.post(
+      `${this.adminApiUrl}/${courseId}/publish`,
+      {}
+    );
+  }
+
+  // Add Lesson
+  addLesson(
+    courseId: number,
+    lessonData: any
+  ): Observable<any> {
+
+    return this.http.post(
+      `${this.adminApiUrl}/${courseId}/lessons`,
+      lessonData
+    );
+  }
+
+  // Reorder Lessons
+  reorderLessons(
+    courseId: number,
+    lessonIds: number[]
+  ): Observable<any> {
+
+    return this.http.post(
+      `${this.adminApiUrl}/${courseId}/lessons/reorder`,
+      lessonIds
+    );
+  }
+
 }

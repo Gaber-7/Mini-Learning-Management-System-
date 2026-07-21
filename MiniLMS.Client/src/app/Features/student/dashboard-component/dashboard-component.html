@@ -1,59 +1,214 @@
-<div class="min-h-screen bg-slate-50 p-6">
-  <div class="max-w-7xl px-4 mx-auto">
-    <h1 class="text-3xl font-bold text-slate-900 mb-8">لوحة تحكم الطالب الكورسات المسجل بها</h1>
+<div class="container py-5">
 
-    <!-- قائمة الكورسات المسجلة -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-      <div *ngFor="let item of enrolledCourses" class="bg-white rounded-xl border border-slate-100 shadow-xs p-6 flex flex-col justify-between">
-        <div>
-          <div class="flex justify-between items-start mb-4">
-            <h3 class="text-xl font-bold text-slate-900">{{item.courseTitle}}</h3>
-            
-            <!-- شارات الـ Badges المطلوبة -->
-            <span [ngClass]="{
-              'bg-slate-100 text-slate-700': item.progress === 0,
-              'bg-blue-50 text-blue-700': item.progress > 0 && item.progress < 100,
-              'bg-emerald-50 text-emerald-700': item.progress === 100
-            }" class="px-2.5 py-1 rounded-sm text-xs font-semibold">
-              {{ item.progress === 0 ? 'Not Started' : (item.progress === 100 ? 'Completed' : 'In Progress') }}
+  <!-- Header -->
+
+  <div class="mb-5">
+
+    <h1 class="display-5 fw-bold">
+      My Learning Dashboard
+    </h1>
+
+    <p class="text-muted fs-5">
+      Track your enrolled courses and learning progress.
+    </p>
+
+  </div>
+
+  <!-- Alerts -->
+
+  <div *ngIf="successMessage" class="alert alert-success shadow-sm">
+    <i class="bi bi-check-circle-fill me-2"></i>
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger shadow-sm">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading -->
+
+  <div *ngIf="loading" class="text-center py-5">
+
+    <div class="spinner-border text-primary"></div>
+
+    <p class="mt-3 text-muted">
+      Loading courses...
+    </p>
+
+  </div>
+
+  <!-- Enrolled Courses -->
+
+  <div class="row g-4" *ngIf="!loading">
+
+    <div
+      class="col-lg-4 col-md-6"
+      *ngFor="let item of enrolledCourses">
+
+      <div class="card border-0 shadow-sm h-100 course-card">
+
+        <div class="card-body d-flex flex-column">
+
+          <div class="d-flex justify-content-between align-items-start mb-3">
+
+            <h5 class="fw-bold mb-0">
+              {{ item.courseTitle }}
+            </h5>
+
+            <span
+              class="badge px-3 py-2"
+              [ngClass]="{
+                'bg-secondary': item.progress === 0,
+                'bg-primary': item.progress > 0 && item.progress < 100,
+                'bg-success': item.progress === 100
+              }">
+
+              {{
+                item.progress === 0
+                ? 'Not Started'
+                : item.progress === 100
+                ? 'Completed'
+                : 'In Progress'
+              }}
+
             </span>
+
           </div>
 
-          <!-- شريط التقدم Progress Bar -->
-          <div class="w-full bg-slate-100 rounded-full h-2 mb-2 mt-4">
-            <div [style.width.%]="item.progress" 
-                 [ngClass]="{
-                   'bg-slate-400': item.progress === 0,
-                   'bg-blue-600': item.progress > 0 && item.progress < 100,
-                   'bg-emerald-500': item.progress === 100
-                 }" class="h-2 rounded-full transition-all duration-300">
+          <div class="mb-2">
+
+            <small class="text-muted">
+              Progress
+            </small>
+
+          </div>
+
+          <div class="progress mb-3" style="height:10px">
+
+            <div
+              class="progress-bar"
+              [ngClass]="{
+                'bg-secondary': item.progress === 0,
+                'bg-primary': item.progress > 0 && item.progress < 100,
+                'bg-success': item.progress === 100
+              }"
+              [style.width.%]="item.progress">
+
             </div>
+
           </div>
-          <p class="text-xs text-slate-500 font-medium text-left mb-6">نسبة الإنجاز: {{item.progress}}%</p>
+
+          <div class="d-flex justify-content-between mb-4">
+
+            <small class="text-muted">
+
+              {{ item.progress }}%
+
+            </small>
+
+            <small class="text-muted">
+
+              {{ item.lessons?.length || 0 }} Lessons
+
+            </small>
+
+          </div>
+
+          <button
+            class="btn btn-dark mt-auto"
+            (click)="viewCourseLessons(item)">
+
+            <i class="bi bi-book me-2"></i>
+
+            View Lessons
+
+          </button>
+
         </div>
 
-        <button (click)="viewCourseLessons(item)" 
-                class="w-full py-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm rounded-lg transition-colors cursor-pointer text-center">
-          عرض الدروس والمتابعة
-        </button>
       </div>
-    </div>
 
-    <!-- عرض الدروس للكورس المحدد والمطلوب إكمالها فرردياً -->
-    <div *ngIf="selectedCourse" class="bg-white rounded-xl border border-slate-100 shadow-sm p-6">
-      <h2 class="text-2xl font-bold text-slate-900 mb-4">دروس كورس: {{selectedCourse.courseTitle}}</h2>
-      <p class="text-sm text-slate-500 mb-6">علم على الدروس التي أنهيتها لتحديث شريط التقدم تلقائياً:</p>
-      
-      <div class="space-y-3">
-        <div *ngFor="let lesson of selectedCourse.lessons" class="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-100">
-          <span class="text-slate-800 font-medium text-sm">{{lesson.title}}</span>
-          <label class="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" [checked]="lesson.isCompleted" (change)="toggleLesson(lesson)" class="sr-only peer">
-            <div class="w-11 h-6 bg-slate-200 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
-          </label>
-        </div>
-      </div>
     </div>
 
   </div>
+
+  <!-- Lessons Section -->
+
+  <div
+    *ngIf="selectedCourse"
+    class="card border-0 shadow-lg mt-5">
+
+    <div class="card-body p-4">
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+          <h3 class="fw-bold mb-1">
+
+            <i class="bi bi-journal-bookmark-fill me-2"></i>
+
+            {{ selectedCourse.courseTitle }}
+
+          </h3>
+
+          <p class="text-muted mb-0">
+
+            Mark lessons as completed to update your progress automatically.
+
+          </p>
+
+        </div>
+
+        <button
+          class="btn btn-outline-danger"
+          (click)="selectedCourse = null">
+
+          Close
+
+        </button>
+
+      </div>
+
+      <div
+        *ngFor="let lesson of selectedCourse.lessons"
+        class="border rounded-3 p-3 mb-3">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+          <div>
+
+            <h6 class="fw-bold mb-1">
+
+              {{ lesson.title }}
+
+            </h6>
+
+            <small class="text-muted">
+
+              {{ lesson.content }}
+
+            </small>
+
+          </div>
+
+          <div class="form-check form-switch">
+
+            <input
+              class="form-check-input"
+              type="checkbox"
+              [checked]="lesson.isCompleted"
+              (change)="toggleLesson(lesson)">
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

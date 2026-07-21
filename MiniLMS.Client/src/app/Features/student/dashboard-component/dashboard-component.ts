@@ -6,39 +6,93 @@ import { CourseService } from '../../../Core/Services/course.service';
   selector: 'app-student-dashboard',
   standalone: true,
   imports: [CommonModule],
-templateUrl: 'dashboard-component.html',
-//./dashboard-component.component.html
+  templateUrl: 'dashboard-component.html',
 })
 export class DashboardComponent implements OnInit {
   enrolledCourses: any[] = [];
-  selectedCourse: any = null; // لمتابعة الدروس عند الضغط على كورس
+  selectedCourse: any = null; 
+  loading = false;
 
-  constructor(private courseService: CourseService) {}
+  successMessage = '';
+
+  errorMessage = '';
+  constructor(private courseService: CourseService) { }
 
   ngOnInit(): void {
     this.loadDashboard();
   }
 
-  loadDashboard(): void {
-    this.courseService.getEnrolledCourses().subscribe({
+ loadDashboard(): void {
+
+  this.loading = true;
+
+  this.courseService.getEnrolledCourses().subscribe({
+
+    next: (data) => {
+
+      this.enrolledCourses = data;
+
+      this.loading = false;
+    },
+
+    error: () => {
+
+      this.loading = false;
+
+      this.errorMessage =
+        'Failed to load enrolled courses';
+    }
+
+  });
+
+}
+
+ viewCourseLessons(course: any): void {
+
+  this.courseService
+    .getCourseDetails(course.courseId)
+    .subscribe({
+
       next: (data) => {
-        this.enrolledCourses = data;
+
+        data.enrollmentId = course.id;
+
+        this.selectedCourse = data;
       }
+
     });
-  }
 
-  // تحديد كورس لعرض دروسه بالأسفل ومتابعتها
-  viewCourseLessons(course: any): void {
-    this.selectedCourse = course;
-  }
+}
 
-  toggleLesson(lesson: any): void {
-    const nextState = !lesson.isCompleted;
-    this.courseService.toggleLessonCompletion(this.selectedCourse.id, lesson.id, nextState).subscribe({
+ toggleLesson(lesson: any): void {
+
+  const nextState = !lesson.isCompleted;
+
+  this.courseService
+    .toggleLessonCompletion(
+      this.selectedCourse.id,
+      lesson.id,
+      nextState
+    )
+    .subscribe({
+
       next: () => {
+
         lesson.isCompleted = nextState;
-        this.loadDashboard(); // إعادة تحميل لحساب شريط التقدم والـ Badge الكلي للكورس مجدداً
+
+        this.successMessage =
+          'Lesson updated successfully';
+
+        this.loadDashboard();
+      },
+
+      error: () => {
+
+        this.errorMessage =
+          'Failed to update lesson';
       }
+
     });
-  }
+
+}
 }
