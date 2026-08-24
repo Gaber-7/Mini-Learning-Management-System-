@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,5 +24,11 @@ namespace MiniLMS.Business.DTOs
         [Required]
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
+
+        public string Role { get; set; } = "Student"; // "Student" or "Instructor"
+
+        public string? Headline { get; set; }
+
+        public string? Bio { get; set; }
     }
 }

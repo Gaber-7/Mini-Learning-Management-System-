@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MiniLMS.Business\MiniLMS.Business.csproj" />
-    <ProjectReference Include="..\MiniLMS.Data\MiniLMS.Data.csproj" />
+    <ProjectReference Include="..\MiniLMS.Data\MiniLMS.DAL.csproj" />
   </ItemGroup>
 
 </Project>

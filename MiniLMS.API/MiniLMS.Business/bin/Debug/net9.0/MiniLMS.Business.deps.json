@@ -10,7 +10,7 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.1",
-          "MiniLMS.Data": "1.0.0"
+          "MiniLMS.DAL": "1.0.0"
         },
         "runtime": {
           "MiniLMS.Business.dll": {}
@@ -655,14 +655,14 @@
           }
         }
       },
-      "MiniLMS.Data/1.0.0": {
+      "MiniLMS.DAL/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.1",
           "Microsoft.EntityFrameworkCore": "9.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.1"
         },
         "runtime": {
-          "MiniLMS.Data.dll": {
+          "MiniLMS.DAL.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1110,7 +1110,7 @@
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
     },
-    "MiniLMS.Data/1.0.0": {
+    "MiniLMS.DAL/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

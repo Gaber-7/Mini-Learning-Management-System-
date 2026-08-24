@@ -12,7 +12,7 @@
           "Microsoft.AspNetCore.OpenApi": "9.0.8",
           "Microsoft.EntityFrameworkCore.Design": "9.0.1",
           "MiniLMS.Business": "1.0.0",
-          "MiniLMS.Data": "1.0.0",
+          "MiniLMS.DAL": "1.0.0",
           "Swashbuckle.AspNetCore": "9.0.1"
         },
         "runtime": {
@@ -1124,7 +1124,7 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.1",
-          "MiniLMS.Data": "1.0.0"
+          "MiniLMS.DAL": "1.0.0"
         },
         "runtime": {
           "MiniLMS.Business.dll": {
@@ -1133,14 +1133,14 @@
           }
         }
       },
-      "MiniLMS.Data/1.0.0": {
+      "MiniLMS.DAL/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.1",
           "Microsoft.EntityFrameworkCore": "9.0.1",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.1"
         },
         "runtime": {
-          "MiniLMS.Data.dll": {
+          "MiniLMS.DAL.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1782,7 +1782,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "MiniLMS.Data/1.0.0": {
+    "MiniLMS.DAL/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

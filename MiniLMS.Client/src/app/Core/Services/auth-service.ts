@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -8,7 +9,10 @@ import { Observable, tap } from 'rxjs';
 export class AuthService {
   private apiUrl = 'https://localhost:7070/api/Auth';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {}
 
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
@@ -22,12 +26,21 @@ export class AuthService {
     );
   }
 
-  signup(studentData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register-student`, studentData);
+  signup(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, userData).pipe(
+      tap((res: any) => {
+        if (res && res.token) {
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('role', res.role);
+          localStorage.setItem('username', res.username);
+        }
+      })
+    );
   }
 
-  logout() {
+  logout(): void {
     localStorage.clear();
+    this.router.navigate(['/login']);
   }
 
   getToken(): string | null {
@@ -36,6 +49,10 @@ export class AuthService {
 
   getRole(): string | null {
     return localStorage.getItem('role');
+  }
+
+  getUsername(): string | null {
+    return localStorage.getItem('username');
   }
 
   isLoggedIn(): boolean {

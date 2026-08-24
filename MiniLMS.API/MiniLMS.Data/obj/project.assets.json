@@ -4892,9 +4892,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.Data.csproj",
-      "projectName": "MiniLMS.Data",
-      "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.Data.csproj",
+      "projectUniqueName": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj",
+      "projectName": "MiniLMS.DAL",
+      "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj",
       "packagesPath": "C:\\Users\\EL3ATTY\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\obj\\",
       "projectStyle": "PackageReference",

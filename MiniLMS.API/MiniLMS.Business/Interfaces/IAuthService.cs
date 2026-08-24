@@ -1,4 +1,4 @@
-﻿using MiniLMS.Business.DTOs;
+using MiniLMS.Business.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,7 @@ namespace MiniLMS.Business.Interfaces
 {
     public interface IAuthService
     {
+        Task<AuthResponseDto?> RegisterAsync(RegisterDto registerDto);
         Task<AuthResponseDto?> RegisterStudentAsync(RegisterDto registerDto);
         Task<AuthResponseDto?> LoginAsync(LoginDto loginDto);
     }

@@ -1100,7 +1100,7 @@
           }
         }
       },
-      "MiniLMS.Data/1.0.0": {
+      "MiniLMS.DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
@@ -1109,10 +1109,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.1"
         },
         "compile": {
-          "bin/placeholder/MiniLMS.Data.dll": {}
+          "bin/placeholder/MiniLMS.DAL.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MiniLMS.Data.dll": {}
+          "bin/placeholder/MiniLMS.DAL.dll": {}
         }
       }
     }
@@ -2986,17 +2986,17 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "MiniLMS.Data/1.0.0": {
+    "MiniLMS.DAL/1.0.0": {
       "type": "project",
-      "path": "../MiniLMS.Data/MiniLMS.Data.csproj",
-      "msbuildProject": "../MiniLMS.Data/MiniLMS.Data.csproj"
+      "path": "../MiniLMS.Data/MiniLMS.DAL.csproj",
+      "msbuildProject": "../MiniLMS.Data/MiniLMS.DAL.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 9.0.1",
-      "MiniLMS.Data >= 1.0.0"
+      "MiniLMS.DAL >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3031,8 +3031,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.Data.csproj": {
-              "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.Data.csproj"
+            "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj": {
+              "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj"
             }
           }
         }

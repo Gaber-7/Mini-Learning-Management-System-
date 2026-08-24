@@ -1789,7 +1789,7 @@
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.1",
-          "MiniLMS.Data": "1.0.0"
+          "MiniLMS.DAL": "1.0.0"
         },
         "compile": {
           "bin/placeholder/MiniLMS.Business.dll": {}
@@ -1798,7 +1798,7 @@
           "bin/placeholder/MiniLMS.Business.dll": {}
         }
       },
-      "MiniLMS.Data/1.0.0": {
+      "MiniLMS.DAL/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
@@ -1807,10 +1807,10 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.1"
         },
         "compile": {
-          "bin/placeholder/MiniLMS.Data.dll": {}
+          "bin/placeholder/MiniLMS.DAL.dll": {}
         },
         "runtime": {
-          "bin/placeholder/MiniLMS.Data.dll": {}
+          "bin/placeholder/MiniLMS.DAL.dll": {}
         }
       }
     }
@@ -5004,10 +5004,10 @@
       "path": "../MiniLMS.Business/MiniLMS.Business.csproj",
       "msbuildProject": "../MiniLMS.Business/MiniLMS.Business.csproj"
     },
-    "MiniLMS.Data/1.0.0": {
+    "MiniLMS.DAL/1.0.0": {
       "type": "project",
-      "path": "../MiniLMS.Data/MiniLMS.Data.csproj",
-      "msbuildProject": "../MiniLMS.Data/MiniLMS.Data.csproj"
+      "path": "../MiniLMS.Data/MiniLMS.DAL.csproj",
+      "msbuildProject": "../MiniLMS.Data/MiniLMS.DAL.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5016,7 +5016,7 @@
       "Microsoft.AspNetCore.OpenApi >= 9.0.8",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.1",
       "MiniLMS.Business >= 1.0.0",
-      "MiniLMS.Data >= 1.0.0",
+      "MiniLMS.DAL >= 1.0.0",
       "Swashbuckle.AspNetCore >= 9.0.1"
     ]
   },
@@ -5055,8 +5055,8 @@
             "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj": {
               "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj"
             },
-            "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.Data.csproj": {
-              "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.Data.csproj"
+            "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj": {
+              "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj"
             }
           }
         }

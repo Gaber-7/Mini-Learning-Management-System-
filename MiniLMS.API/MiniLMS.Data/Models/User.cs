@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,13 +13,16 @@ namespace MiniLMS.Data.Models
 
         [Required]
         [StringLength(50)]
-        public string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
 
         [Required]
-        public string PasswordHash { get; set; } 
+        public string PasswordHash { get; set; } = string.Empty;
 
         [Required]
-        public string Role { get; set; } 
+        public string Role { get; set; } = "Student"; // "Admin", "Instructor", "Student"
+
         public virtual Student? Student { get; set; }
+
+        public virtual Instructor? Instructor { get; set; }
     }
 }

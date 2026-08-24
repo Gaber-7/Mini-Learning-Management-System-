@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -27,37 +27,57 @@ namespace MiniLMS.Business.Services
         {
             _context = context;
             _configuration = configuration;
-            _passwordHasher = new PasswordHasher<User>(); // استخدام الهاشر الافتراضي لتشفير كلمات المرور 
+            _passwordHasher = new PasswordHasher<User>();
         }
 
-        public async Task<AuthResponseDto?> RegisterStudentAsync(RegisterDto registerDto)
+        public async Task<AuthResponseDto?> RegisterAsync(RegisterDto registerDto)
         {
-            // التحقق من عدم تكرار اسم المستخدم
+            // التحقق من عدم تكرار اسم المستخدم أو البريد الإلكتروني
             if (await _context.Users.AnyAsync(u => u.Username.ToLower() == registerDto.Username.ToLower()))
                 return null;
 
-            // 1. إنشاء حساب المستخدم (User) وحفظه
+            var role = string.Equals(registerDto.Role, "Instructor", StringComparison.OrdinalIgnoreCase) 
+                ? "Instructor" 
+                : "Student";
+
+            // 1. إنشاء حساب المستخدم (User)
             var user = new User
             {
                 Username = registerDto.Username,
-               Role = "Student" // التسجيل من الشاشة مخصص للطلاب فقط [cite: 25, 27]
+                Role = role
             };
-            user.PasswordHash = _passwordHasher.HashPassword(user, registerDto.Password); // التشفير [cite: 29]
+            user.PasswordHash = _passwordHasher.HashPassword(user, registerDto.Password);
 
             _context.Users.Add(user);
-            await _context.SaveChangesAsync(); // نحفظ أولاً لكي يتولد الـ Id للمستخدم
-
-            var student = new Student
-            {
-                Id = user.Id, // One-to-One علاقة
-                FullName = registerDto.FullName,
-                Email = registerDto.Email
-            };
-
-            _context.Students.Add(student);
             await _context.SaveChangesAsync();
 
-            // توليد التوكن بعد التسجيل المباشر لتسجيل دخول تلقائي
+            // 2. إنشاء السجل المرتبط (Student أو Instructor)
+            if (role == "Instructor")
+            {
+                var instructor = new Instructor
+                {
+                    Id = user.Id,
+                    FullName = registerDto.FullName,
+                    Email = registerDto.Email,
+                    Headline = registerDto.Headline,
+                    Bio = registerDto.Bio
+                };
+                _context.Instructors.Add(instructor);
+            }
+            else
+            {
+                var student = new Student
+                {
+                    Id = user.Id,
+                    FullName = registerDto.FullName,
+                    Email = registerDto.Email
+                };
+                _context.Students.Add(student);
+            }
+
+            await _context.SaveChangesAsync();
+
+            // 3. توليد JWT Token
             var token = GenerateJwtToken(user);
 
             return new AuthResponseDto
@@ -68,14 +88,18 @@ namespace MiniLMS.Business.Services
             };
         }
 
+        public Task<AuthResponseDto?> RegisterStudentAsync(RegisterDto registerDto)
+        {
+            registerDto.Role = "Student";
+            return RegisterAsync(registerDto);
+        }
+
         public async Task<AuthResponseDto?> LoginAsync(LoginDto loginDto)
         {
-            // البحث عن المستخدم باسم المستخدم
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Username.ToLower() == loginDto.Username.ToLower());
             if (user == null)
                 return null;
 
-            // التحقق من صحة كلمة المرور المشفّرة
             var verificationResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password);
             if (verificationResult == PasswordVerificationResult.Failed)
                 return null;
@@ -90,14 +114,13 @@ namespace MiniLMS.Business.Services
             };
         }
 
-       // دالة توليد الـ JWT Token 
         private string GenerateJwtToken(User user)
         {
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, user.Role) // تضمين الصلاحيات [cite: 32]
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));

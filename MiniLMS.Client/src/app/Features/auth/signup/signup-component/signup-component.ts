@@ -8,12 +8,12 @@ import { AuthService } from '../../../../Core/Services/auth-service';
   selector: 'app-signup',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-templateUrl: 'signup-component.html',
-
+  templateUrl: 'signup-component.html',
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   isLoading = false;
+  selectedRole: 'Student' | 'Instructor' = 'Student';
 
   constructor(
     private fb: FormBuilder,
@@ -26,8 +26,16 @@ export class SignupComponent implements OnInit {
       fullName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required, Validators.minLength(3)]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      role: ['Student', [Validators.required]],
+      headline: [''],
+      bio: ['']
     });
+  }
+
+  setRole(role: 'Student' | 'Instructor'): void {
+    this.selectedRole = role;
+    this.signupForm.patchValue({ role });
   }
 
   onSubmit(): void {
@@ -38,10 +46,14 @@ export class SignupComponent implements OnInit {
 
     this.isLoading = true;
     this.authService.signup(this.signupForm.value).subscribe({
-      next: () => {
+      next: (res) => {
         this.isLoading = false;
-        alert('تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول بكافة الصلاحيات لطالب.');
-        this.router.navigate(['/login']);
+        alert('Account created successfully! Redirecting to your portal...');
+        if (res.role === 'Instructor') {
+          this.router.navigate(['/instructor/dashboard']);
+        } else {
+          this.router.navigate(['/student/dashboard']);
+        }
       },
       error: () => {
         this.isLoading = false;

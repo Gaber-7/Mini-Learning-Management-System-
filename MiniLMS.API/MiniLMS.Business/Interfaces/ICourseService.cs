@@ -1,4 +1,4 @@
-﻿using MiniLMS.Business.DTOs;
+using MiniLMS.Business.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +15,19 @@ namespace MiniLMS.Business.Interfaces
         Task<bool> UpdateCourseAsync(int id, CreateCourseDto dto);
         Task<bool> DeleteCourseAsync(int id);
 
-        // إدارة الدروس
+        // إدارة الفصول / الأقسام (Sections)
+        Task<SectionDto?> AddSectionToCourseAsync(int courseId, CreateSectionDto dto);
+        Task<bool> UpdateSectionAsync(int sectionId, CreateSectionDto dto);
+        Task<bool> DeleteSectionAsync(int sectionId);
+        Task<bool> ReorderSectionsAsync(int courseId, List<int> sectionIdsInOrder);
+
+        // إدارة الدروس (Lessons)
+        Task<LessonDto?> AddLessonToSectionAsync(int sectionId, CreateLessonDto dto);
         Task<LessonDto?> AddLessonToCourseAsync(int courseId, CreateLessonDto dto);
+        Task<bool> UpdateLessonAsync(int lessonId, CreateLessonDto dto);
         Task<bool> RemoveLessonAsync(int lessonId);
         Task<bool> ReorderLessonsAsync(int courseId, List<int> lessonIdsInOrder);
+        Task<bool> ReorderLessonsInSectionAsync(int sectionId, List<int> lessonIdsInOrder);
 
         // نشر الكورس
         Task<bool> PublishCourseAsync(int courseId);

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ofDSeYRMA2A=",
+  "dgSpecHash": "9okR7heTUNU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.Data.csproj",
+  "projectFilePath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\EL3ATTY\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\EL3ATTY\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

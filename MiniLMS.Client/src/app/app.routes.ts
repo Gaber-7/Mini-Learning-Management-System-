@@ -7,6 +7,7 @@ import { SignupComponent } from './Features/auth/signup/signup-component/signup-
 import { CourseManagementComponent } from './Features/admin/course-management-component/course-management-component'; 
 import { DashboardComponent } from './Features/student/dashboard-component/dashboard-component';
 import { CourseCatalogComponent } from './Features/student/course-catalog-component/course-catalog-component';
+import { CourseClassroomComponent } from './Features/student/course-classroom/course-classroom.component';
 import { authGuard } from './Core/Guards/auth.guard';
 
 export const routes: Routes = [
@@ -34,7 +35,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'catalog', component: CourseCatalogComponent }
+      { path: 'catalog', component: CourseCatalogComponent },
+      { path: 'classroom/:id', component: CourseClassroomComponent }
     ]
   },
   

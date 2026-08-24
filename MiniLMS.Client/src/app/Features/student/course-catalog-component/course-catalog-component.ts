@@ -67,6 +67,13 @@ export class CourseCatalogComponent implements OnInit {
     });
   }
 
+  getLessonsCount(course: any): number {
+    if (course.sections && course.sections.length > 0) {
+      return course.sections.reduce((sum: number, s: any) => sum + (s.lessons?.length || 0), 0);
+    }
+    return course.lessons?.length || 0;
+  }
+
   enroll(courseId: number): void {
     this.enrollingCourseId = courseId;
     this.errorMessage = '';

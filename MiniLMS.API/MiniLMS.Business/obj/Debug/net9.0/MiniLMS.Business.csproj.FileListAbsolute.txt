@@ -1,8 +1,6 @@
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\bin\Debug\net9.0\MiniLMS.Business.deps.json
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\bin\Debug\net9.0\MiniLMS.Business.dll
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\bin\Debug\net9.0\MiniLMS.Business.pdb
-C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\bin\Debug\net9.0\MiniLMS.Data.dll
-C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\bin\Debug\net9.0\MiniLMS.Data.pdb
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\obj\Debug\net9.0\MiniLMS.Business.csproj.AssemblyReference.cache
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\obj\Debug\net9.0\MiniLMS.Business.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\obj\Debug\net9.0\MiniLMS.Business.AssemblyInfoInputs.cache
@@ -14,3 +12,5 @@ C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\obj\Debug\net9.0\MiniLMS.Business.pdb
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\obj\Debug\net9.0\ref\MiniLMS.Business.dll
 C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\obj\Debug\net9.0\MiniLMS.Business.sourcelink.json
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\bin\Debug\net9.0\MiniLMS.DAL.dll
+C:\Users\EL3ATTY\source\repos\Employee Management System using Angular & Dot Net Core Api\MiniLMS.API\MiniLMS.Business\bin\Debug\net9.0\MiniLMS.DAL.pdb

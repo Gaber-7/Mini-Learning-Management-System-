@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MiniLMS.Business.DTOs;
 using MiniLMS.Business.Interfaces;
 using System.Security.Claims;
 
@@ -69,6 +70,15 @@ namespace MiniLMS.API.Controllers
             var success = await _studentService.CompleteLessonAsync(studentId, enrollmentId, lessonId);
             if (!success) return BadRequest(new { message = "Could not update lesson progress." });
             return Ok(new { message = "Progress updated successfully." });
+        }
+
+        [HttpPost("enrollments/{enrollmentId}/lessons/{lessonId}/watch-progress")]
+        public async Task<IActionResult> UpdateWatchProgress(int enrollmentId, int lessonId, [FromBody] UpdateLessonProgressDto dto)
+        {
+            var studentId = GetCurrentUserId();
+            var result = await _studentService.UpdateWatchProgressAsync(studentId, enrollmentId, lessonId, dto);
+            if (result == null) return BadRequest(new { message = "Could not update watch progress." });
+            return Ok(result);
         }
     }
 }

@@ -15,9 +15,13 @@ export const authGuard: CanActivateFn = (route, state) => {
   const userRole = authService.getRole();
 
   if (expectedRole && userRole !== expectedRole) {
-    alert('غير مسموح لك بالدخول إلى هذه المنطقة!');
-    if (userRole === 'Admin') router.navigate(['/admin/courses']);
-    else router.navigate(['/student/dashboard']);
+    if (userRole === 'Admin') {
+      router.navigate(['/admin/courses']);
+    } else if (userRole === 'Instructor') {
+      router.navigate(['/instructor/dashboard']);
+    } else {
+      router.navigate(['/student/dashboard']);
+    }
     return false;
   }
 

@@ -1,98 +1,157 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { CourseService } from '../../../Core/Services/course.service';
+import { CourseDetailsDto } from '../../../Models/Course';
+
+type CourseFilter = 'all' | 'in-progress' | 'completed' | 'not-started';
+type CourseSort = 'title' | 'progress-desc' | 'progress-asc';
 
 @Component({
   selector: 'app-student-dashboard',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: 'dashboard-component.html',
+  imports: [CommonModule, FormsModule, RouterLink],
+  templateUrl: './dashboard-component.html',
+  styleUrl: './dashboard-component.css',
 })
 export class DashboardComponent implements OnInit {
-  enrolledCourses: any[] = [];
-  selectedCourse: any = null; 
-  loading = false;
+  readonly courses = signal<CourseDetailsDto[]>([]);
+  readonly loading = signal(false);
 
-  successMessage = '';
+  readonly searchTerm = signal('');
+  readonly activeFilter = signal<CourseFilter>('all');
+  readonly sortBy = signal<CourseSort>('progress-desc');
 
-  errorMessage = '';
-  constructor(private courseService: CourseService) { }
+  readonly successMessage = signal('');
+  readonly errorMessage = signal('');
+  readonly userName = signal('Student');
 
-  ngOnInit(): void {
-    this.loadDashboard();
-  }
+  readonly skeletons = [1, 2, 3, 4, 5, 6];
 
- loadDashboard(): void {
+  constructor(
+    private courseService: CourseService,
+    private router: Router
+  ) {}
 
-  this.loading = true;
-
-  this.courseService.getEnrolledCourses().subscribe({
-
-    next: (data) => {
-
-      this.enrolledCourses = data;
-
-      this.loading = false;
-    },
-
-    error: () => {
-
-      this.loading = false;
-
-      this.errorMessage =
-        'Failed to load enrolled courses';
-    }
-
+  readonly greeting = computed(() => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 18) return 'Good afternoon';
+    return 'Good evening';
   });
 
-}
+  readonly stats = computed(() => {
+    const list = this.courses();
+    const total = list.length;
+    const completed = list.filter((c) => c.progressPercentage === 100).length;
+    const notStarted = list.filter((c) => !c.progressPercentage).length;
+    const inProgress = total - completed - notStarted;
 
- viewCourseLessons(course: any): void {
+    const totalLessons = list.reduce((sum, c) => sum + (c.totalLessonsCount || c.lessons?.length || 0), 0);
+    const completedLessons = list.reduce(
+      (sum, c) => sum + (c.completedLessonsCount || c.lessons?.filter((l) => l.isCompleted).length || 0),
+      0
+    );
 
-  this.courseService
-    .getCourseDetails(course.courseId)
-    .subscribe({
+    const overall = total
+      ? Math.round(list.reduce((sum, c) => sum + (c.progressPercentage ?? 0), 0) / total)
+      : 0;
 
-      next: (data) => {
+    return { total, completed, inProgress, notStarted, totalLessons, completedLessons, overall };
+  });
 
-        data.enrollmentId = course.id;
+  readonly filteredCourses = computed(() => {
+    const term = this.searchTerm().trim().toLowerCase();
+    const filter = this.activeFilter();
+    const sort = this.sortBy();
 
-        this.selectedCourse = data;
-      }
+    let list = this.courses().filter((c) => {
+      const matchesTerm =
+        !term ||
+        c.title?.toLowerCase().includes(term) ||
+        c.category?.toLowerCase().includes(term) ||
+        c.description?.toLowerCase().includes(term);
 
+      const status = this.statusOf(c.progressPercentage);
+      const matchesFilter = filter === 'all' || filter === status;
+
+      return matchesTerm && matchesFilter;
     });
 
-}
+    list = [...list].sort((a, b) => {
+      if (sort === 'title') return (a.title ?? '').localeCompare(b.title ?? '');
+      if (sort === 'progress-asc') return (a.progressPercentage ?? 0) - (b.progressPercentage ?? 0);
+      return (b.progressPercentage ?? 0) - (a.progressPercentage ?? 0);
+    });
 
- toggleLesson(lesson: any): void {
+    return list;
+  });
 
-  const nextState = !lesson.isCompleted;
+  ngOnInit(): void {
+    const stored = localStorage.getItem('username');
+    if (stored) this.userName.set(stored);
+    this.loadEnrolledCourses();
+  }
 
-  this.courseService
-    .toggleLessonCompletion(
-      this.selectedCourse.id,
-      lesson.id,
-      nextState
-    )
-    .subscribe({
+  loadEnrolledCourses(): void {
+    this.loading.set(true);
+    this.courseService.getEnrolledCourses().subscribe({
+      next: (enrollments) => {
+        if (!enrollments || !enrollments.length) {
+          this.courses.set([]);
+          this.loading.set(false);
+          return;
+        }
 
-      next: () => {
+        const detailsRequests = enrollments.map((e) =>
+          this.courseService.getCourseDetails(e.courseId || e.course?.id)
+        );
 
-        lesson.isCompleted = nextState;
+        let completed = 0;
+        const loadedCourses: CourseDetailsDto[] = [];
 
-        this.successMessage =
-          'Lesson updated successfully';
-
-        this.loadDashboard();
+        detailsRequests.forEach((req, idx) => {
+          req.subscribe({
+            next: (details) => {
+              loadedCourses[idx] = details;
+              completed++;
+              if (completed === detailsRequests.length) {
+                this.courses.set(loadedCourses.filter(Boolean));
+                this.loading.set(false);
+              }
+            },
+            error: () => {
+              completed++;
+              if (completed === detailsRequests.length) {
+                this.courses.set(loadedCourses.filter(Boolean));
+                this.loading.set(false);
+              }
+            },
+          });
+        });
       },
-
       error: () => {
-
-        this.errorMessage =
-          'Failed to update lesson';
-      }
-
+        this.loading.set(false);
+        this.errorMessage.set('Failed to load your enrolled courses.');
+      },
     });
+  }
 
-}
+  goToClassroom(courseId: number): void {
+    this.router.navigate(['/student/classroom', courseId]);
+  }
+
+  statusOf(percentage?: number): CourseFilter {
+    if (!percentage) return 'not-started';
+    if (percentage === 100) return 'completed';
+    return 'in-progress';
+  }
+
+  statusLabel(percentage?: number): string {
+    const s = this.statusOf(percentage);
+    if (s === 'completed') return 'Completed';
+    if (s === 'in-progress') return 'In Progress';
+    return 'Not Started';
+  }
 }

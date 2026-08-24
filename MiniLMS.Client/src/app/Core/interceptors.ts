@@ -1,36 +1,45 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { catchError, from, throwError } from 'rxjs';
+import { catchError, throwError } from 'rxjs';
 import { AuthService } from './Services/auth-service';
+import { Router } from '@angular/router';
 
 export const appInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService); // الآن أصبح النوع معروفاً 100%
+  const authService = inject(AuthService);
+  const router = inject(Router);
   const token = authService.getToken();
 
-  // 1. إضافة الـ Token للـ Headers إذا كان موجوداً
+  // 1. Attach JWT Bearer Token if present
   if (token) {
     req = req.clone({
       setHeaders: { Authorization: `Bearer ${token}` }
     });
   }
 
-  // 2. معالجة الأخطاء بشكل صديق للمستخدم
+  // 2. Handle HTTP Errors
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      let errorMessage = 'حدث خطأ غير متوقع، يرجى المحاولة لاحقاً.';
+      let errorMessage = 'An unexpected error occurred. Please try again.';
 
       if (error.status === 401) {
-        errorMessage = 'اسم المستخدم أو كلمة المرور غير صحيحة، أو انتهت جلستك.';
+        // If 401 occurs on a protected route (not login endpoint), log out and redirect
+        if (!req.url.includes('/api/Auth/login')) {
+          authService.logout();
+        }
+        errorMessage = 'Invalid username or password, or your session has expired.';
       } else if (error.status === 403) {
-        errorMessage = 'غير مصرح لك بدخول هذه الصفحة.';
+        errorMessage = 'You are not authorized to access this resource.';
       } else if (error.error && typeof error.error === 'string') {
         errorMessage = error.error;
       } else if (error.error?.message) {
         errorMessage = error.error.message;
       }
 
-      alert(errorMessage); 
-      return throwError(() => new Error(errorMessage));
+      return throwError(() => ({
+        status: error.status,
+        message: errorMessage,
+        originalError: error
+      }));
     })
   );
 };

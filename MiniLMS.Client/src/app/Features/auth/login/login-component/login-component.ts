@@ -13,6 +13,7 @@ import { AuthService } from '../../../../Core/Services/auth-service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading = false;
+  errorMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -21,6 +22,11 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // If already logged in, redirect to respective dashboard
+    if (this.authService.isLoggedIn()) {
+      this.redirectByRole(this.authService.getRole());
+    }
+
     this.loginForm = this.fb.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       password: ['', [Validators.required, Validators.minLength(5)]]
@@ -28,6 +34,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.errorMessage = '';
+
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
       return;
@@ -37,17 +45,24 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe({
       next: (res) => {
         this.isLoading = false;
-        // التوجيه التلقائي الذكي بناءً على الـ Role القادم من الباك اند
-        if (res.role === 'Admin') {
-          this.router.navigate(['/admin/courses']);
-        } else {
-          this.router.navigate(['/student/dashboard']);
-        }
+        this.redirectByRole(res.role);
       },
-      error: () => {
+      error: (err) => {
         this.isLoading = false;
-        // ملاحظة: معالجة وعرض الأخطاء تتم تلقائياً عبر الـ Interceptor الذي صممناه
+        if (err.status === 401 || err.status === 400) {
+          this.errorMessage = 'Invalid username or password. Please try again.';
+        } else {
+          this.errorMessage = err.message || 'Cannot connect to server. Please ensure the backend API is running.';
+        }
       }
     });
+  }
+
+  private redirectByRole(role: string | null): void {
+    if (role === 'Admin') {
+      this.router.navigate(['/admin/courses']);
+    } else {
+      this.router.navigate(['/student/dashboard']);
+    }
   }
 }

@@ -1,4 +1,4 @@
-﻿using MiniLMS.Business.DTOs;
+using MiniLMS.Business.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +14,6 @@ namespace MiniLMS.Business.Interfaces
         Task<IEnumerable<EnrollmentDto>> GetMyEnrollmentsAsync(int studentId);
         Task<CourseDetailsForStudentDto?> GetCourseDetailsForStudentAsync(int studentId, int courseId);
         Task<bool> CompleteLessonAsync(int studentId, int enrollmentId, int lessonId);
+        Task<LessonProgressDto?> UpdateWatchProgressAsync(int studentId, int enrollmentId, int lessonId, UpdateLessonProgressDto dto);
     }
 }

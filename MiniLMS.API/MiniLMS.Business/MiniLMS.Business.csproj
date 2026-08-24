@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MiniLMS.Data\MiniLMS.Data.csproj" />
+    <ProjectReference Include="..\MiniLMS.Data\MiniLMS.DAL.csproj" />
   </ItemGroup>
 
 </Project>

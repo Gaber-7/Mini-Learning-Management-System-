@@ -1,0 +1,539 @@
+<div class="classroom-page bg-light min-vh-100 pb-5">
+
+  <!-- TOP APP BAR -->
+  <header class="bg-white border-bottom shadow-sm sticky-top py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <div class="d-flex align-items-center gap-3">
+      <a routerLink="/student/dashboard" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
+        <i class="bi bi-arrow-left me-1"></i> Dashboard
+      </a>
+      @if (course(); as c) {
+        <div>
+          <h5 class="fw-bold text-dark mb-0">{{ c.title }}</h5>
+          <small class="text-muted">
+            <span *ngIf="c.instructorName" class="me-2"><i class="bi bi-person-fill me-1"></i>{{ c.instructorName }}</span>
+            <span><i class="bi bi-check2-circle text-success me-1"></i>{{ c.progressPercentage }}% Completed</span>
+          </small>
+        </div>
+      }
+    </div>
+
+    <!-- TABS -->
+    <div class="d-flex gap-1 overflow-x-auto">
+      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'content' ? 'btn-primary' : 'btn-light'" (click)="setTab('content')">
+        <i class="bi bi-play-circle-fill me-1"></i> Lessons
+      </button>
+      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'qna' ? 'btn-primary' : 'btn-light'" (click)="setTab('qna')">
+        <i class="bi bi-chat-dots-fill me-1"></i> Q&A ({{ questions().length }})
+      </button>
+      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'quizzes' ? 'btn-primary' : 'btn-light'" (click)="setTab('quizzes')">
+        <i class="bi bi-patch-question-fill me-1"></i> Quizzes ({{ courseQuizzes().length }})
+      </button>
+      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'assignments' ? 'btn-primary' : 'btn-light'" (click)="setTab('assignments')">
+        <i class="bi bi-folder-check me-1"></i> Assignments ({{ courseAssignments().length }})
+      </button>
+      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'reviews' ? 'btn-primary' : 'btn-light'" (click)="setTab('reviews')">
+        <i class="bi bi-star-fill text-warning me-1"></i> Reviews
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <div class="container-fluid px-4 py-4">
+
+    @if (loading()) {
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="text-muted mt-2">Loading course classroom...</p>
+      </div>
+    }
+    @else if (course(); as c) {
+
+      <!-- ==================== TAB 1: CONTENT & VIDEO ==================== -->
+      @if (activeTab() === 'content') {
+        <div class="row g-4">
+          
+          <!-- LEFT: VIDEO / ARTICLE PLAYER -->
+          <div class="col-lg-8">
+            @if (activeLesson(); as lesson) {
+              <div class="card border-0 rounded-4 shadow-sm p-4 bg-white mb-4">
+                
+                <!-- Lesson Top Meta -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-primary text-white rounded-pill px-3 py-1">
+                      {{ lesson.lessonType || 'Video' }}
+                    </span>
+                    <span *ngIf="lesson.durationMinutes" class="badge bg-secondary text-white rounded-pill px-2 py-1">
+                      <i class="bi bi-clock me-1"></i>{{ lesson.durationMinutes }}m
+                    </span>
+                  </div>
+
+                  <!-- 80% Auto-completion Badge -->
+                  <span class="badge bg-info-subtle text-info rounded-pill px-3 py-2 fw-semibold">
+                    <i class="bi bi-eye-fill me-1"></i>
+                    Watched {{ videoWatchPercentage }}% (Auto-completes at 80%)
+                  </span>
+                </div>
+
+                <h3 class="fw-bold text-dark mb-3">{{ lesson.lessonTitle }}</h3>
+
+                <!-- VIDEO PLAYER -->
+                @if (lesson.videoUrl) {
+                  @if (getSafeVideoUrl(lesson.videoUrl); as safeUrl) {
+                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm mb-3 bg-black">
+                      <iframe [src]="safeUrl" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                  }
+                }
+
+                <!-- RESOURCE DOWNLOAD -->
+                @if (lesson.resourceUrl) {
+                  <div class="alert alert-primary d-flex align-items-center justify-content-between p-3 rounded-4 mb-3 border-0 shadow-sm">
+                    <div class="d-flex align-items-center gap-3">
+                      <i class="bi bi-file-earmark-arrow-down-fill fs-3 text-primary"></i>
+                      <div>
+                        <strong class="d-block text-dark">Lesson Resources & Code Files</strong>
+                        <small class="text-muted">Download project materials attached to this lecture</small>
+                      </div>
+                    </div>
+                    <a [href]="lesson.resourceUrl" target="_blank" rel="noopener" class="btn btn-primary rounded-pill px-4 fw-semibold">
+                      <i class="bi bi-download me-1"></i> Download
+                    </a>
+                  </div>
+                }
+
+                <!-- LESSON CONTENT -->
+                @if (lesson.content) {
+                  <div class="p-3 bg-light rounded-4 border mb-3">
+                    <h6 class="fw-bold text-secondary mb-2">Lecture Notes:</h6>
+                    <p class="mb-0 text-dark small" style="white-space: pre-line;">{{ lesson.content }}</p>
+                  </div>
+                }
+
+                <!-- BOTTOM ACTIONS -->
+                <div class="d-flex justify-content-between align-items-center pt-2">
+                  <button class="btn btn-outline-primary btn-sm rounded-pill px-3" (click)="setTab('qna')">
+                    <i class="bi bi-chat-dots me-1"></i> Ask a Question
+                  </button>
+
+                  <button class="btn rounded-pill px-4 py-2 fw-semibold" [ngClass]="lesson.isCompleted ? 'btn-success' : 'btn-outline-success'" (click)="toggleLesson(lesson)">
+                    <i class="bi me-1" [ngClass]="lesson.isCompleted ? 'bi-check2-circle' : 'bi-circle'"></i>
+                    {{ lesson.isCompleted ? 'Completed ✓' : 'Mark as Completed' }}
+                  </button>
+                </div>
+
+              </div>
+            }
+          </div>
+
+          <!-- RIGHT: CURRICULUM ACCORDION -->
+          <div class="col-lg-4">
+            <div class="card border-0 rounded-4 shadow-sm p-4 bg-white sticky-top" style="top: 80px;">
+              <h5 class="fw-bold text-dark mb-3 d-flex align-items-center justify-content-between">
+                <span>Course Content</span>
+                <span class="badge bg-primary-subtle text-primary rounded-pill">{{ c.completedLessonsCount || 0 }}/{{ c.totalLessonsCount || c.lessons.length || 0 }}</span>
+              </h5>
+
+              <div class="d-flex flex-column gap-3 overflow-y-auto" style="max-height: 75vh;">
+                @for (sec of c.sections; track sec.sectionId; let sIdx = $index) {
+                  <div class="border rounded-4 p-3 bg-light-subtle">
+                    <div class="d-flex justify-content-between align-items-center mb-2 fw-bold text-dark small">
+                      <span>Section {{ sIdx + 1 }}: {{ sec.title }}</span>
+                      <span class="text-muted">{{ sec.lessons.length }}</span>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2">
+                      @for (les of sec.lessons; track les.lessonId; let lIdx = $index) {
+                        <div
+                          class="p-2 rounded-3 d-flex align-items-center justify-content-between gap-2 cursor-pointer transition-all border"
+                          [ngClass]="activeLesson()?.lessonId === les.lessonId ? 'bg-primary text-white border-primary shadow-sm' : 'bg-white text-dark'"
+                          (click)="selectLesson(les)">
+                          <div class="d-flex align-items-center gap-2 overflow-hidden">
+                            <i class="bi" [ngClass]="les.isCompleted ? 'bi-check-circle-fill text-success' : 'bi-play-circle'"></i>
+                            <span class="small fw-semibold text-truncate">{{ lIdx + 1 }}. {{ les.lessonTitle }}</span>
+                          </div>
+                          <span *ngIf="les.durationMinutes" class="badge bg-light text-muted border rounded-pill small" [ngClass]="{'text-white bg-white bg-opacity-25': activeLesson()?.lessonId === les.lessonId}">
+                            {{ les.durationMinutes }}m
+                          </span>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+        </div>
+      }
+
+      <!-- ==================== TAB 2: Q&A DISCUSSIONS ==================== -->
+      @if (activeTab() === 'qna') {
+        <div class="card border-0 rounded-4 shadow-sm p-4 bg-white">
+          <h4 class="fw-bold text-dark mb-1">Lesson Discussions & Q&A</h4>
+          <p class="text-muted small mb-4">Ask questions, get help from instructors and fellow students, or vote for top solutions.</p>
+
+          <!-- NEW QUESTION FORM -->
+          <div class="card border-primary border-2 rounded-4 p-4 bg-primary bg-opacity-10 mb-4">
+            <h5 class="fw-bold text-primary mb-3">Ask a New Question</h5>
+            <div class="mb-3">
+              <input type="text" class="form-control rounded-3 bg-white" placeholder="Question Title (e.g. How does dependency injection work in this context?)" [(ngModel)]="newQuestionTitle">
+            </div>
+            <div class="mb-3">
+              <textarea rows="3" class="form-control rounded-3 bg-white" placeholder="Describe your question in detail..." [(ngModel)]="newQuestionContent"></textarea>
+            </div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="tsCheck2" [(ngModel)]="includeTimestampInQuestion">
+                <label class="form-check-label small text-secondary fw-semibold" for="tsCheck2">
+                  Tag current video timestamp ({{ formatSeconds(currentVideoCurrentTime) }})
+                </label>
+              </div>
+              <button class="btn btn-primary rounded-pill px-4 fw-bold shadow-sm" (click)="submitQuestion()">
+                <i class="bi bi-send-fill me-1"></i> Post Question
+              </button>
+            </div>
+          </div>
+
+          <!-- QUESTIONS LIST -->
+          @if (loadingQuestions()) {
+            <div class="text-center py-4"><span class="spinner-border text-primary"></span></div>
+          }
+          @else if (!questions().length) {
+            <div class="text-center py-5 bg-light rounded-4 border">
+              <i class="bi bi-chat-square-text text-muted fs-1 mb-2 d-block"></i>
+              <h5 class="fw-bold text-dark">No questions on this lesson yet</h5>
+              <p class="text-muted small">Be the first to ask a question!</p>
+            </div>
+          }
+          @else {
+            <div class="d-flex flex-column gap-3">
+              @for (q of questions(); track q.id) {
+                <div class="card border rounded-4 p-4 shadow-sm bg-white">
+                  <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                    <div>
+                      <div class="d-flex align-items-center gap-2 mb-1">
+                        <span class="badge bg-secondary-subtle text-secondary rounded-pill px-2 py-1 small">
+                          <i class="bi bi-person-circle me-1"></i>{{ q.studentName }}
+                        </span>
+                        <span *ngIf="q.videoTimestampSeconds" class="badge bg-primary text-white rounded-pill px-2 py-1 cursor-pointer" (click)="seekVideoToSeconds(q.videoTimestampSeconds); setTab('content')" title="Jump to video time">
+                          <i class="bi bi-play-fill me-1"></i>{{ formatSeconds(q.videoTimestampSeconds) }}
+                        </span>
+                        <span *ngIf="q.isResolved" class="badge bg-success text-white rounded-pill px-2 py-1 small">
+                          <i class="bi bi-check-circle-fill me-1"></i>Resolved
+                        </span>
+                      </div>
+                      <h5 class="fw-bold text-dark mb-1">{{ q.title }}</h5>
+                      <p class="text-secondary small mb-2" style="white-space: pre-line;">{{ q.content }}</p>
+                    </div>
+
+                    <button class="btn btn-outline-primary btn-sm rounded-pill px-3 d-flex align-items-center gap-1" (click)="upvoteQuestion(q)">
+                      <i class="bi bi-hand-thumbs-up-fill"></i>
+                      <span>{{ q.upvotesCount }}</span>
+                    </button>
+                  </div>
+
+                  <!-- REPLIES -->
+                  @if (q.replies && q.replies.length > 0) {
+                    <div class="border-top pt-3 mt-2 d-flex flex-column gap-2">
+                      @for (r of q.replies; track r.id) {
+                        <div class="p-3 rounded-3 border" [ngClass]="r.isAcceptedAnswer ? 'bg-success bg-opacity-10 border-success' : 'bg-light'">
+                          <div class="d-flex justify-content-between align-items-center mb-1">
+                            <div class="d-flex align-items-center gap-2">
+                              <strong class="small text-dark">{{ r.authorName }}</strong>
+                              <span *ngIf="r.isInstructorReply" class="badge bg-primary text-white rounded-pill small" style="font-size: 0.65rem;">Instructor</span>
+                              <span *ngIf="r.isAcceptedAnswer" class="badge bg-success text-white rounded-pill small" style="font-size: 0.65rem;">Best Answer ✓</span>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                              <button class="btn btn-sm btn-link text-decoration-none text-muted p-0" (click)="upvoteReply(r)">
+                                <i class="bi bi-hand-thumbs-up"></i> {{ r.upvotesCount }}
+                              </button>
+                              <button *ngIf="!r.isAcceptedAnswer" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 small" style="font-size: 0.75rem;" (click)="markBestAnswer(r, q)">
+                                Accept Answer
+                              </button>
+                            </div>
+                          </div>
+                          <p class="small text-secondary mb-0">{{ r.content }}</p>
+                        </div>
+                      }
+                    </div>
+                  }
+
+                  <!-- REPLY INPUT -->
+                  <div class="input-group mt-3">
+                    <input type="text" class="form-control rounded-start-pill ps-3 bg-light" placeholder="Write a reply or answer..." [(ngModel)]="replyInputs[q.id]">
+                    <button class="btn btn-primary rounded-end-pill px-4 fw-semibold" (click)="submitReply(q.id)">
+                      Reply
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      <!-- ==================== TAB 3: QUIZZES ==================== -->
+      @if (activeTab() === 'quizzes') {
+        <div class="card border-0 rounded-4 shadow-sm p-4 bg-white">
+          
+          <!-- ACTIVE QUIZ TAKING -->
+          @if (activeQuiz(); as quiz) {
+            <div class="border border-primary border-2 rounded-4 p-4 bg-light mb-4 shadow-sm">
+              <div class="d-flex justify-content-between align-items-center pb-3 mb-3 border-bottom">
+                <div>
+                  <span class="badge bg-primary text-white rounded-pill px-3 py-1 mb-1">Quiz</span>
+                  <h4 class="fw-bold text-dark mb-0">{{ quiz.title }}</h4>
+                  <small class="text-muted">Passing Score: {{ quiz.passingScorePercentage }}% | {{ quiz.questions.length }} Questions</small>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3" (click)="closeQuizAttempt()">
+                  <i class="bi bi-x-lg me-1"></i> Close Quiz
+                </button>
+              </div>
+
+              <!-- RESULT SCREEN -->
+              @if (quizResult(); as result) {
+                <div class="card border-0 rounded-4 p-4 text-center mb-4" [ngClass]="result.isPassed ? 'bg-success bg-opacity-10 text-success' : 'bg-danger bg-opacity-10 text-danger'">
+                  <i class="bi fs-1 mb-2 d-block" [ngClass]="result.isPassed ? 'bi-trophy-fill' : 'bi-x-circle-fill'"></i>
+                  <h3 class="fw-bold">{{ result.isPassed ? 'Quiz Passed Successfully!' : 'Quiz Attempt Failed' }}</h3>
+                  <p class="fs-5 mb-3">Score: <strong>{{ result.score }} / {{ result.totalPoints }}</strong> ({{ result.percentage }}%)</p>
+                  <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold" (click)="startQuiz(quiz)">
+                    <i class="bi bi-arrow-repeat me-1"></i> Try Again
+                  </button>
+                </div>
+              }
+              @else {
+                <div class="d-flex flex-column gap-4 mb-4">
+                  @for (q of quiz.questions; track q.id; let qIdx = $index) {
+                    <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-dark text-white rounded-pill px-3 py-1">Question {{ qIdx + 1 }}</span>
+                        <span class="text-muted small">{{ q.points }} Point(s)</span>
+                      </div>
+                      <h5 class="fw-bold text-dark mb-3">{{ q.questionText }}</h5>
+
+                      <div class="d-flex flex-column gap-2">
+                        @for (opt of q.options; track opt.id) {
+                          <label
+                            class="p-3 rounded-3 border d-flex align-items-center gap-3 cursor-pointer transition-all"
+                            [ngClass]="quizAnswers()[q.id]?.selectedOptionId === opt.id ? 'border-primary bg-primary bg-opacity-10 fw-bold' : 'bg-light'">
+                            <input
+                              type="radio"
+                              class="form-check-input mt-0"
+                              [name]="'q_' + q.id"
+                              [checked]="quizAnswers()[q.id]?.selectedOptionId === opt.id"
+                              (change)="selectQuizOption(q.id, opt.id)">
+                            <span>{{ opt.optionText }}</span>
+                          </label>
+                        }
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <div class="d-flex justify-content-end">
+                  <button class="btn btn-success btn-lg rounded-pill px-5 fw-bold shadow" [disabled]="isSubmittingQuiz()" (click)="submitQuizAttempt()">
+                    <span *ngIf="isSubmittingQuiz()" class="spinner-border spinner-border-sm me-2"></span>
+                    Submit Quiz for Grading
+                  </button>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- QUIZZES LIST -->
+          <h4 class="fw-bold text-dark mb-1">Course Quizzes & Assessments</h4>
+          <p class="text-muted small mb-4">Test your knowledge after completing each section.</p>
+
+          @if (!courseQuizzes().length) {
+            <div class="text-center py-5 bg-light rounded-4 border">
+              <i class="bi bi-patch-question text-muted fs-1 mb-2 d-block"></i>
+              <h5 class="fw-bold text-dark">No quizzes available</h5>
+              <p class="text-muted small">The instructor has not added quizzes yet.</p>
+            </div>
+          }
+          @else {
+            <div class="row g-3">
+              @for (quiz of courseQuizzes(); track quiz.id) {
+                <div class="col-md-6">
+                  <div class="card border rounded-4 p-4 shadow-sm h-100 d-flex flex-column justify-content-between bg-white">
+                    <div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-primary text-white rounded-pill px-3 py-1">Quiz</span>
+                        <span *ngIf="quiz.isPassedByStudent" class="badge bg-success text-white rounded-pill px-3 py-1">
+                          Passed ({{ quiz.bestScorePercentage }}%) ✓
+                        </span>
+                      </div>
+                      <h5 class="fw-bold text-dark mb-2">{{ quiz.title }}</h5>
+                      <p class="text-muted small mb-3">{{ quiz.description || 'Test your understanding on this section.' }}</p>
+                    </div>
+
+                    <button class="btn btn-primary rounded-pill py-2 fw-semibold w-100" (click)="startQuiz(quiz)">
+                      <i class="bi bi-play-circle me-1"></i> Take Quiz
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      <!-- ==================== TAB 4: ASSIGNMENTS ==================== -->
+      @if (activeTab() === 'assignments') {
+        <div class="card border-0 rounded-4 shadow-sm p-4 bg-white">
+          <h4 class="fw-bold text-dark mb-1">Course Assignments & Projects</h4>
+          <p class="text-muted small mb-4">Submit practical tasks and receive instructor grading and feedback.</p>
+
+          @if (activeAssignment(); as assignment) {
+            <div class="card border-primary border-2 rounded-4 p-4 bg-light mb-4 shadow-sm">
+              <div class="d-flex justify-content-between align-items-center pb-3 mb-3 border-bottom">
+                <div>
+                  <span class="badge bg-primary text-white rounded-pill px-3 py-1 mb-1">Assignment</span>
+                  <h4 class="fw-bold text-dark mb-0">{{ assignment.title }}</h4>
+                  <small class="text-muted">Max Score: {{ assignment.maxScore }} pts</small>
+                </div>
+                <button class="btn btn-outline-secondary btn-sm rounded-pill px-3" (click)="activeAssignment.set(null)">
+                  <i class="bi bi-x-lg me-1"></i> Close
+                </button>
+              </div>
+
+              <p class="text-dark small mb-4" style="white-space: pre-line;">{{ assignment.description }}</p>
+
+              @if (assignment.mySubmission?.grade !== null && assignment.mySubmission?.grade !== undefined) {
+                <div class="alert alert-success rounded-4 p-4 mb-4 border-0 shadow-sm">
+                  <h5 class="fw-bold text-success mb-1">Grade: {{ assignment.mySubmission?.grade }} / {{ assignment.maxScore }}</h5>
+                  <p class="mb-0 text-dark small"><strong>Instructor Feedback:</strong> {{ assignment.mySubmission?.instructorFeedback || 'Great work!' }}</p>
+                </div>
+              }
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold text-secondary small">Project Link / Repository / Cloud File URL:</label>
+                <input type="text" class="form-control rounded-3 bg-white" placeholder="https://github.com/my-username/project" [(ngModel)]="submissionFileUrl">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold text-secondary small">Notes for Instructor:</label>
+                <textarea rows="3" class="form-control rounded-3 bg-white" placeholder="Explain your implementation..." [(ngModel)]="submissionNotes"></textarea>
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" [disabled]="isSubmittingAssignment()" (click)="submitAssignment()">
+                  <span *ngIf="isSubmittingAssignment()" class="spinner-border spinner-border-sm me-2"></span>
+                  {{ assignment.isSubmittedByStudent ? 'Update Submission' : 'Submit Assignment' }}
+                </button>
+              </div>
+            </div>
+          }
+
+          @if (!courseAssignments().length) {
+            <div class="text-center py-5 bg-light rounded-4 border">
+              <i class="bi bi-folder-check text-muted fs-1 mb-2 d-block"></i>
+              <h5 class="fw-bold text-dark">No assignments posted</h5>
+              <p class="text-muted small">No assignments for this course yet.</p>
+            </div>
+          }
+          @else {
+            <div class="row g-3">
+              @for (assignment of courseAssignments(); track assignment.id) {
+                <div class="col-md-6">
+                  <div class="card border rounded-4 p-4 shadow-sm h-100 d-flex flex-column justify-content-between bg-white">
+                    <div>
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="badge bg-primary text-white rounded-pill px-3 py-1">Task</span>
+                        <span *ngIf="assignment.isSubmittedByStudent" class="badge bg-success-subtle text-success rounded-pill px-3 py-1">
+                          Submitted ✓
+                        </span>
+                      </div>
+                      <h5 class="fw-bold text-dark mb-2">{{ assignment.title }}</h5>
+                      <p class="text-muted small mb-3">{{ assignment.description }}</p>
+                    </div>
+
+                    <button class="btn btn-outline-primary rounded-pill py-2 fw-semibold w-100" (click)="openAssignment(assignment)">
+                      {{ assignment.isSubmittedByStudent ? 'View Submission & Grade' : 'Submit Assignment' }}
+                    </button>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+      <!-- ==================== TAB 5: REVIEWS ==================== -->
+      @if (activeTab() === 'reviews') {
+        <div class="card border-0 rounded-4 shadow-sm p-4 bg-white">
+          <h4 class="fw-bold text-dark mb-1">Student Ratings & Reviews</h4>
+          <p class="text-muted small mb-4">Share your honest feedback and help other students.</p>
+
+          <!-- WRITE REVIEW -->
+          <div class="card border-warning border-2 rounded-4 p-4 bg-warning bg-opacity-10 mb-4 shadow-sm">
+            <h5 class="fw-bold text-dark mb-2">Leave a Rating</h5>
+            
+            <div class="d-flex align-items-center gap-2 mb-3">
+              <span class="text-secondary small fw-semibold">Your Rating:</span>
+              <div class="d-flex gap-1 fs-4 text-warning cursor-pointer">
+                @for (star of [1, 2, 3, 4, 5]; track star) {
+                  <i class="bi" [ngClass]="myRating >= star ? 'bi-star-fill' : 'bi-star'" (click)="setRating(star)"></i>
+                }
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <textarea rows="3" class="form-control rounded-3 bg-white" placeholder="Write your review comments..." [(ngModel)]="myReviewComment"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-warning rounded-pill px-4 fw-bold shadow-sm" [disabled]="isSubmittingReview()" (click)="submitReview()">
+                <span *ngIf="isSubmittingReview()" class="spinner-border spinner-border-sm me-2"></span>
+                Submit Review
+              </button>
+            </div>
+          </div>
+
+          <!-- REVIEWS LIST -->
+          @if (!reviews().length) {
+            <div class="text-center py-5 bg-light rounded-4 border">
+              <i class="bi bi-chat-heart text-muted fs-1 mb-2 d-block"></i>
+              <h5 class="fw-bold text-dark">No reviews yet</h5>
+              <p class="text-muted small">Be the first to review this course!</p>
+            </div>
+          }
+          @else {
+            <div class="d-flex flex-column gap-3">
+              @for (rev of reviews(); track rev.id) {
+                <div class="card border rounded-4 p-4 shadow-sm bg-white">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1">
+                      <i class="bi bi-person-circle me-1"></i>{{ rev.studentName }}
+                    </span>
+                    <div class="text-warning small">
+                      @for (s of [1, 2, 3, 4, 5]; track s) {
+                        <i class="bi" [ngClass]="rev.rating >= s ? 'bi-star-fill' : 'bi-star'"></i>
+                      }
+                    </div>
+                  </div>
+                  <p class="text-secondary small mb-0">{{ rev.comment }}</p>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+
+    }
+  </div>
+
+  <!-- TOAST -->
+  @if (toastMessage) {
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
+      <div class="toast show align-items-center text-white border-0 rounded-4 shadow p-2" [ngClass]="toastType === 'success' ? 'bg-success' : 'bg-danger'">
+        <div class="d-flex">
+          <div class="toast-body fw-semibold">{{ toastMessage }}</div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" (click)="toastMessage = ''"></button>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MiniLMS.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5384d91c8df878bd2282c81100b97177a90a61df")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84d7e718c18dd830b67aded0c1ea2fb2729e9701")]
 [assembly: System.Reflection.AssemblyProductAttribute("MiniLMS.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MiniLMS.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

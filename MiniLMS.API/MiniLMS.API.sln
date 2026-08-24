@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniLMS.API", "MiniLMS.API\MiniLMS.API.csproj", "{9595C1F8-C982-4A4C-82D1-89B16181F30A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniLMS.Business", "MiniLMS.Business\MiniLMS.Business.csproj", "{E392A817-F213-4370-95B3-626AD0D1E7C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniLMS.Data", "MiniLMS.Data\MiniLMS.Data.csproj", "{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniLMS.DAL", "MiniLMS.Data\MiniLMS.DAL.csproj", "{D6EB6725-1393-40AB-9E3D-ED8D6F02E134}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
