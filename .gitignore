@@ -1,0 +1,34 @@
+# Visual Studio
+.vs/
+**/.vs/
+
+# Build output
+bin/
+**/bin/
+obj/
+**/obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Angular
+node_modules/
+dist/
+.angular/cache/
+
+# Logs
+*.log
+
+# Environment / local settings
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
