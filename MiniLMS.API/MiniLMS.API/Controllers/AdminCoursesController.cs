@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MiniLMS.Business.DTOs;
-using MiniLMS.Business.Interfaces;
+using GenAlpha.Business.DTOs;
+using GenAlpha.Business.Interfaces;
 
-namespace MiniLMS.API.Controllers
+namespace GenAlpha.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

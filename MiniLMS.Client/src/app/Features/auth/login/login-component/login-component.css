@@ -1,0 +1,80 @@
+.auth-wrapper {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg-gradient-main);
+}
+
+.glow-sphere {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-sphere-1 {
+  width: 380px;
+  height: 380px;
+  background: rgba(30, 58, 138, 0.4);
+  top: -80px;
+  left: -80px;
+}
+
+.glow-sphere-2 {
+  width: 450px;
+  height: 450px;
+  background: rgba(159, 18, 57, 0.35);
+  bottom: -100px;
+  right: -100px;
+}
+
+.glow-sphere-3 {
+  width: 250px;
+  height: 250px;
+  background: rgba(245, 158, 11, 0.15);
+  top: 40%;
+  left: 60%;
+}
+
+.auth-container {
+  position: relative;
+  z-index: 1;
+}
+
+.auth-card {
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.brand-badge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+.glass-input-icon {
+  background: rgba(7, 13, 30, 0.5);
+  border: 1px solid var(--border-glass);
+  color: #94a3b8;
+  padding: 12px 14px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.hover-underline:hover {
+  text-decoration: underline !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.animate-shake {
+  animation: shake 0.4s ease-in-out;
+}

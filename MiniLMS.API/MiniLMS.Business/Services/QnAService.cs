@@ -1,16 +1,16 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using MiniLMS.Business.DTOs;
-using MiniLMS.Business.Interfaces;
-using MiniLMS.Data.Data;
-using MiniLMS.Data.Models;
+using GenAlpha.Business.DTOs;
+using GenAlpha.Business.Interfaces;
+using GenAlpha.Data.Data;
+using GenAlpha.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniLMS.Business.Services
+namespace GenAlpha.Business.Services
 {
     public class QnAService : IQnAService
     {

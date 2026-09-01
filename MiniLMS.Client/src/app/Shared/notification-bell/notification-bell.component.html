@@ -1,0 +1,104 @@
+<div class="relative inline-block text-right" dir="rtl">
+  <!-- Bell Button -->
+  <button
+    (click)="toggleDropdown()"
+    class="relative p-2.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition-all cursor-pointer flex items-center justify-center">
+    <i class="bi bi-bell-fill text-lg"></i>
+    <!-- Unread Badge Counter -->
+    <span
+      *ngIf="unreadCount > 0"
+      class="absolute -top-1.5 -right-1.5 px-1.5 py-0.5 min-w-[18px] h-[18px] rounded-full bg-cyan-500 text-slate-950 text-[10px] font-black flex items-center justify-center shadow-lg shadow-cyan-500/40 animate-bounce">
+      {{ unreadCount > 99 ? '99+' : unreadCount }}
+    </span>
+  </button>
+
+  <!-- Notification Dropdown -->
+  <div
+    *ngIf="isOpen()"
+    class="absolute left-0 mt-3 w-80 sm:w-96 max-h-[75vh] bg-slate-900/95 border border-slate-800 rounded-3xl backdrop-blur-2xl shadow-2xl z-50 flex flex-col overflow-hidden animate-in fade-in zoom-in duration-150">
+    
+    <!-- Header -->
+    <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+      <div class="flex items-center gap-2">
+        <i class="bi bi-bell text-cyan-400"></i>
+        <h4 class="text-sm font-bold text-white">الإشعارات الحية</h4>
+        <span *ngIf="unreadCount > 0" class="text-[10px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-bold">
+          {{ unreadCount }} جديد
+        </span>
+      </div>
+
+      <button
+        *ngIf="unreadCount > 0"
+        (click)="markAllAsRead()"
+        class="text-xs text-slate-400 hover:text-cyan-400 transition-colors cursor-pointer">
+        تحديد الكل كمقروء
+      </button>
+    </div>
+
+    <!-- Items List -->
+    <div class="overflow-y-auto max-h-[50vh] divide-y divide-slate-800/60">
+      <div
+        *ngFor="let item of notifications"
+        (click)="markAsRead(item)"
+        [class.bg-cyan-500_5]="!item.isRead"
+        class="p-4 hover:bg-slate-800/50 transition-colors cursor-pointer flex gap-3 items-start">
+        
+        <!-- Type Icon -->
+        <div
+          [ngClass]="{
+            'bg-emerald-500/20 text-emerald-400': item.notificationType === 'PaymentSuccess',
+            'bg-amber-500/20 text-amber-400': item.notificationType === 'AssignmentGraded',
+            'bg-cyan-500/20 text-cyan-400': item.notificationType === 'CertificateEarned',
+            'bg-indigo-500/20 text-indigo-400': item.notificationType === 'QnAReply' || item.notificationType === 'General'
+          }"
+          class="w-9 h-9 rounded-2xl flex-shrink-0 flex items-center justify-center text-sm mt-0.5">
+          <i [ngClass]="{
+            'bi-currency-dollar': item.notificationType === 'PaymentSuccess',
+            'bi-pencil-square': item.notificationType === 'AssignmentGraded',
+            'bi-award-fill': item.notificationType === 'CertificateEarned',
+            'bi-chat-dots': item.notificationType === 'QnAReply',
+            'bi-info-circle': item.notificationType === 'General'
+          }"></i>
+        </div>
+
+        <!-- Content -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between gap-1 mb-1">
+            <h5 class="text-xs font-bold text-slate-200 truncate">{{ item.title }}</h5>
+            <span class="text-[10px] text-slate-500 flex-shrink-0">{{ item.createdAt | date:'shortTime' }}</span>
+          </div>
+          <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">{{ item.message }}</p>
+        </div>
+
+        <!-- Unread Indicator Dot -->
+        <span *ngIf="!item.isRead" class="w-2 h-2 rounded-full bg-cyan-400 mt-1 flex-shrink-0"></span>
+      </div>
+
+      <div *ngIf="notifications.length === 0" class="p-8 text-center text-slate-500 text-xs">
+        <i class="bi bi-bell-slash text-2xl block mb-2 opacity-50"></i>
+        لا توجد إشعارات جديدة حالياً
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Floating Real-Time Toast Alert for Incoming SignalR Push -->
+<div
+  *ngIf="latestToast"
+  class="fixed top-6 left-6 z-50 max-w-sm w-full bg-slate-900/95 border border-cyan-500/40 rounded-3xl p-4 shadow-2xl backdrop-blur-2xl text-slate-100 flex items-start gap-3 animate-in slide-in-from-top-4 duration-300"
+  dir="rtl">
+  
+  <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-lg flex-shrink-0">
+    <i class="bi bi-broadcast"></i>
+  </div>
+
+  <div class="flex-1 min-w-0">
+    <div class="flex items-center justify-between mb-0.5">
+      <span class="text-xs font-extrabold text-cyan-400">{{ latestToast.title }}</span>
+      <button (click)="dismissToast()" class="text-slate-500 hover:text-slate-300 text-xs">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed">{{ latestToast.message }}</p>
+  </div>
+</div>

@@ -1,13 +1,13 @@
 using AutoMapper;
-using MiniLMS.Business.DTOs;
-using MiniLMS.Data.Models;
+using GenAlpha.Business.DTOs;
+using GenAlpha.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniLMS.Business.Mapping
+namespace GenAlpha.Business.Mapping
 {
     public class MappingProfile : Profile
     {

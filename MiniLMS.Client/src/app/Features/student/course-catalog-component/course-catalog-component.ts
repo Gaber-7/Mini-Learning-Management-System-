@@ -4,11 +4,20 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CourseService } from '../../../Core/Services/course.service';
 import { AuthService } from '../../../Core/Services/auth-service';
+import { CourseCheckoutModalComponent } from '../../../Shared/course-checkout-modal/course-checkout-modal.component';
+import { NotificationBellComponent } from '../../../Shared/notification-bell/notification-bell.component';
+import { GamificationWidgetComponent } from '../../../Shared/gamification-widget/gamification-widget.component';
 
 @Component({
   selector: 'app-course-catalog',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    CourseCheckoutModalComponent,
+    NotificationBellComponent,
+    GamificationWidgetComponent
+  ],
   templateUrl: './course-catalog-component.html',
   styleUrls: ['./course-catalog-component.css']
 })
@@ -20,9 +29,9 @@ export class CourseCatalogComponent implements OnInit {
   searchTerm: string = '';
   selectedCategory: string = '';
 
-  
   loading: boolean = false;
   enrollingCourseId: number | null = null;
+  selectedCourseForCheckout: any | null = null;
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -74,7 +83,13 @@ export class CourseCatalogComponent implements OnInit {
     return course.lessons?.length || 0;
   }
 
-  enroll(courseId: number): void {
+  enroll(course: any): void {
+    if (course.price && course.price > 0) {
+      this.selectedCourseForCheckout = course;
+      return;
+    }
+
+    const courseId = course.id;
     this.enrollingCourseId = courseId;
     this.errorMessage = '';
     this.successMessage = '';
@@ -93,5 +108,13 @@ export class CourseCatalogComponent implements OnInit {
         this.errorMessage = err.error?.message || 'Enrollment failed. You might already be enrolled in this course.';
       }
     });
+  }
+
+  onEnrolledViaPayment(res: any): void {
+    this.selectedCourseForCheckout = null;
+    this.successMessage = 'تم الدفع والاشتراك بنجاح! جاري توجيهك إلى لوحة التحكم...';
+    setTimeout(() => {
+      this.router.navigate(['/student/dashboard']);
+    }, 1500);
   }
 }

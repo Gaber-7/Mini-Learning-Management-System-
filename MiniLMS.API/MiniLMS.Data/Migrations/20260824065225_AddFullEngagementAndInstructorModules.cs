@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MiniLMS.Data.Migrations
+namespace GenAlpha.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddFullEngagementAndInstructorModules : Migration

@@ -1,183 +1,199 @@
-<div class="container-fluid min-vh-100 bg-light py-5">
-  <div class="row justify-content-center align-items-center">
-    <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5">
+<div class="auth-wrapper d-flex align-items-center justify-content-center min-vh-100 p-3 p-md-4">
 
-      <div class="card shadow border-0 rounded-4">
-        <div class="card-body p-4 p-md-5">
+  <!-- Background decorative glow spheres -->
+  <div class="glow-sphere glow-sphere-1"></div>
+  <div class="glow-sphere glow-sphere-2"></div>
+  <div class="glow-sphere glow-sphere-3"></div>
 
+  <div class="container auth-container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-6">
+
+        <div class="glass-panel auth-card p-4 p-md-5 position-relative overflow-hidden">
+          
+          <!-- Brand Header -->
           <div class="text-center mb-4">
-            <h2 class="fw-bold text-dark mb-1">Create an Account</h2>
-            <p class="text-muted small">
-              Join our platform to learn or start teaching today
-            </p>
+            <div class="brand-badge mb-3 d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill">
+              <i class="bi bi-stars text-warning"></i>
+              <span class="fw-bold tracking-wide">MiniLMS PORTAL</span>
+            </div>
+            <h2 class="fw-bold text-white mb-2">Create New Account</h2>
+            <p class="text-muted small mb-0">Join our learning platform as a Student or Instructor</p>
           </div>
 
-          <!-- ROLE SELECTOR TABS -->
-          <div class="d-flex p-1 bg-light rounded-3 mb-4 border">
+          <!-- Role Selection Pills -->
+          <div class="role-selector-wrapper p-1 rounded-4 mb-4 d-flex">
             <button
               type="button"
-              class="btn flex-grow-1 rounded-3 py-2 fw-bold transition-all"
-              [ngClass]="selectedRole === 'Student' ? 'btn-primary shadow-sm' : 'btn-light text-muted'"
+              class="role-tab flex-fill py-2 px-3 rounded-4 border-0 fw-semibold d-flex align-items-center justify-content-center gap-2"
+              [class.active-role]="selectedRole === 'Student'"
               (click)="setRole('Student')">
-              <i class="bi bi-mortarboard-fill me-2"></i>
-              I'm a Student
+              <i class="bi bi-mortarboard-fill"></i>
+              <span>Student Account</span>
             </button>
             <button
               type="button"
-              class="btn flex-grow-1 rounded-3 py-2 fw-bold transition-all"
-              [ngClass]="selectedRole === 'Instructor' ? 'btn-primary shadow-sm' : 'btn-light text-muted'"
+              class="role-tab flex-fill py-2 px-3 rounded-4 border-0 fw-semibold d-flex align-items-center justify-content-center gap-2"
+              [class.active-role]="selectedRole === 'Instructor'"
               (click)="setRole('Instructor')">
-              <i class="bi bi-person-video3 me-2"></i>
-              I'm an Instructor
+              <i class="bi bi-person-video3"></i>
+              <span>Instructor Account</span>
             </button>
+          </div>
+
+          <!-- Error Alert Banner -->
+          <div *ngIf="errorMessage" class="alert alert-danger glass-card border-danger text-white rounded-3 p-3 small mb-4 d-flex align-items-center gap-2 animate-shake" role="alert">
+            <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+            <div>{{ errorMessage }}</div>
           </div>
 
           <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
 
             <!-- Full Name -->
             <div class="mb-3">
-              <label for="fullName" class="form-label fw-semibold text-secondary small">
-                Full Name *
+              <label for="fullName" class="form-label text-slate-300 small fw-semibold">
+                <i class="bi bi-card-text me-1 text-info"></i> Full Name
               </label>
-              <input
-                id="fullName"
-                type="text"
-                formControlName="fullName"
-                class="form-control rounded-3 p-3 border-light-subtle"
-                placeholder="e.g. John Doe">
-              <div
-                *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.errors?.['required']"
-                class="text-danger small mt-1">
+              <div class="input-group">
+                <span class="input-group-text glass-input-icon border-end-0">
+                  <i class="bi bi-person-badge-fill text-muted"></i>
+                </span>
+                <input
+                  id="fullName"
+                  type="text"
+                  formControlName="fullName"
+                  class="form-control glass-input border-start-0 ps-0"
+                  placeholder="e.g. Sarah Connor">
+              </div>
+              <div *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.errors?.['required']" class="text-danger small mt-1 ps-1">
                 Full name is required.
               </div>
             </div>
 
-            <!-- Email -->
-            <div class="mb-3">
-              <label for="email" class="form-label fw-semibold text-secondary small">
-                Email Address *
-              </label>
-              <input
-                id="email"
-                type="email"
-                formControlName="email"
-                class="form-control rounded-3 p-3 border-light-subtle"
-                placeholder="name@example.com">
-              <div
-                *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.errors?.['required']"
-                class="text-danger small mt-1">
-                Email address is required.
+            <!-- Email & Username in 2 Cols on md -->
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label for="email" class="form-label text-slate-300 small fw-semibold">
+                  <i class="bi bi-envelope me-1 text-info"></i> Email Address
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text glass-input-icon border-end-0">
+                    <i class="bi bi-envelope-fill text-muted"></i>
+                  </span>
+                  <input
+                    id="email"
+                    type="email"
+                    formControlName="email"
+                    class="form-control glass-input border-start-0 ps-0"
+                    placeholder="name@example.com">
+                </div>
+                <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.errors?.['required']" class="text-danger small mt-1 ps-1">
+                  Email is required.
+                </div>
               </div>
-              <div
-                *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.errors?.['email']"
-                class="text-danger small mt-1">
-                Please enter a valid email address.
+
+              <div class="col-md-6">
+                <label for="username" class="form-label text-slate-300 small fw-semibold">
+                  <i class="bi bi-person me-1 text-info"></i> Username
+                </label>
+                <div class="input-group">
+                  <span class="input-group-text glass-input-icon border-end-0">
+                    <i class="bi bi-at text-muted"></i>
+                  </span>
+                  <input
+                    id="username"
+                    type="text"
+                    formControlName="username"
+                    class="form-control glass-input border-start-0 ps-0"
+                    placeholder="sarah_c">
+                </div>
+                <div *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.errors?.['required']" class="text-danger small mt-1 ps-1">
+                  Username is required.
+                </div>
               </div>
             </div>
 
-            <!-- Username -->
+            <!-- Password Field -->
             <div class="mb-3">
-              <label for="username" class="form-label fw-semibold text-secondary small">
-                Username *
+              <label for="password" class="form-label text-slate-300 small fw-semibold">
+                <i class="bi bi-shield-lock me-1 text-warning"></i> Password (Min. 6 Characters)
               </label>
-              <input
-                id="username"
-                type="text"
-                formControlName="username"
-                class="form-control rounded-3 p-3 border-light-subtle"
-                placeholder="Choose a unique username">
-              <div
-                *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.errors?.['required']"
-                class="text-danger small mt-1">
-                Username is required.
+              <div class="input-group">
+                <span class="input-group-text glass-input-icon border-end-0">
+                  <i class="bi bi-key-fill text-muted"></i>
+                </span>
+                <input
+                  id="password"
+                  [type]="showPassword ? 'text' : 'password'"
+                  formControlName="password"
+                  class="form-control glass-input border-start-0 border-end-0 ps-0"
+                  placeholder="••••••••">
+                <button
+                  type="button"
+                  class="input-group-text glass-input-icon border-start-0 cursor-pointer"
+                  (click)="showPassword = !showPassword"
+                  title="Toggle Password Visibility">
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill text-info' : 'bi-eye-fill text-muted'"></i>
+                </button>
               </div>
-              <div
-                *ngIf="signupForm.get('username')?.touched && signupForm.get('username')?.errors?.['minlength']"
-                class="text-danger small mt-1">
-                Username must be at least 3 characters.
-              </div>
-            </div>
-
-            <!-- Password -->
-            <div class="mb-3">
-              <label for="password" class="form-label fw-semibold text-secondary small">
-                Password *
-              </label>
-              <input
-                id="password"
-                type="password"
-                formControlName="password"
-                class="form-control rounded-3 p-3 border-light-subtle"
-                placeholder="At least 6 characters">
-              <div
-                *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.errors?.['required']"
-                class="text-danger small mt-1">
+              <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.errors?.['required']" class="text-danger small mt-1 ps-1">
                 Password is required.
               </div>
-              <div
-                *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.errors?.['minlength']"
-                class="text-danger small mt-1">
-                Password must be at least 6 characters.
-              </div>
             </div>
 
-            <!-- INSTRUCTOR SPECIFIC FIELDS -->
-            <div *ngIf="selectedRole === 'Instructor'" class="p-3 bg-light rounded-3 mb-3 border">
-              <div class="mb-3">
-                <label for="headline" class="form-label fw-semibold text-secondary small">
-                  Professional Headline (Optional)
-                </label>
-                <input
-                  id="headline"
-                  type="text"
-                  formControlName="headline"
-                  class="form-control rounded-3 bg-white"
-                  placeholder="e.g. Senior Cloud Architect & .NET Expert">
+            <!-- Instructor Extra Fields -->
+            @if (selectedRole === 'Instructor') {
+              <div class="instructor-extra-fields p-3 rounded-4 glass-card mb-3 border-info border-opacity-25">
+                <div class="d-flex align-items-center gap-2 mb-2 text-info small fw-bold">
+                  <i class="bi bi-info-circle-fill"></i> Instructor Profile Details
+                </div>
+
+                <div class="mb-3">
+                  <label for="headline" class="form-label text-slate-300 small">Professional Headline</label>
+                  <input
+                    id="headline"
+                    type="text"
+                    formControlName="headline"
+                    class="form-control glass-input"
+                    placeholder="e.g. Senior Fullstack .NET & Angular Engineer">
+                </div>
+
+                <div>
+                  <label for="bio" class="form-label text-slate-300 small">Short Bio</label>
+                  <textarea
+                    id="bio"
+                    rows="2"
+                    formControlName="bio"
+                    class="form-control glass-input"
+                    placeholder="Brief description about your teaching experience..."></textarea>
+                </div>
               </div>
+            }
 
-              <div>
-                <label for="bio" class="form-label fw-semibold text-secondary small">
-                  Bio / Teaching Experience (Optional)
-                </label>
-                <textarea
-                  id="bio"
-                  rows="3"
-                  formControlName="bio"
-                  class="form-control rounded-3 bg-white"
-                  placeholder="Briefly tell students about yourself and your industry experience..."></textarea>
-              </div>
-            </div>
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="btn btn-luxury-primary w-100 py-3 fw-bold d-flex align-items-center justify-content-center gap-2 mb-3 shadow"
+              [disabled]="isLoading">
+              <span *ngIf="isLoading" class="spinner-border spinner-border-sm"></span>
+              <i *ngIf="!isLoading" class="bi bi-person-plus-fill fs-5"></i>
+              <span>{{ isLoading ? 'Creating Account...' : 'Complete Registration' }}</span>
+            </button>
 
-            <!-- Register Button -->
-            <div class="d-grid mt-4">
-              <button
-                type="submit"
-                class="btn btn-primary rounded-3 py-3 fw-bold shadow-sm"
-                [disabled]="isLoading">
-                <span
-                  *ngIf="isLoading"
-                  class="spinner-border spinner-border-sm me-2">
-                </span>
-                {{ isLoading ? 'Creating Account...' : (selectedRole === 'Instructor' ? 'Register as Instructor' : 'Register as Student') }}
-              </button>
-            </div>
-
-            <div class="text-center mt-4">
-              <span class="text-muted small">
-                Already have an account?
-              </span>
-              <a
-                routerLink="/login"
-                class="text-decoration-none fw-semibold ms-1">
-                Login
+            <!-- Switch to Login -->
+            <div class="text-center pt-3 border-top border-white border-opacity-10">
+              <span class="text-muted small">Already have an account?</span>
+              <a routerLink="/login" class="text-warning text-decoration-none fw-bold small ms-2 hover-underline">
+                Sign In Instead <i class="bi bi-arrow-right-short"></i>
               </a>
             </div>
 
           </form>
 
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
+
 </div>

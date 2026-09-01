@@ -8,12 +8,14 @@ import { AuthService } from '../../../../Core/Services/auth-service';
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: 'login-component.html',
+  templateUrl: './login-component.html',
+  styleUrls: ['./login-component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   isLoading = false;
   errorMessage = '';
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -22,7 +24,6 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // If already logged in, redirect to respective dashboard
     if (this.authService.isLoggedIn()) {
       this.redirectByRole(this.authService.getRole());
     }

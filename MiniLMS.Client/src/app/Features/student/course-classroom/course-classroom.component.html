@@ -1,7 +1,7 @@
 <div class="classroom-page bg-light min-vh-100 pb-5">
 
   <!-- TOP APP BAR -->
-  <header class="bg-white border-bottom shadow-sm sticky-top py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-2">
+  <header class="bg-white border-bottom shadow-sm sticky-top py-3 px-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
     <div class="d-flex align-items-center gap-3">
       <a routerLink="/student/dashboard" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
         <i class="bi bi-arrow-left me-1"></i> Dashboard
@@ -17,23 +17,32 @@
       }
     </div>
 
-    <!-- TABS -->
-    <div class="d-flex gap-1 overflow-x-auto">
-      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'content' ? 'btn-primary' : 'btn-light'" (click)="setTab('content')">
-        <i class="bi bi-play-circle-fill me-1"></i> Lessons
-      </button>
-      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'qna' ? 'btn-primary' : 'btn-light'" (click)="setTab('qna')">
-        <i class="bi bi-chat-dots-fill me-1"></i> Q&A ({{ questions().length }})
-      </button>
-      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'quizzes' ? 'btn-primary' : 'btn-light'" (click)="setTab('quizzes')">
-        <i class="bi bi-patch-question-fill me-1"></i> Quizzes ({{ courseQuizzes().length }})
-      </button>
-      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'assignments' ? 'btn-primary' : 'btn-light'" (click)="setTab('assignments')">
-        <i class="bi bi-folder-check me-1"></i> Assignments ({{ courseAssignments().length }})
-      </button>
-      <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'reviews' ? 'btn-primary' : 'btn-light'" (click)="setTab('reviews')">
-        <i class="bi bi-star-fill text-warning me-1"></i> Reviews
-      </button>
+    <!-- TABS & WIDGETS -->
+    <div class="d-flex items-center gap-3 flex-wrap">
+      <!-- Gamification & Notification Widgets -->
+      <div class="d-flex items-center gap-2">
+        <app-gamification-widget></app-gamification-widget>
+        <app-notification-bell></app-notification-bell>
+      </div>
+
+      <!-- TABS -->
+      <div class="d-flex gap-1 overflow-x-auto">
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'content' ? 'btn-primary' : 'btn-light'" (click)="setTab('content')">
+          <i class="bi bi-play-circle-fill me-1"></i> Lessons
+        </button>
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'qna' ? 'btn-primary' : 'btn-light'" (click)="setTab('qna')">
+          <i class="bi bi-chat-dots-fill me-1"></i> Q&A ({{ questions().length }})
+        </button>
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'quizzes' ? 'btn-primary' : 'btn-light'" (click)="setTab('quizzes')">
+          <i class="bi bi-patch-question-fill me-1"></i> Quizzes ({{ courseQuizzes().length }})
+        </button>
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'assignments' ? 'btn-primary' : 'btn-light'" (click)="setTab('assignments')">
+          <i class="bi bi-folder-check me-1"></i> Assignments ({{ courseAssignments().length }})
+        </button>
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-semibold" [ngClass]="activeTab() === 'reviews' ? 'btn-primary' : 'btn-light'" (click)="setTab('reviews')">
+          <i class="bi bi-star-fill text-warning me-1"></i> Reviews
+        </button>
+      </div>
     </div>
   </header>
 
@@ -47,6 +56,40 @@
       </div>
     }
     @else if (course(); as c) {
+
+      <!-- ==================== 100% COMPLETION & CERTIFICATE BANNER ==================== -->
+      <div *ngIf="c.progressPercentage >= 100 || earnedCertificateCode()" class="card border-0 rounded-4 shadow-sm p-4 bg-gradient-to-r from-emerald-950/90 via-slate-900 to-slate-950 text-white mb-4 border border-emerald-500/40">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <div class="w-12 h-12 rounded-3xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 d-flex align-items-center justify-center fs-3">
+              🏆
+            </div>
+            <div>
+              <h5 class="fw-bold text-white mb-1">تهانينا! لقد أتممت الدورة بنجاح بنسبة 100% 🎓</h5>
+              <p class="text-slate-300 small mb-0">يمكنك الآن استخراج شهادتك الرقمية المعتمدة المزودة بـ QR Code ورقم تسلسلي موثق.</p>
+            </div>
+          </div>
+
+          <div class="d-flex items-center gap-2">
+            <button
+              *ngIf="!earnedCertificateCode()"
+              (click)="claimCertificate()"
+              [disabled]="isClaimingCertificate()"
+              class="btn btn-success fw-bold rounded-pill px-4 py-2 shadow">
+              <span *ngIf="!isClaimingCertificate()"><i class="bi bi-award-fill me-1"></i> إصدار الشهادة الرقمية المعتمدة</span>
+              <span *ngIf="isClaimingCertificate()" class="spinner-border spinner-border-sm me-1"></span>
+            </button>
+
+            <a
+              *ngIf="earnedCertificateCode()"
+              [routerLink]="['/verify-certificate', earnedCertificateCode()]"
+              target="_blank"
+              class="btn btn-outline-info fw-bold rounded-pill px-4 py-2">
+              <i class="bi bi-patch-check-fill me-1"></i> استعراض والتحقق من الشهادة ({{ earnedCertificateCode() }})
+            </a>
+          </div>
+        </div>
+      </div>
 
       <!-- ==================== TAB 1: CONTENT & VIDEO ==================== -->
       @if (activeTab() === 'content') {
@@ -535,5 +578,8 @@
       </div>
     </div>
   }
+
+  <!-- AI COURSE TUTOR WIDGET -->
+  <app-ai-tutor-widget [lesson]="activeLesson()" [courseTitle]="course()?.title || ''"></app-ai-tutor-widget>
 
 </div>

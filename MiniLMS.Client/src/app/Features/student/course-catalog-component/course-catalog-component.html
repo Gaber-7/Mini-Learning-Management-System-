@@ -1,12 +1,14 @@
 <div class="container py-4">
 
   <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
     <div>
       <h1 class="fw-bold m-0 text-dark">Available Courses Catalog</h1>
       <p class="text-muted small mb-0">Explore industry-ready courses, master new skills, and earn verified certificates.</p>
     </div>
-    <div class="d-flex gap-2">
+    <div class="d-flex items-center gap-3 flex-wrap">
+      <app-gamification-widget></app-gamification-widget>
+      <app-notification-bell></app-notification-bell>
       <a routerLink="/student/dashboard" class="btn btn-outline-primary rounded-pill px-3">
         <i class="bi bi-speedometer2 me-1"></i> My Dashboard
       </a>
@@ -99,21 +101,35 @@
           </p>
         </div>
 
-        <div class="border-top pt-3 d-flex justify-content-between align-items-center">
-          <small class="text-muted fw-semibold">
-            <i class="bi bi-play-circle me-1"></i> {{ getLessonsCount(course) }} Lessons
-          </small>
+        <div class="border-top pt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <span *ngIf="!course.price || course.price === 0" class="badge bg-success-subtle text-success fw-bold px-2 py-1 rounded-pill">
+              Free Course
+            </span>
+            <span *ngIf="course.price > 0" class="fw-bold text-dark fs-6">
+              ${{ course.discountPrice || course.price }}
+              <small *ngIf="course.discountPrice" class="text-decoration-line-through text-muted ms-1">${{ course.price }}</small>
+            </span>
+          </div>
 
           <button 
             class="btn btn-primary rounded-pill fw-semibold px-4 shadow-sm" 
             [disabled]="enrollingCourseId === course.id"
-            (click)="enroll(course.id)">
+            (click)="enroll(course)">
             <span *ngIf="enrollingCourseId === course.id" class="spinner-border spinner-border-sm me-1"></span>
-            {{ enrollingCourseId === course.id ? 'Enrolling...' : 'Enroll Now' }}
+            {{ enrollingCourseId === course.id ? 'Enrolling...' : (course.price > 0 ? 'Buy & Enroll' : 'Enroll Now') }}
           </button>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- COURSE CHECKOUT MODAL -->
+  <app-course-checkout-modal
+    *ngIf="selectedCourseForCheckout"
+    [course]="selectedCourseForCheckout"
+    (close)="selectedCourseForCheckout = null"
+    (enrolled)="onEnrolledViaPayment($event)">
+  </app-course-checkout-modal>
 
 </div>

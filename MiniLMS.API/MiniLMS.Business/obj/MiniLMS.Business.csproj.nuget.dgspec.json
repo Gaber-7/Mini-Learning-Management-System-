@@ -8,7 +8,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
-        "projectName": "MiniLMS.Business",
+        "projectName": "GenAlpha.Business",
         "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
         "packagesPath": "C:\\Users\\EL3ATTY\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\obj\\",
@@ -61,6 +61,14 @@
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[9.0.1, )"
+            },
+            "QRCoder": {
+              "target": "Package",
+              "version": "[1.8.0, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2026.8.0, )"
             }
           },
           "imports": [
@@ -75,6 +83,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
@@ -87,7 +98,7 @@
       "version": "1.0.0",
       "restore": {
         "projectUniqueName": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj",
-        "projectName": "MiniLMS.DAL",
+        "projectName": "GenAlpha.DAL",
         "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj",
         "packagesPath": "C:\\Users\\EL3ATTY\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\obj\\",

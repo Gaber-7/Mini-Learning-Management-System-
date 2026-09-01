@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { CourseService } from '../../../Core/Services/course.service';
 import { CourseDetailsDto } from '../../../Models/Course';
+import { GamificationWidgetComponent } from '../../../Shared/gamification-widget/gamification-widget.component';
+import { NotificationBellComponent } from '../../../Shared/notification-bell/notification-bell.component';
 
 type CourseFilter = 'all' | 'in-progress' | 'completed' | 'not-started';
 type CourseSort = 'title' | 'progress-desc' | 'progress-asc';
@@ -11,7 +13,7 @@ type CourseSort = 'title' | 'progress-desc' | 'progress-asc';
 @Component({
   selector: 'app-student-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, GamificationWidgetComponent, NotificationBellComponent],
   templateUrl: './dashboard-component.html',
   styleUrl: './dashboard-component.css',
 })

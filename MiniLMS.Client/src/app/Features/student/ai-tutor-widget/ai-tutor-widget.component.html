@@ -1,0 +1,172 @@
+<!-- Floating AI Tutor Button -->
+<div class="fixed bottom-6 left-6 z-50 flex flex-col items-start" dir="rtl">
+  <!-- Main Button -->
+  <button
+    (click)="toggleOpen()"
+    class="flex items-center gap-3 px-5 py-3 rounded-full bg-gradient-to-r from-cyan-500 via-sky-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-slate-950 font-bold text-sm shadow-2xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all cursor-pointer border border-cyan-300/40">
+    <div class="w-7 h-7 rounded-full bg-slate-950/20 flex items-center justify-center text-lg">
+      <i class="bi bi-robot"></i>
+    </div>
+    <span>المساعد الذكي (AI Tutor)</span>
+    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+  </button>
+
+  <!-- Expanded AI Panel -->
+  <div
+    *ngIf="isOpen()"
+    class="mt-3 w-[92vw] sm:w-[460px] max-h-[82vh] bg-slate-900/95 border border-slate-700/80 rounded-3xl backdrop-blur-2xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-200">
+    
+    <!-- Panel Header -->
+    <div class="p-4 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-lg">
+          <i class="bi bi-cpu-fill"></i>
+        </div>
+        <div>
+          <h4 class="text-sm font-bold text-white flex items-center gap-2">
+            GenAlpha AI Tutor
+            <span class="text-[10px] px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 font-mono">Gemini 1.5</span>
+          </h4>
+          <p class="text-[11px] text-slate-400 truncate max-w-[240px]">
+            {{ lesson?.lessonTitle || courseTitle || 'مساعدتك في فهم الدرس' }}
+          </p>
+        </div>
+      </div>
+
+      <button (click)="toggleOpen()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors">
+        <i class="bi bi-x-lg text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Mode Selector Tabs -->
+    <div class="flex border-b border-slate-800 bg-slate-950/40 p-1.5 gap-1 text-xs font-semibold">
+      <button
+        (click)="setTab('explain')"
+        [class.bg-cyan-500]="activeTab() === 'explain'"
+        [class.text-slate-950]="activeTab() === 'explain'"
+        [class.text-slate-400]="activeTab() !== 'explain'"
+        class="flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+        <i class="bi bi-chat-dots-fill"></i>
+        <span>شرح مفهوم</span>
+      </button>
+
+      <button
+        (click)="setTab('summary')"
+        [class.bg-cyan-500]="activeTab() === 'summary'"
+        [class.text-slate-950]="activeTab() === 'summary'"
+        [class.text-slate-400]="activeTab() !== 'summary'"
+        class="flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+        <i class="bi bi-file-text-fill"></i>
+        <span>ملخص الدرس</span>
+      </button>
+
+      <button
+        (click)="setTab('practice')"
+        [class.bg-cyan-500]="activeTab() === 'practice'"
+        [class.text-slate-950]="activeTab() === 'practice'"
+        [class.text-slate-400]="activeTab() !== 'practice'"
+        class="flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
+        <i class="bi bi-lightning-charge-fill"></i>
+        <span>أسئلة تدريبية</span>
+      </button>
+    </div>
+
+    <!-- Tab Contents -->
+    <div class="p-4 overflow-y-auto max-h-[55vh] space-y-4 text-slate-200 text-sm">
+      
+      <!-- TAB 1: EXPLAIN -->
+      <div *ngIf="activeTab() === 'explain'" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-400 mb-1.5">اكتب أي سؤال أو جزء غير واضح في الدرس:</label>
+          <div class="relative">
+            <textarea
+              [(ngModel)]="userPrompt"
+              (keydown.enter)="$event.preventDefault(); askExplain()"
+              rows="3"
+              placeholder="مثال: اشرح لي كيف يعمل الـ Dependency Injection في هذا الكود؟"
+              class="w-full p-3 rounded-2xl bg-slate-950 border border-slate-800 focus:border-cyan-500 focus:outline-none text-xs text-slate-100 placeholder-slate-600 resize-none">
+            </textarea>
+            <button
+              (click)="askExplain()"
+              [disabled]="loading() || !userPrompt.trim()"
+              class="absolute bottom-2.5 left-2.5 px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 disabled:opacity-40 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer">
+              <i class="bi bi-send-fill"></i>
+              <span>اسأل</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div *ngIf="explanationResult()" class="p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/20 text-xs leading-relaxed whitespace-pre-line text-slate-200">
+          {{ explanationResult() }}
+        </div>
+      </div>
+
+      <!-- TAB 2: SUMMARY -->
+      <div *ngIf="activeTab() === 'summary'" class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-400">توليد ملخص فوري للنقاط الجوهرية بالذكاء الاصطناعي</span>
+          <button
+            (click)="generateSummary()"
+            [disabled]="loading()"
+            class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1">
+            <i class="bi bi-arrow-clockwise"></i>
+            إعادة التوليد
+          </button>
+        </div>
+
+        <div *ngIf="summaryResult()" class="p-4 rounded-2xl bg-slate-950/80 border border-cyan-500/20 text-xs leading-relaxed whitespace-pre-line text-slate-200">
+          {{ summaryResult() }}
+        </div>
+      </div>
+
+      <!-- TAB 3: PRACTICE QUESTIONS -->
+      <div *ngIf="activeTab() === 'practice'" class="space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-400">اختبر فهمك بأسئلة تفاعلية ذكية:</span>
+          <button
+            (click)="generateQuestions()"
+            [disabled]="loading()"
+            class="text-xs text-cyan-400 hover:text-cyan-300 font-semibold inline-flex items-center gap-1">
+            <i class="bi bi-shuffle"></i>
+            أسئلة جديدة
+          </button>
+        </div>
+
+        <div *ngFor="let q of practiceQuestions(); let i = index" class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-3">
+          <div class="font-bold text-xs text-cyan-300">سؤال {{ i + 1 }}: {{ q.questionText }}</div>
+
+          <div class="space-y-1.5">
+            <button
+              *ngFor="let opt of q.options; let optIndex = index"
+              (click)="selectOption(q.id, optIndex)"
+              [class.bg-emerald-500_20]="showFeedback[q.id] && optIndex === q.correctOptionIndex"
+              [class.border-emerald-500]="showFeedback[q.id] && optIndex === q.correctOptionIndex"
+              [class.bg-red-500_20]="showFeedback[q.id] && selectedAnswers[q.id] === optIndex && optIndex !== q.correctOptionIndex"
+              [class.border-red-500]="showFeedback[q.id] && selectedAnswers[q.id] === optIndex && optIndex !== q.correctOptionIndex"
+              [class.bg-slate-900]="!showFeedback[q.id]"
+              [class.border-slate-800]="!showFeedback[q.id]"
+              class="w-full text-right p-2.5 rounded-xl border text-xs text-slate-300 hover:border-slate-600 transition-all flex items-center justify-between">
+              <span>{{ opt }}</span>
+              <span *ngIf="showFeedback[q.id]">
+                <i *ngIf="optIndex === q.correctOptionIndex" class="bi bi-check-circle-fill text-emerald-400"></i>
+                <i *ngIf="selectedAnswers[q.id] === optIndex && optIndex !== q.correctOptionIndex" class="bi bi-x-circle-fill text-red-400"></i>
+              </span>
+            </button>
+          </div>
+
+          <!-- Explanation -->
+          <div *ngIf="showFeedback[q.id]" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-[11px] text-slate-400">
+            <span class="font-bold text-slate-300">التوضيح: </span>{{ q.explanation }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Global Loading State in Box -->
+      <div *ngIf="loading()" class="py-8 flex flex-col items-center justify-center gap-2 text-slate-400">
+        <div class="w-7 h-7 border-2 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
+        <span class="text-xs">المعلم الذكي يقوم بالتحليل الآن...</span>
+      </div>
+    </div>
+  </div>
+</div>

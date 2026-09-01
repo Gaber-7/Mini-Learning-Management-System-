@@ -1,0 +1,5 @@
+/* Certificate Verification Specific Styles */
+:host {
+  display: block;
+  width: 100%;
+}

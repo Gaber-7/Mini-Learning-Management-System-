@@ -8,11 +8,14 @@ import { AuthService } from '../../../../Core/Services/auth-service';
   selector: 'app-signup',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
-  templateUrl: 'signup-component.html',
+  templateUrl: './signup-component.html',
+  styleUrls: ['./signup-component.css']
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
   isLoading = false;
+  errorMessage = '';
+  showPassword = false;
   selectedRole: 'Student' | 'Instructor' = 'Student';
 
   constructor(
@@ -22,6 +25,10 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/student/dashboard']);
+    }
+
     this.signupForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -39,6 +46,8 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.errorMessage = '';
+
     if (this.signupForm.invalid) {
       this.signupForm.markAllAsTouched();
       return;
@@ -48,15 +57,15 @@ export class SignupComponent implements OnInit {
     this.authService.signup(this.signupForm.value).subscribe({
       next: (res) => {
         this.isLoading = false;
-        alert('Account created successfully! Redirecting to your portal...');
         if (res.role === 'Instructor') {
-          this.router.navigate(['/instructor/dashboard']);
+          this.router.navigate(['/admin/courses']);
         } else {
           this.router.navigate(['/student/dashboard']);
         }
       },
-      error: () => {
+      error: (err) => {
         this.isLoading = false;
+        this.errorMessage = err.message || 'Failed to create account. Username or email may already be registered.';
       }
     });
   }

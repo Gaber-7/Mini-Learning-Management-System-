@@ -8,6 +8,7 @@ import { CourseManagementComponent } from './Features/admin/course-management-co
 import { DashboardComponent } from './Features/student/dashboard-component/dashboard-component';
 import { CourseCatalogComponent } from './Features/student/course-catalog-component/course-catalog-component';
 import { CourseClassroomComponent } from './Features/student/course-classroom/course-classroom.component';
+import { CertificateVerificationComponent } from './Features/student/certificate-verification/certificate-verification.component';
 import { authGuard } from './Core/Guards/auth.guard';
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'verify-certificate/:code', component: CertificateVerificationComponent },
   
   // 2. منطقة الآدمن المحمية
   { 

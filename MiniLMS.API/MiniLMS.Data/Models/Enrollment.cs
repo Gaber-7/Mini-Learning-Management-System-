@@ -1,4 +1,4 @@
-ï»¿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniLMS.Data.Models
+namespace GenAlpha.Data.Models
 {
     public class Enrollment
     {
@@ -35,7 +35,7 @@ namespace MiniLMS.Data.Models
         [ForeignKey("CourseId")]
         public virtual Course Course { get; set; } = null!;
 
-        // Ù‚Ø§Ø¦Ù…Ø© ØªØªØ¨Ø¹ ØªÙ‚Ø¯Ù… Ø§Ù„Ø¯Ø±ÙˆØ³ Ù„Ù‡Ø°Ø§ Ø§Ù„Ø§Ø´ØªØ±Ø§Ùƒ
+        // ÞÇÆãÉ ÊÊÈÚ ÊÞÏã ÇáÏÑæÓ áåÐÇ ÇáÇÔÊÑÇß
         public ICollection<LessonProgress> LessonProgresses { get; set; } = new List<LessonProgress>();
     }
 }

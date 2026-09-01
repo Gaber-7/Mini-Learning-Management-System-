@@ -1,11 +1,11 @@
-using MiniLMS.Business.DTOs;
+using GenAlpha.Business.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniLMS.Business.Interfaces
+namespace GenAlpha.Business.Interfaces
 {
     public interface ICourseService
     {

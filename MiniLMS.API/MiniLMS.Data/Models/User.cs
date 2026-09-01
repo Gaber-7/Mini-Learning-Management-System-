@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniLMS.Data.Models
+namespace GenAlpha.Data.Models
 {
     public class User
     {

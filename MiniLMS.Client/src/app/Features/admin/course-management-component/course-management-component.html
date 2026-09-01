@@ -1,458 +1,1091 @@
-<div class="container-fluid py-4 bg-light min-vh-100">
+<div class="dashboard-layout" [class.sidebar-collapsed]="sidebarCollapsed">
 
-  <!-- TOP HEADER / HERO -->
-  <div class="hero-section mb-4 p-4 rounded-4 shadow-sm bg-white border">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+  <!-- =========================================================
+       SIDEBAR
+  ========================================================== -->
+  <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+
+    <!-- Brand Header -->
+    <div class="sidebar-brand cursor-pointer" (click)="setNav('dashboard')">
+      <div class="brand-icon">
+        <i class="bi bi-mortarboard-fill"></i>
+      </div>
+      <div class="brand-text" *ngIf="!sidebarCollapsed">
+        <h3>MiniLMS</h3>
+        <span>Administration Hub</span>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="sidebar-nav">
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'dashboard'" (click)="setNav('dashboard')">
+        <i class="bi bi-speedometer2"></i>
+        <span *ngIf="!sidebarCollapsed">Dashboard</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'courses'" (click)="setNav('courses')">
+        <i class="bi bi-journal-bookmark"></i>
+        <span *ngIf="!sidebarCollapsed">Courses ({{ totalCourses }})</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'categories'" (click)="setNav('categories')">
+        <i class="bi bi-tags"></i>
+        <span *ngIf="!sidebarCollapsed">Categories</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'sections'" (click)="setNav('sections')">
+        <i class="bi bi-layers-fill"></i>
+        <span *ngIf="!sidebarCollapsed">Sections</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'lessons'" (click)="setNav('lessons')">
+        <i class="bi bi-file-earmark-play"></i>
+        <span *ngIf="!sidebarCollapsed">Lessons ({{ totalLessonsCount }})</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'students'" (click)="setNav('students')">
+        <i class="bi bi-people-fill"></i>
+        <span *ngIf="!sidebarCollapsed">Students ({{ totalStudentsCount }})</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'instructors'" (click)="setNav('instructors')">
+        <i class="bi bi-person-badge-fill"></i>
+        <span *ngIf="!sidebarCollapsed">Instructors ({{ totalInstructorsCount }})</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'reviews'" (click)="setNav('reviews')">
+        <i class="bi bi-star-fill text-warning"></i>
+        <span *ngIf="!sidebarCollapsed">Reviews ({{ totalReviewsCount }})</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'media'" (click)="setNav('media')">
+        <i class="bi bi-images"></i>
+        <span *ngIf="!sidebarCollapsed">Media Library</span>
+      </a>
+
+      <a class="nav-item cursor-pointer" [class.active]="activeNav === 'settings'" (click)="setNav('settings')">
+        <i class="bi bi-gear-fill"></i>
+        <span *ngIf="!sidebarCollapsed">Settings</span>
+      </a>
+    </nav>
+
+    <!-- Sidebar Bottom Profile & Collapse Button -->
+    <div class="sidebar-bottom">
+      <div class="admin-profile" *ngIf="!sidebarCollapsed">
+        <div class="profile-avatar">
+          <i class="bi bi-person-circle fs-3 text-info"></i>
+        </div>
+        <div class="profile-info">
+          <strong>Admin Control</strong>
+          <small class="text-muted">Master Manager</small>
+        </div>
+      </div>
+
+      <button class="collapse-btn" (click)="toggleSidebar()" title="Toggle Sidebar">
+        <i class="bi" [ngClass]="sidebarCollapsed ? 'bi-chevron-right' : 'bi-chevron-left'"></i>
+        <span *ngIf="!sidebarCollapsed">Collapse Menu</span>
+      </button>
+    </div>
+
+  </aside>
+
+  <!-- =========================================================
+       MAIN CONTENT CONTAINER
+  ========================================================== -->
+  <main class="main-content">
+
+    <!-- TOP BAR -->
+    <header class="top-navbar glass-card border-0 mb-4 px-4 py-3 d-flex justify-content-between align-items-center flex-wrap gap-3">
       <div class="d-flex align-items-center gap-3">
-        <div class="hero-icon rounded-3 p-3 bg-primary bg-opacity-10 text-primary fs-3">
-          <i class="bi bi-mortarboard-fill"></i>
-        </div>
+        <button class="btn btn-luxury-outline btn-sm d-md-none" (click)="toggleSidebar()">
+          <i class="bi bi-list fs-5"></i>
+        </button>
         <div>
-          <h1 class="h3 mb-1 fw-bold text-dark">Course Curriculum Management</h1>
-          <p class="text-muted mb-0">Build structured sections, video lessons, articles and resources effortlessly.</p>
+          <h4 class="fw-bold mb-0 text-capitalize text-white">
+            <i class="bi me-2 text-warning" [ngClass]="{
+              'bi-speedometer2': activeNav === 'dashboard',
+              'bi-journal-bookmark': activeNav === 'courses',
+              'bi-tags': activeNav === 'categories',
+              'bi-layers-fill': activeNav === 'sections',
+              'bi-file-earmark-play': activeNav === 'lessons',
+              'bi-people-fill': activeNav === 'students',
+              'bi-person-badge-fill': activeNav === 'instructors',
+              'bi-star-fill': activeNav === 'reviews',
+              'bi-images': activeNav === 'media',
+              'bi-gear-fill': activeNav === 'settings'
+            }"></i>
+            {{ activeNav }} Management
+          </h4>
+          <small class="text-muted">MiniLMS Administration & Analytics Suite</small>
         </div>
       </div>
-      <button class="btn btn-outline-danger px-3 py-2 rounded-3 fw-semibold" (click)="authService.logout()">
-        <i class="bi bi-box-arrow-right me-2"></i>
-        Logout
-      </button>
-    </div>
-  </div>
 
-  <!-- STATISTICS CARDS -->
-  <div class="row g-3 mb-4">
-    <div class="col-xl-3 col-md-6">
-      <div class="card stat-card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
-        <div class="d-flex align-items-center gap-3">
-          <div class="stat-icon-wrapper rounded-3 p-3 bg-primary bg-opacity-10 text-primary fs-4">
-            <i class="bi bi-journal-bookmark-fill"></i>
-          </div>
-          <div>
-            <small class="text-muted fw-semibold">Total Courses</small>
-            <h3 class="fw-bold text-dark mb-0">{{ totalCourses }}</h3>
-          </div>
-        </div>
+      <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-luxury-outline btn-sm rounded-pill px-3" (click)="loadAllData()" title="Refresh System Data">
+          <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+        </button>
+        <button class="btn btn-outline-danger btn-sm rounded-pill px-3" (click)="authService.logout()">
+          <i class="bi bi-box-arrow-right me-1"></i> Logout
+        </button>
       </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card stat-card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
-        <div class="d-flex align-items-center gap-3">
-          <div class="stat-icon-wrapper rounded-3 p-3 bg-success bg-opacity-10 text-success fs-4">
-            <i class="bi bi-check-circle-fill"></i>
-          </div>
-          <div>
-            <small class="text-muted fw-semibold">Published</small>
-            <h3 class="fw-bold text-success mb-0">{{ publishedCourses }}</h3>
-          </div>
-        </div>
+    </header>
+
+    <!-- ALERTS -->
+    <div *ngIf="successMessage" class="alert alert-success glass-card border-success text-white rounded-4 p-3 mb-4 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-check-circle-fill fs-5 text-success"></i>
+        <span>{{ successMessage }}</span>
       </div>
+      <button class="btn-close btn-close-white" (click)="clearAlerts()"></button>
     </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card stat-card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
-        <div class="d-flex align-items-center gap-3">
-          <div class="stat-icon-wrapper rounded-3 p-3 bg-warning bg-opacity-10 text-warning fs-4">
-            <i class="bi bi-pencil-square"></i>
-          </div>
-          <div>
-            <small class="text-muted fw-semibold">Draft</small>
-            <h3 class="fw-bold text-warning mb-0">{{ draftCourses }}</h3>
-          </div>
-        </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger glass-card border-danger text-white rounded-4 p-3 mb-4 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-2">
+        <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+        <span>{{ errorMessage }}</span>
       </div>
-    </div>
-    <div class="col-xl-3 col-md-6">
-      <div class="card stat-card border-0 shadow-sm rounded-4 p-3 bg-white h-100">
-        <div class="d-flex align-items-center gap-3">
-          <div class="stat-icon-wrapper rounded-3 p-3 bg-info bg-opacity-10 text-info fs-4">
-            <i class="bi bi-collection-play-fill"></i>
-          </div>
-          <div>
-            <small class="text-muted fw-semibold">Total Lessons</small>
-            <h3 class="fw-bold text-info mb-0">{{ totalLessonsCount }}</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FLOATING TOASTS / ALERTS -->
-  <div *ngIf="successMessage" class="alert alert-success shadow-lg border-0 alert-floating d-flex align-items-center gap-2">
-    <i class="bi bi-check-circle-fill fs-5"></i>
-    <span>{{ successMessage }}</span>
-  </div>
-  <div *ngIf="errorMessage" class="alert alert-danger shadow-lg border-0 alert-floating d-flex align-items-center gap-2">
-    <i class="bi bi-exclamation-triangle-fill fs-5"></i>
-    <span>{{ errorMessage }}</span>
-  </div>
-
-  <!-- MAIN 2-COLUMN SECTION -->
-  <div class="row g-4 mb-4">
-
-    <!-- LEFT COLUMN: CREATE / EDIT COURSE FORM -->
-    <div class="col-lg-4">
-      <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
-        <h4 class="fw-bold mb-4 d-flex align-items-center gap-2 text-dark">
-          <i class="bi" [ngClass]="isEditingCourse ? 'bi-pencil-square text-warning' : 'bi-plus-circle-fill text-primary'"></i>
-          {{ isEditingCourse ? 'Edit Course Details' : 'Create New Course' }}
-        </h4>
-
-        <div class="mb-3">
-          <label class="form-label fw-semibold text-secondary small">Course Title *</label>
-          <input type="text" class="form-control rounded-3 p-3 border-light-subtle" [(ngModel)]="courseForm.title" placeholder="e.g. Complete Angular & .NET Masterclass">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label fw-semibold text-secondary small">Category *</label>
-          <input type="text" class="form-control rounded-3 p-3 border-light-subtle" [(ngModel)]="courseForm.category" placeholder="e.g. Web Development, Cloud, AI">
-        </div>
-
-        <div class="mb-4">
-          <label class="form-label fw-semibold text-secondary small">Description</label>
-          <textarea rows="4" class="form-control rounded-3 p-3 border-light-subtle" [(ngModel)]="courseForm.description" placeholder="Write an engaging overview for this course..."></textarea>
-        </div>
-
-        <div class="d-grid gap-2">
-          <button class="btn btn-primary rounded-3 py-3 fw-bold shadow-sm" (click)="saveCourse()">
-            <i class="bi bi-check2-circle me-2"></i>
-            {{ isEditingCourse ? 'Update Course' : 'Save & Continue' }}
-          </button>
-          <button *ngIf="isEditingCourse" class="btn btn-outline-secondary rounded-3 py-2" (click)="resetCourseForm()">
-            Cancel Edit
-          </button>
-        </div>
-      </div>
+      <button class="btn-close btn-close-white" (click)="clearAlerts()"></button>
     </div>
 
-    <!-- RIGHT COLUMN: COURSES LIST & SEARCH -->
-    <div class="col-lg-8">
-      <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-          <h4 class="fw-bold text-dark mb-0">Course Catalog ({{ filteredCourses().length }})</h4>
-          <div class="search-input-wrapper position-relative flex-grow-1" style="max-width: 340px;">
-            <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-            <input type="text" class="form-control rounded-pill ps-5 py-2 border-light-subtle" placeholder="Search by title or category..." [(ngModel)]="searchText">
-          </div>
-        </div>
-
-        <div *ngIf="loading" class="text-center py-5">
-          <div class="spinner-border text-primary" role="status"></div>
-          <p class="text-muted mt-2">Loading courses...</p>
-        </div>
-
-        <div *ngIf="!loading && filteredCourses().length === 0" class="text-center py-5">
-          <i class="bi bi-folder2-open text-muted fs-1 mb-2 d-block"></i>
-          <h6 class="fw-bold text-secondary">No courses found</h6>
-          <p class="text-muted small">Create a new course using the form on the left.</p>
-        </div>
-
-        <div class="row g-3" *ngIf="!loading">
-          <div class="col-md-6" *ngFor="let course of filteredCourses()">
-            <div class="card course-card border rounded-4 p-3 h-100 shadow-sm transition-all" [class.border-primary]="selectedCourse?.id === course.id">
-              
-              <!-- Card Header -->
+    <!-- =========================================================
+         SECTION 1: DASHBOARD
+    ========================================================== -->
+    @if (activeNav === 'dashboard') {
+      <div class="dashboard-overview-view">
+        
+        <!-- KPI Metrics Grid -->
+        <div class="row g-3 mb-4">
+          <div class="col-sm-6 col-xl-3">
+            <div class="glass-panel p-4 h-100 cursor-pointer" (click)="setNav('courses')">
               <div class="d-flex justify-content-between align-items-center mb-2">
-                <span class="badge bg-light text-primary border px-3 py-2 rounded-pill fw-semibold small">
-                  {{ course.category }}
-                </span>
-                <span class="badge px-3 py-2 rounded-pill fw-semibold" [ngClass]="course.isPublished ? 'bg-success-subtle text-success' : 'bg-warning-subtle text-warning'">
-                  <i class="bi me-1" [ngClass]="course.isPublished ? 'bi-check-circle-fill' : 'bi-clock-fill'"></i>
-                  {{ course.isPublished ? 'Published' : 'Draft' }}
-                </span>
+                <span class="badge-navy">COURSES</span>
+                <i class="bi bi-journal-bookmark fs-3 text-info"></i>
               </div>
+              <h2 class="display-6 fw-bold text-white mb-1">{{ totalCourses }}</h2>
+              <small class="text-muted">{{ publishedCourses }} Published | {{ draftCourses }} Drafts</small>
+            </div>
+          </div>
 
-              <!-- Title & Description -->
-              <h5 class="fw-bold text-dark mb-1 line-clamp-1" [title]="course.title">{{ course.title }}</h5>
-              <p class="text-muted small mb-3 line-clamp-2">{{ course.description || 'No description provided.' }}</p>
+          <div class="col-sm-6 col-xl-3">
+            <div class="glass-panel p-4 h-100 cursor-pointer" (click)="setNav('students')">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge-burgundy">STUDENTS</span>
+                <i class="bi bi-people-fill fs-3 text-danger"></i>
+              </div>
+              <h2 class="display-6 fw-bold text-white mb-1">{{ totalStudentsCount }}</h2>
+              <small class="text-muted">Registered Active Learners</small>
+            </div>
+          </div>
 
-              <!-- Structure Info -->
-              <div class="d-flex align-items-center gap-3 text-muted small mb-3 p-2 bg-light rounded-3">
-                <div class="d-flex align-items-center gap-1">
-                  <i class="bi bi-layers-fill text-primary"></i>
-                  <strong>{{ getCourseSectionsCount(course) }}</strong> Sections
+          <div class="col-sm-6 col-xl-3">
+            <div class="glass-panel p-4 h-100 cursor-pointer" (click)="setNav('instructors')">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge-gold">INSTRUCTORS</span>
+                <i class="bi bi-person-badge-fill fs-3 text-warning"></i>
+              </div>
+              <h2 class="display-6 fw-bold text-white mb-1">{{ totalInstructorsCount }}</h2>
+              <small class="text-muted">Verified Course Creators</small>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-xl-3">
+            <div class="glass-panel p-4 h-100 cursor-pointer" (click)="setNav('lessons')">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge-navy">LESSONS</span>
+                <i class="bi bi-file-earmark-play fs-3 text-primary"></i>
+              </div>
+              <h2 class="display-6 fw-bold text-white mb-1">{{ totalLessonsCount }}</h2>
+              <small class="text-muted">Interactive Content & Videos</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions & Recent Updates -->
+        <div class="row g-4 mb-4">
+          <div class="col-lg-7">
+            <div class="glass-panel p-4 h-100">
+              <h5 class="fw-bold text-white mb-3"><i class="bi bi-lightning-charge-fill text-warning me-2"></i>Quick Management Shortcuts</h5>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <button class="btn btn-luxury-primary w-100 py-3 d-flex align-items-center justify-content-center gap-2" (click)="setNav('courses'); openCreateCourseModal()">
+                    <i class="bi bi-plus-circle-fill"></i> Create New Course
+                  </button>
                 </div>
-                <div class="d-flex align-items-center gap-1">
-                  <i class="bi bi-play-circle-fill text-info"></i>
-                  <strong>{{ getCourseLessonsCount(course) }}</strong> Lessons
+                <div class="col-md-6">
+                  <button class="btn btn-luxury-navy w-100 py-3 d-flex align-items-center justify-content-center gap-2" (click)="setNav('students'); openCreateStudentModal()">
+                    <i class="bi bi-person-plus-fill"></i> Add New Student
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-luxury-navy w-100 py-3 d-flex align-items-center justify-content-center gap-2" (click)="setNav('instructors'); openCreateInstructorModal()">
+                    <i class="bi bi-person-video3"></i> Add New Instructor
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button class="btn btn-luxury-outline w-100 py-3 d-flex align-items-center justify-content-center gap-2" (click)="setNav('media'); openAddMediaModal()">
+                    <i class="bi bi-cloud-arrow-up-fill"></i> Upload Media Asset
+                  </button>
                 </div>
               </div>
+            </div>
+          </div>
 
-              <!-- Actions -->
-              <div class="d-flex gap-2 flex-wrap mt-auto">
-                <button class="btn btn-primary btn-sm rounded-3 flex-grow-1 fw-semibold py-2" (click)="manageStructure(course)">
-                  <i class="bi bi-diagram-3-fill me-1"></i>
-                  Curriculum & Lessons
-                </button>
-                <button class="btn btn-outline-secondary btn-sm rounded-3 px-3" (click)="editCourse(course)" title="Edit course info">
-                  <i class="bi bi-pencil-fill"></i>
-                </button>
-                <button *ngIf="!course.isPublished" class="btn btn-outline-success btn-sm rounded-3 px-3" (click)="publishCourse(course.id)" title="Publish Course">
-                  <i class="bi bi-cloud-upload-fill"></i>
-                </button>
-                <button class="btn btn-outline-danger btn-sm rounded-3 px-3" (click)="deleteCourse(course.id)" title="Delete course">
-                  <i class="bi bi-trash-fill"></i>
-                </button>
-              </div>
-
+          <div class="col-lg-5">
+            <div class="glass-panel p-4 h-100">
+              <h5 class="fw-bold text-white mb-3"><i class="bi bi-activity text-info me-2"></i>System Health & Status</h5>
+              <ul class="list-unstyled mb-0 d-flex flex-column gap-3">
+                <li class="d-flex justify-content-between align-items-center border-bottom border-white border-opacity-10 pb-2">
+                  <span class="text-muted">Database Connection</span>
+                  <span class="badge bg-success rounded-pill px-3 py-1">Operational ✓</span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center border-bottom border-white border-opacity-10 pb-2">
+                  <span class="text-muted">Total Categories</span>
+                  <span class="badge-gold">{{ categories.length }} Active</span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center border-bottom border-white border-opacity-10 pb-2">
+                  <span class="text-muted">Total Reviews</span>
+                  <span class="badge-burgundy">{{ reviews.length }} Verified</span>
+                </li>
+                <li class="d-flex justify-content-between align-items-center">
+                  <span class="text-muted">Platform Architecture</span>
+                  <span class="badge bg-info text-dark rounded-pill px-3 py-1">Clean Architecture .NET 9</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
 
       </div>
-    </div>
+    }
 
-  </div>
-
-  <!-- CURRICULUM & SECTIONS BUILDER PANEL -->
-  <div id="structure-panel" *ngIf="selectedCourse" class="card border-0 shadow-lg rounded-4 p-4 bg-white mb-5">
-    
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pb-3 border-bottom mb-4">
-      <div>
-        <div class="d-flex align-items-center gap-2 mb-1">
-          <span class="badge bg-primary rounded-pill px-3 py-2">Curriculum Builder</span>
-          <span class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-2">{{ selectedCourse.category }}</span>
-        </div>
-        <h3 class="fw-bold text-dark mb-0">{{ selectedCourse.title }}</h3>
-      </div>
-      <div class="d-flex gap-2">
-        <button class="btn btn-primary rounded-3 px-3 py-2 fw-semibold" (click)="toggleAddSection()">
-          <i class="bi bi-folder-plus me-2"></i>
-          {{ isAddingSection ? 'Cancel Section' : '+ New Section' }}
-        </button>
-        <button class="btn btn-outline-dark rounded-3 px-3 py-2" (click)="closeStructure()">
-          <i class="bi bi-x-lg me-1"></i>
-          Close
-        </button>
-      </div>
-    </div>
-
-    <!-- ADD SECTION FORM -->
-    <div *ngIf="isAddingSection" class="card border-primary border-2 rounded-4 p-4 mb-4 bg-primary bg-opacity-10">
-      <h5 class="fw-bold text-primary mb-3">
-        <i class="bi bi-folder-plus me-2"></i>
-        Add New Course Section
-      </h5>
-      <div class="row g-3">
-        <div class="col-md-9">
-          <input type="text" class="form-control rounded-3 p-3 bg-white" placeholder="Section Title (e.g. Chapter 1: Introduction to Web Architecture)" [(ngModel)]="sectionForm.title">
-        </div>
-        <div class="col-md-3 d-flex gap-2">
-          <button class="btn btn-primary rounded-3 px-4 fw-bold flex-grow-1" (click)="saveSection()">Save Section</button>
-          <button class="btn btn-outline-secondary rounded-3 px-3" (click)="toggleAddSection()">Cancel</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- SECTIONS LIST -->
-    <div *ngIf="!selectedCourse.sections?.length && !selectedCourse.lessons?.length" class="text-center py-5 bg-light rounded-4 border">
-      <i class="bi bi-layers text-muted fs-1 mb-2 d-block"></i>
-      <h5 class="fw-bold text-secondary">This course has no sections or lessons yet</h5>
-      <p class="text-muted small mb-3">Click on <strong>"+ New Section"</strong> above to start organizing course chapters.</p>
-      <button class="btn btn-primary rounded-3 px-4 py-2" (click)="toggleAddSection()">
-        <i class="bi bi-plus-circle me-2"></i>
-        Create First Section
-      </button>
-    </div>
-
-    <div class="sections-container d-flex flex-column gap-4" *ngIf="selectedCourse.sections?.length">
-      <div class="card section-card border rounded-4 shadow-sm overflow-hidden" *ngFor="let section of selectedCourse.sections; let sIdx = index">
+    <!-- =========================================================
+         SECTION 2: COURSES
+    ========================================================== -->
+    @if (activeNav === 'courses') {
+      <div class="courses-management-view">
         
-        <!-- SECTION HEADER -->
-        <div class="card-header bg-white p-3 d-flex justify-content-between align-items-center flex-wrap gap-2 border-bottom">
-          <div class="d-flex align-items-center gap-3 flex-grow-1">
-            <span class="badge bg-dark rounded-pill px-3 py-2 fw-bold">
-              Section {{ sIdx + 1 }}
-            </span>
-            
-            <div *ngIf="editingSectionId !== section.id" class="fw-bold text-dark fs-5">
-              {{ section.title }}
-              <span class="badge bg-light text-muted border ms-2 rounded-pill fs-6 fw-normal">
-                {{ section.lessons.length }} Lessons
+        <!-- Controls Bar -->
+        <div class="glass-panel p-4 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="d-flex align-items-center gap-3 flex-grow-1" style="max-width: 600px;">
+            <div class="input-group">
+              <span class="input-group-text glass-input-icon border-end-0">
+                <i class="bi bi-search text-muted"></i>
               </span>
+              <input
+                type="text"
+                class="form-control glass-input border-start-0 ps-0"
+                placeholder="Search courses by title or category..."
+                [(ngModel)]="searchText">
             </div>
 
-            <!-- Inline Edit Section Title -->
-            <div *ngIf="editingSectionId === section.id" class="d-flex gap-2 flex-grow-1" style="max-width: 500px;">
-              <input type="text" class="form-control form-control-sm" [(ngModel)]="sectionForm.title">
-              <button class="btn btn-sm btn-success px-3" (click)="saveSection()"><i class="bi bi-check-lg"></i></button>
-              <button class="btn btn-sm btn-secondary px-3" (click)="cancelEditSection()"><i class="bi bi-x-lg"></i></button>
-            </div>
+            <select class="form-select glass-input w-auto" [(ngModel)]="selectedCategoryFilter">
+              <option value="">All Categories</option>
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
           </div>
 
-          <div class="d-flex align-items-center gap-2">
-            <button class="btn btn-outline-primary btn-sm rounded-3 px-3 fw-semibold" (click)="openAddLessonModal(section.id)">
-              <i class="bi bi-plus-lg me-1"></i>
-              Add Lesson
-            </button>
-            <button class="btn btn-light btn-sm rounded-3" (click)="moveSectionUp(sIdx)" [disabled]="sIdx === 0" title="Move Section Up">
-              <i class="bi bi-arrow-up"></i>
-            </button>
-            <button class="btn btn-light btn-sm rounded-3" (click)="moveSectionDown(sIdx)" [disabled]="sIdx === (selectedCourse.sections?.length || 0) - 1" title="Move Section Down">
-              <i class="bi bi-arrow-down"></i>
-            </button>
-            <button class="btn btn-light btn-sm rounded-3 text-warning" (click)="editSection(section)" title="Edit Section Title">
-              <i class="bi bi-pencil-fill"></i>
-            </button>
-            <button class="btn btn-light btn-sm rounded-3 text-danger" (click)="deleteSection(section.id)" title="Delete Section">
-              <i class="bi bi-trash-fill"></i>
-            </button>
-          </div>
-        </div>
-
-        <!-- SECTION LESSONS LIST -->
-        <div class="card-body p-3 bg-light-subtle">
-          
-          <div *ngIf="!section.lessons.length" class="text-center py-3 text-muted small">
-            <i class="bi bi-play-circle me-1"></i>
-            No lessons inside this section yet. Click <strong>"Add Lesson"</strong> to create the first video, article, or resource.
-          </div>
-
-          <div class="d-flex flex-column gap-2" *ngIf="section.lessons.length">
-            <div class="lesson-row card border-0 shadow-sm rounded-3 p-3 bg-white d-flex flex-row justify-content-between align-items-center flex-wrap gap-2" *ngFor="let lesson of section.lessons; let lIdx = index">
-              
-              <!-- Lesson Left Info -->
-              <div class="d-flex align-items-center gap-3">
-                <span class="text-muted fw-bold small" style="min-width: 24px;">{{ lIdx + 1 }}.</span>
-                
-                <!-- Lesson Type Icon Badge -->
-                <span class="badge p-2 rounded-3" [ngClass]="{
-                  'bg-primary bg-opacity-10 text-primary': lesson.lessonType === 'Video' || !lesson.lessonType,
-                  'bg-success bg-opacity-10 text-success': lesson.lessonType === 'Article',
-                  'bg-warning bg-opacity-10 text-warning': lesson.lessonType === 'Resource'
-                }">
-                  <i class="bi" [ngClass]="{
-                    'bi-play-fill fs-5': lesson.lessonType === 'Video' || !lesson.lessonType,
-                    'bi-file-text-fill fs-5': lesson.lessonType === 'Article',
-                    'bi-paperclip fs-5': lesson.lessonType === 'Resource'
-                  }"></i>
-                </span>
-
-                <div>
-                  <div class="d-flex align-items-center gap-2">
-                    <h6 class="fw-bold text-dark mb-0">{{ lesson.title }}</h6>
-                    <span *ngIf="lesson.isFreePreview" class="badge bg-success rounded-pill small" style="font-size: 0.7rem;">Free Preview</span>
-                  </div>
-                  <div class="d-flex align-items-center gap-3 text-muted small mt-1">
-                    <span class="text-capitalize">{{ lesson.lessonType || 'Video' }}</span>
-                    <span *ngIf="lesson.durationMinutes"><i class="bi bi-clock me-1"></i>{{ lesson.durationMinutes }} min</span>
-                    <span *ngIf="lesson.videoUrl" class="text-truncate" style="max-width: 250px;"><i class="bi bi-link-45deg me-1"></i>{{ lesson.videoUrl }}</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Lesson Right Actions -->
-              <div class="d-flex align-items-center gap-2">
-                <button class="btn btn-light btn-sm rounded-2" (click)="moveLessonUp(section, lIdx)" [disabled]="lIdx === 0" title="Move Up">
-                  <i class="bi bi-arrow-up"></i>
-                </button>
-                <button class="btn btn-light btn-sm rounded-2" (click)="moveLessonDown(section, lIdx)" [disabled]="lIdx === section.lessons.length - 1" title="Move Down">
-                  <i class="bi bi-arrow-down"></i>
-                </button>
-                <button class="btn btn-outline-secondary btn-sm rounded-2 px-3" (click)="openEditLessonModal(lesson, section.id)">
-                  <i class="bi bi-pencil-fill me-1"></i>
-                  Edit
-                </button>
-                <button class="btn btn-outline-danger btn-sm rounded-2" (click)="deleteLesson(lesson.id)" title="Delete Lesson">
-                  <i class="bi bi-trash-fill"></i>
-                </button>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <!-- ADD / EDIT LESSON MODAL -->
-  <div class="modal fade show d-block" *ngIf="lessonModalOpen" tabindex="-1" style="background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
-        
-        <div class="modal-header bg-dark text-white p-4">
-          <h5 class="modal-title fw-bold">
-            <i class="bi" [ngClass]="isEditingLesson ? 'bi-pencil-square text-warning' : 'bi-plus-circle text-primary'"></i>
-            {{ isEditingLesson ? 'Edit Lesson' : 'Add New Lesson' }}
-          </h5>
-          <button type="button" class="btn-close btn-close-white" (click)="closeLessonModal()"></button>
-        </div>
-
-        <div class="modal-body p-4">
-          
-          <!-- Lesson Title -->
-          <div class="mb-3">
-            <label class="form-label fw-semibold text-secondary small">Lesson Title *</label>
-            <input type="text" class="form-control rounded-3 p-3" [(ngModel)]="lessonForm.title" placeholder="e.g. Understanding Dependency Injection in .NET">
-          </div>
-
-          <!-- Section Selection & Type Selection -->
-          <div class="row g-3 mb-3">
-            <div class="col-md-6">
-              <label class="form-label fw-semibold text-secondary small">Assign to Section</label>
-              <select class="form-select rounded-3 p-3" [(ngModel)]="lessonForm.sectionId">
-                <option [ngValue]="undefined">Direct Course Lesson (No Section)</option>
-                <option *ngFor="let sec of selectedCourse?.sections" [ngValue]="sec.id">{{ sec.title }}</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label class="form-label fw-semibold text-secondary small">Content Type *</label>
-              <select class="form-select rounded-3 p-3" [(ngModel)]="lessonForm.lessonType">
-                <option value="Video">🎥 Video Stream (YouTube / Vimeo / MP4)</option>
-                <option value="Article">📄 Article / Reading Content</option>
-                <option value="Resource">📎 Downloadable Resource / File Link</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Video Fields (If Video Type) -->
-          <div class="p-3 bg-light rounded-4 mb-3 border" *ngIf="lessonForm.lessonType === 'Video'">
-            <div class="row g-3">
-              <div class="col-md-8">
-                <label class="form-label fw-semibold text-secondary small">Video URL (Embed or Direct Link)</label>
-                <input type="text" class="form-control rounded-3 p-2 bg-white" placeholder="https://www.youtube.com/watch?v=... or .mp4 link" [(ngModel)]="lessonForm.videoUrl">
-              </div>
-              <div class="col-md-4">
-                <label class="form-label fw-semibold text-secondary small">Duration (Minutes)</label>
-                <input type="number" class="form-control rounded-3 p-2 bg-white" min="0" [(ngModel)]="lessonForm.durationMinutes">
-              </div>
-            </div>
-          </div>
-
-          <!-- Resource Field (If Resource Type) -->
-          <div class="p-3 bg-light rounded-4 mb-3 border" *ngIf="lessonForm.lessonType === 'Resource'">
-            <label class="form-label fw-semibold text-secondary small">Resource / Attachment Download Link</label>
-            <input type="text" class="form-control rounded-3 p-2 bg-white" placeholder="https://.../source-code.zip or slides.pdf" [(ngModel)]="lessonForm.resourceUrl">
-          </div>
-
-          <!-- Free Preview Switch -->
-          <div class="form-check form-switch mb-3 p-3 bg-light rounded-3 d-flex align-items-center justify-content-between">
-            <div>
-              <label class="form-check-label fw-bold text-dark mb-0" for="freePreviewSwitch">Allow Free Preview</label>
-              <small class="text-muted d-block">Let students watch or read this lesson before enrolling in the course.</small>
-            </div>
-            <input class="form-check-input ms-0 fs-4" type="checkbox" role="switch" id="freePreviewSwitch" [(ngModel)]="lessonForm.isFreePreview">
-          </div>
-
-          <!-- Lesson Notes / Article Content -->
-          <div class="mb-3">
-            <label class="form-label fw-semibold text-secondary small">
-              {{ lessonForm.lessonType === 'Article' ? 'Article Body (Rich Text / Markdown) *' : 'Lesson Description & Notes' }}
-            </label>
-            <textarea rows="5" class="form-control rounded-3 p-3" [(ngModel)]="lessonForm.content" placeholder="Provide detailed lesson notes, code snippets, or full article content..."></textarea>
-          </div>
-
-        </div>
-
-        <div class="modal-footer bg-light p-3">
-          <button type="button" class="btn btn-outline-secondary rounded-3 px-4" (click)="closeLessonModal()">Cancel</button>
-          <button type="button" class="btn btn-primary rounded-3 px-4 fw-bold" (click)="saveLesson()">
-            <i class="bi bi-check2-circle me-2"></i>
-            {{ isEditingLesson ? 'Update Lesson' : 'Save Lesson' }}
+          <button class="btn btn-luxury-primary d-flex align-items-center gap-2" (click)="openCreateCourseModal()">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Create New Course</span>
           </button>
         </div>
 
+        <!-- Course Cards Grid -->
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-4" *ngFor="let course of filteredCourses">
+            <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-between position-relative">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge-navy">{{ course.category }}</span>
+                  <span class="badge" [ngClass]="course.isPublished ? 'bg-success' : 'bg-secondary'">
+                    {{ course.isPublished ? 'Published' : 'Draft' }}
+                  </span>
+                </div>
+
+                <h4 class="fw-bold text-white mb-2">{{ course.title }}</h4>
+                <p class="text-muted small mb-3 text-truncate-2">{{ course.description }}</p>
+
+                <div class="d-flex align-items-center justify-content-between text-muted small border-top border-white border-opacity-10 pt-3 mb-3">
+                  <span><i class="bi bi-layers text-info me-1"></i> {{ course.sections?.length || 0 }} Sections</span>
+                  <span><i class="bi bi-star-fill text-warning me-1"></i> {{ course.averageRating || '5.0' }}</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex gap-2 border-top border-white border-opacity-10 pt-3">
+                <button class="btn btn-luxury-navy btn-sm flex-fill" (click)="openEditCourseModal(course)">
+                  <i class="bi bi-pencil-square me-1"></i> Edit
+                </button>
+                <button
+                  class="btn btn-sm flex-fill"
+                  [ngClass]="course.isPublished ? 'btn-outline-warning' : 'btn-outline-success'"
+                  (click)="togglePublish(course)">
+                  {{ course.isPublished ? 'Unpublish' : 'Publish' }}
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="confirmDeleteCourse(course)" title="Delete Course">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 3: SECTIONS
+    ========================================================== -->
+    @if (activeNav === 'sections') {
+      <div class="sections-management-view">
+        
+        <div class="glass-panel p-4 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <label class="text-white fw-bold">Select Course:</label>
+            <select class="form-select glass-input" [(ngModel)]="selectedCourseForSections" style="min-width: 280px;">
+              <option *ngFor="let c of courses" [value]="c.id">{{ c.title }}</option>
+            </select>
+          </div>
+
+          <button class="btn btn-luxury-primary d-flex align-items-center gap-2" (click)="openCreateSectionModal()">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Add New Section</span>
+          </button>
+        </div>
+
+        <!-- Sections List -->
+        @if (currentSectionsCourse; as course) {
+          @if (!course.sections || course.sections.length === 0) {
+            <div class="glass-panel p-5 text-center">
+              <i class="bi bi-layers text-muted fs-1 mb-2 d-block"></i>
+              <h5 class="text-white fw-bold">No Sections Created Yet</h5>
+              <p class="text-muted small">Create the first chapter or section for this course.</p>
+              <button class="btn btn-luxury-primary btn-sm rounded-pill px-4" (click)="openCreateSectionModal()">Add Section</button>
+            </div>
+          }
+          @else {
+            <div class="row g-3">
+              <div class="col-md-6" *ngFor="let sec of course.sections; let sIdx = index">
+                <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-between">
+                  <div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="badge-gold">Section {{ sIdx + 1 }}</span>
+                      <span class="text-muted small"><i class="bi bi-play-circle me-1"></i>{{ sec.lessons?.length || 0 }} Lessons</span>
+                    </div>
+                    <h4 class="fw-bold text-white mb-2">{{ sec.title }}</h4>
+                  </div>
+
+                  <div class="d-flex gap-2 border-top border-white border-opacity-10 pt-3">
+                    <button class="btn btn-luxury-navy btn-sm flex-fill" (click)="openEditSectionModal(sec)">
+                      <i class="bi bi-pencil me-1"></i> Edit Title
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm" (click)="confirmDeleteSection(sec)">
+                      <i class="bi bi-trash me-1"></i> Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        }
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 4: LESSONS
+    ========================================================== -->
+    @if (activeNav === 'lessons') {
+      <div class="lessons-management-view">
+        
+        <div class="glass-panel p-4 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <label class="text-white fw-bold">Course:</label>
+            <select class="form-select glass-input" [(ngModel)]="selectedCourseForLessons" style="min-width: 250px;">
+              <option *ngFor="let c of courses" [value]="c.id">{{ c.title }}</option>
+            </select>
+          </div>
+
+          <button class="btn btn-luxury-primary d-flex align-items-center gap-2" (click)="openCreateLessonModal()">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Add New Lesson</span>
+          </button>
+        </div>
+
+        <!-- Lessons Table -->
+        <div class="glass-panel p-4">
+          <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0 bg-transparent">
+              <thead>
+                <tr class="text-muted border-bottom border-white border-opacity-10">
+                  <th>Order</th>
+                  <th>Lesson Title</th>
+                  <th>Type</th>
+                  <th>Duration</th>
+                  <th>Free Preview</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let les of allLessonsForSelectedCourse; let lIdx = index">
+                  <td class="text-muted fw-bold">{{ lIdx + 1 }}</td>
+                  <td>
+                    <strong class="text-white d-block">{{ les.title }}</strong>
+                    <small *ngIf="les.videoUrl" class="text-info cursor-pointer" (click)="openVideoPreview(les)">
+                      <i class="bi bi-play-fill"></i> Preview Video
+                    </small>
+                  </td>
+                  <td><span class="badge-navy">{{ les.lessonType || 'Video' }}</span></td>
+                  <td>{{ les.durationMinutes || 10 }} mins</td>
+                  <td>
+                    <span class="badge" [ngClass]="les.isFreePreview ? 'bg-success' : 'bg-secondary'">
+                      {{ les.isFreePreview ? 'Yes' : 'No' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-luxury-navy btn-sm" (click)="openEditLessonModal(les)" title="Edit">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="confirmDeleteLesson(les)" title="Delete">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 5: STUDENTS
+    ========================================================== -->
+    @if (activeNav === 'students') {
+      <div class="students-management-view">
+        
+        <div class="glass-panel p-4 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="input-group" style="max-width: 450px;">
+            <span class="input-group-text glass-input-icon border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control glass-input border-start-0 ps-0"
+              placeholder="Search students by name, email, or username..."
+              [(ngModel)]="studentSearchText">
+          </div>
+
+          <button class="btn btn-luxury-primary d-flex align-items-center gap-2" (click)="openCreateStudentModal()">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Add New Student</span>
+          </button>
+        </div>
+
+        <!-- Students Table -->
+        <div class="glass-panel p-4">
+          <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0 bg-transparent">
+              <thead>
+                <tr class="text-muted border-bottom border-white border-opacity-10">
+                  <th>Student</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Enrolled Courses</th>
+                  <th>Completed</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of filteredStudents">
+                  <td>
+                    <div class="d-flex align-items-center gap-2">
+                      <i class="bi bi-person-circle fs-4 text-info"></i>
+                      <strong class="text-white">{{ s.fullName }}</strong>
+                    </div>
+                  </td>
+                  <td class="text-muted">&#64;{{ s.username }}</td>
+                  <td>{{ s.email }}</td>
+                  <td><span class="badge-navy">{{ s.totalEnrollments }} Courses</span></td>
+                  <td><span class="badge bg-success">{{ s.completedCourses }} Done</span></td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-luxury-navy btn-sm" (click)="openEditStudentModal(s)" title="Edit Student">
+                        <i class="bi bi-pencil-square"></i> Edit
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="confirmDeleteStudent(s)" title="Delete Student">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 6: INSTRUCTORS
+    ========================================================== -->
+    @if (activeNav === 'instructors') {
+      <div class="instructors-management-view">
+        
+        <div class="glass-panel p-4 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="input-group" style="max-width: 450px;">
+            <span class="input-group-text glass-input-icon border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control glass-input border-start-0 ps-0"
+              placeholder="Search instructors by name, headline, or email..."
+              [(ngModel)]="instructorSearchText">
+          </div>
+
+          <button class="btn btn-luxury-primary d-flex align-items-center gap-2" (click)="openCreateInstructorModal()">
+            <i class="bi bi-person-plus-fill"></i>
+            <span>Add New Instructor</span>
+          </button>
+        </div>
+
+        <!-- Instructors Cards Grid -->
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-4" *ngFor="let inst of filteredInstructors">
+            <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  <div class="rounded-circle p-2 bg-primary bg-opacity-25 text-primary fs-3">
+                    <i class="bi bi-person-video3"></i>
+                  </div>
+                  <div>
+                    <h5 class="fw-bold text-white mb-0">{{ inst.fullName }}</h5>
+                    <small class="text-warning">&#64;{{ inst.username }}</small>
+                  </div>
+                </div>
+
+                <p class="text-info small mb-2 fw-semibold">{{ inst.headline || 'Instructor & Content Specialist' }}</p>
+                <p class="text-muted small mb-3 text-truncate-2">{{ inst.bio || 'Experienced educator teaching on MiniLMS.' }}</p>
+
+                <div class="d-flex justify-content-between text-muted small border-top border-white border-opacity-10 pt-3 mb-3">
+                  <span><i class="bi bi-journal-check me-1 text-primary"></i> {{ inst.totalCourses }} Courses</span>
+                  <span><i class="bi bi-people me-1 text-success"></i> {{ inst.totalStudentsCount }} Students</span>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex gap-2 border-top border-white border-opacity-10 pt-3">
+                <button class="btn btn-luxury-navy btn-sm flex-fill" (click)="openEditInstructorModal(inst)">
+                  <i class="bi bi-pencil-square me-1"></i> Edit
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="confirmDeleteInstructor(inst)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 7: CATEGORIES
+    ========================================================== -->
+    @if (activeNav === 'categories') {
+      <div class="categories-management-view">
+        
+        <div class="glass-panel p-4 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="input-group" style="max-width: 400px;">
+            <span class="input-group-text glass-input-icon border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control glass-input border-start-0 ps-0"
+              placeholder="Search categories..."
+              [(ngModel)]="categorySearchText">
+          </div>
+
+          <button class="btn btn-luxury-primary d-flex align-items-center gap-2" (click)="openCreateCategoryModal()">
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Add New Category</span>
+          </button>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-sm-6 col-md-4 col-xl-3" *ngFor="let cat of filteredCategories">
+            <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <i class="bi bi-folder-fill fs-3 text-warning"></i>
+                  <span class="badge-navy">{{ getCategoryCoursesCount(cat) }} Courses</span>
+                </div>
+                <h5 class="fw-bold text-white mb-2">{{ cat }}</h5>
+              </div>
+
+              <div class="d-flex gap-2 border-top border-white border-opacity-10 pt-3">
+                <button class="btn btn-luxury-navy btn-sm flex-fill" (click)="openEditCategoryModal(cat)">Edit</button>
+                <button class="btn btn-outline-danger btn-sm" (click)="confirmDeleteCategory(cat)">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 8: REVIEWS
+    ========================================================== -->
+    @if (activeNav === 'reviews') {
+      <div class="reviews-management-view">
+        
+        <div class="glass-panel p-4 mb-4">
+          <div class="input-group" style="max-width: 450px;">
+            <span class="input-group-text glass-input-icon border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control glass-input border-start-0 ps-0"
+              placeholder="Search reviews by student or course..."
+              [(ngModel)]="reviewSearchText">
+          </div>
+        </div>
+
+        <div class="glass-panel p-4">
+          <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0 bg-transparent">
+              <thead>
+                <tr class="text-muted border-bottom border-white border-opacity-10">
+                  <th>Student</th>
+                  <th>Course</th>
+                  <th>Rating</th>
+                  <th>Review Comment</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let rev of filteredReviews">
+                  <td><strong class="text-white">{{ rev.studentName }}</strong></td>
+                  <td><span class="badge-navy">{{ rev.courseTitle }}</span></td>
+                  <td>
+                    <span class="text-warning">
+                      <i class="bi bi-star-fill me-1"></i>{{ rev.rating }}/5
+                    </span>
+                  </td>
+                  <td><small class="text-muted text-truncate-2">{{ rev.comment }}</small></td>
+                  <td>
+                    <span class="badge" [ngClass]="rev.isApproved ? 'bg-success' : 'bg-secondary'">
+                      {{ rev.isApproved ? 'Approved' : 'Hidden' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-luxury-navy btn-sm" (click)="toggleReviewApproval(rev)">
+                        {{ rev.isApproved ? 'Hide' : 'Approve' }}
+                      </button>
+                      <button class="btn btn-outline-danger btn-sm" (click)="confirmDeleteReview(rev)">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 9: MEDIA LIBRARY
+    ========================================================== -->
+    @if (activeNav === 'media') {
+      <div class="media-management-view">
+        
+        <div class="glass-panel p-4 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div class="input-group" style="max-width: 450px;">
+            <span class="input-group-text glass-input-icon border-end-0">
+              <i class="bi bi-search text-muted"></i>
+            </span>
+            <input
+              type="text"
+              class="form-control glass-input border-start-0 ps-0"
+              placeholder="Search assets by file name or type..."
+              [(ngModel)]="mediaSearchText">
+          </div>
+
+          <button class="btn btn-luxury-primary d-flex align-items-center gap-2" (click)="openAddMediaModal()">
+            <i class="bi bi-cloud-arrow-up-fill"></i>
+            <span>Add Media Resource</span>
+          </button>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-xl-3" *ngFor="let item of filteredMedia">
+            <div class="glass-panel p-4 h-100 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <i class="bi fs-2" [ngClass]="{
+                    'bi-file-earmark-play-fill text-danger': item.type === 'video',
+                    'bi-file-earmark-pdf-fill text-warning': item.type === 'pdf',
+                    'bi-file-earmark-image-fill text-info': item.type === 'image',
+                    'bi-file-earmark-zip-fill text-primary': item.type === 'archive'
+                  }"></i>
+                  <span class="badge-navy text-uppercase">{{ item.type }}</span>
+                </div>
+                <h6 class="fw-bold text-white mb-1 text-truncate">{{ item.name }}</h6>
+                <small class="text-muted d-block mb-3">{{ item.size }} • Added {{ item.createdAt }}</small>
+              </div>
+
+              <div class="d-flex gap-2 border-top border-white border-opacity-10 pt-3">
+                <button class="btn btn-luxury-navy btn-sm flex-fill" (click)="copyToClipboard(item.url)">
+                  <i class="bi bi-link-45deg me-1"></i> Copy URL
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="deleteMedia(item)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    <!-- =========================================================
+         SECTION 10: SETTINGS
+    ========================================================== -->
+    @if (activeNav === 'settings') {
+      <div class="settings-management-view">
+        <div class="glass-panel p-4 p-md-5" style="max-width: 800px;">
+          <h4 class="fw-bold text-white mb-3"><i class="bi bi-sliders text-warning me-2"></i>Platform Global Settings</h4>
+          
+          <div class="mb-3">
+            <label class="form-label text-slate-300 small fw-bold">Platform Name / Title</label>
+            <input type="text" class="form-control glass-input" [(ngModel)]="platformSettings.siteName">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-slate-300 small fw-bold">Master Support Email</label>
+            <input type="email" class="form-control glass-input" [(ngModel)]="platformSettings.supportEmail">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label text-slate-300 small fw-bold">Default Pricing Currency</label>
+            <input type="text" class="form-control glass-input" [(ngModel)]="platformSettings.currency">
+          </div>
+
+          <div class="form-check form-switch mb-3">
+            <input class="form-check-input" type="checkbox" id="regCheck" [(ngModel)]="platformSettings.allowStudentRegistration">
+            <label class="form-check-label text-white small" for="regCheck">Allow Open Student Registrations</label>
+          </div>
+
+          <div class="form-check form-switch mb-4">
+            <input class="form-check-input" type="checkbox" id="apprCheck" [(ngModel)]="platformSettings.requireCourseApproval">
+            <label class="form-check-label text-white small" for="apprCheck">Require Admin Review before Publishing Instructor Courses</label>
+          </div>
+
+          <button class="btn btn-luxury-primary px-5 py-2 fw-bold" (click)="saveSettings()">
+            <i class="bi bi-save me-1"></i> Save Platform Settings
+          </button>
+        </div>
+      </div>
+    }
+
+  </main>
+
+  <!-- =========================================================
+       MODALS
+  ========================================================== -->
+
+  <!-- COURSE MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="courseModalOpen">
+    <div class="glass-panel modal-card-custom p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-white border-opacity-10">
+        <h5 class="fw-bold text-white mb-0">{{ isEditingCourse ? 'Edit Course' : 'Create New Course' }}</h5>
+        <button class="btn-close btn-close-white" (click)="courseModalOpen = false"></button>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Course Title</label>
+        <input type="text" class="form-control glass-input" placeholder="e.g. Master Clean Architecture in .NET" [(ngModel)]="courseForm.title">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Category</label>
+        <select class="form-select glass-input" [(ngModel)]="courseForm.category">
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label text-slate-300 small fw-bold">Course Description</label>
+        <textarea rows="3" class="form-control glass-input" placeholder="Course goals and outcomes..." [(ngModel)]="courseForm.description"></textarea>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-luxury-outline" (click)="courseModalOpen = false">Cancel</button>
+        <button class="btn btn-luxury-primary px-4" (click)="saveCourse()">{{ isEditingCourse ? 'Save Changes' : 'Create Course' }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="sectionModalOpen">
+    <div class="glass-panel modal-card-custom p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-white border-opacity-10">
+        <h5 class="fw-bold text-white mb-0">{{ editingSectionId ? 'Edit Section' : 'Add Section' }}</h5>
+        <button class="btn-close btn-close-white" (click)="sectionModalOpen = false"></button>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Section Title</label>
+        <input type="text" class="form-control glass-input" placeholder="e.g. Chapter 1: Introduction & Architecture" [(ngModel)]="sectionForm.title">
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label text-slate-300 small fw-bold">Order Index</label>
+        <input type="number" class="form-control glass-input" [(ngModel)]="sectionForm.orderIndex">
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-luxury-outline" (click)="sectionModalOpen = false">Cancel</button>
+        <button class="btn btn-luxury-primary px-4" (click)="saveSection()">Save Section</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LESSON MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="lessonModalOpen">
+    <div class="glass-panel modal-card-custom p-4" style="max-width: 650px;">
+      <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-white border-opacity-10">
+        <h5 class="fw-bold text-white mb-0">{{ editingLessonId ? 'Edit Lesson' : 'Add New Lesson' }}</h5>
+        <button class="btn-close btn-close-white" (click)="lessonModalOpen = false"></button>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-8">
+          <label class="form-label text-slate-300 small fw-bold">Lesson Title</label>
+          <input type="text" class="form-control glass-input" placeholder="e.g. Setting Up DbContext & Migrations" [(ngModel)]="lessonForm.title">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label text-slate-300 small fw-bold">Lesson Type</label>
+          <select class="form-select glass-input" [(ngModel)]="lessonForm.lessonType">
+            <option value="Video">Video</option>
+            <option value="Article">Article</option>
+            <option value="Resource">Resource</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Video URL (YouTube or Direct Video URL)</label>
+        <input type="text" class="form-control glass-input" placeholder="https://www.youtube.com/watch?v=..." [(ngModel)]="lessonForm.videoUrl">
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label text-slate-300 small fw-bold">Duration (Minutes)</label>
+          <input type="number" class="form-control glass-input" [(ngModel)]="lessonForm.durationMinutes">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-slate-300 small fw-bold">Downloadable Resource URL</label>
+          <input type="text" class="form-control glass-input" placeholder="https://drive.google.com/..." [(ngModel)]="lessonForm.resourceUrl">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Lecture Notes / Content</label>
+        <textarea rows="3" class="form-control glass-input" placeholder="Notes, descriptions, or source code snippets..." [(ngModel)]="lessonForm.content"></textarea>
+      </div>
+
+      <div class="form-check mb-4">
+        <input class="form-check-input" type="checkbox" id="freeCheck" [(ngModel)]="lessonForm.isFreePreview">
+        <label class="form-check-label text-white small" for="freeCheck">Allow Free Preview without Enrollment</label>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-luxury-outline" (click)="lessonModalOpen = false">Cancel</button>
+        <button class="btn btn-luxury-primary px-4" (click)="saveLesson()">Save Lesson</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO PREVIEW MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="previewVideoUrl">
+    <div class="glass-panel modal-card-custom p-4" style="max-width: 800px;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="fw-bold text-white mb-0">{{ previewVideoTitle }}</h5>
+        <button class="btn-close btn-close-white" (click)="closeVideoPreview()"></button>
+      </div>
+      <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow mb-3 bg-black">
+        <iframe [src]="previewVideoUrl" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- STUDENT MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="studentModalOpen">
+    <div class="glass-panel modal-card-custom p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-white border-opacity-10">
+        <h5 class="fw-bold text-white mb-0">{{ editingStudentId ? 'Edit Student' : 'Add New Student' }}</h5>
+        <button class="btn-close btn-close-white" (click)="studentModalOpen = false"></button>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Full Name</label>
+        <input type="text" class="form-control glass-input" placeholder="e.g. Alex Johnson" [(ngModel)]="studentForm.fullName">
+      </div>
+
+      <div class="mb-3" *ngIf="!editingStudentId">
+        <label class="form-label text-slate-300 small fw-bold">Username</label>
+        <input type="text" class="form-control glass-input" placeholder="e.g. alex_j" [(ngModel)]="studentForm.username">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Email Address</label>
+        <input type="email" class="form-control glass-input" placeholder="alex@example.com" [(ngModel)]="studentForm.email">
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label text-slate-300 small fw-bold">
+          {{ editingStudentId ? 'Change Password (leave empty to keep current)' : 'Password' }}
+        </label>
+        <input type="password" class="form-control glass-input" placeholder="••••••••" [(ngModel)]="studentForm.password">
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-luxury-outline" (click)="studentModalOpen = false">Cancel</button>
+        <button class="btn btn-luxury-primary px-4" (click)="saveStudent()">{{ editingStudentId ? 'Update Student' : 'Add Student' }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSTRUCTOR MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="instructorModalOpen">
+    <div class="glass-panel modal-card-custom p-4" style="max-width: 650px;">
+      <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-white border-opacity-10">
+        <h5 class="fw-bold text-white mb-0">{{ editingInstructorId ? 'Edit Instructor' : 'Add New Instructor' }}</h5>
+        <button class="btn-close btn-close-white" (click)="instructorModalOpen = false"></button>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label text-slate-300 small fw-bold">Full Name</label>
+          <input type="text" class="form-control glass-input" placeholder="e.g. Dr. Robert King" [(ngModel)]="instructorForm.fullName">
+        </div>
+        <div class="col-md-6" *ngIf="!editingInstructorId">
+          <label class="form-label text-slate-300 small fw-bold">Username</label>
+          <input type="text" class="form-control glass-input" placeholder="e.g. robert_king" [(ngModel)]="instructorForm.username">
+        </div>
+      </div>
+
+      <div class="row g-3 mb-3">
+        <div class="col-md-6">
+          <label class="form-label text-slate-300 small fw-bold">Email Address</label>
+          <input type="email" class="form-control glass-input" placeholder="robert@example.com" [(ngModel)]="instructorForm.email">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label text-slate-300 small fw-bold">
+            {{ editingInstructorId ? 'New Password (Optional)' : 'Password' }}
+          </label>
+          <input type="password" class="form-control glass-input" placeholder="••••••••" [(ngModel)]="instructorForm.password">
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Professional Headline</label>
+        <input type="text" class="form-control glass-input" placeholder="e.g. Senior Software Architect" [(ngModel)]="instructorForm.headline">
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label text-slate-300 small fw-bold">Biography & Background</label>
+        <textarea rows="2" class="form-control glass-input" placeholder="Instructor teaching experience and bio..." [(ngModel)]="instructorForm.bio"></textarea>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-luxury-outline" (click)="instructorModalOpen = false">Cancel</button>
+        <button class="btn btn-luxury-primary px-4" (click)="saveInstructor()">{{ editingInstructorId ? 'Update Instructor' : 'Add Instructor' }}</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CATEGORY MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="categoryModalOpen">
+    <div class="glass-panel modal-card-custom p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-white border-opacity-10">
+        <h5 class="fw-bold text-white mb-0">{{ editingCategoryName ? 'Rename Category' : 'Add New Category' }}</h5>
+        <button class="btn-close btn-close-white" (click)="categoryModalOpen = false"></button>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label text-slate-300 small fw-bold">Category Name</label>
+        <input type="text" class="form-control glass-input" placeholder="e.g. Artificial Intelligence" [(ngModel)]="categoryInputName">
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-luxury-outline" (click)="categoryModalOpen = false">Cancel</button>
+        <button class="btn btn-luxury-primary px-4" (click)="saveCategory()">Save Category</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEDIA MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="mediaModalOpen">
+    <div class="glass-panel modal-card-custom p-4">
+      <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-white border-opacity-10">
+        <h5 class="fw-bold text-white mb-0">Add Media Asset</h5>
+        <button class="btn-close btn-close-white" (click)="mediaModalOpen = false"></button>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">File / Asset Name</label>
+        <input type="text" class="form-control glass-input" placeholder="e.g. Full-Stack-Guide.pdf" [(ngModel)]="mediaForm.name">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label text-slate-300 small fw-bold">Asset Type</label>
+        <select class="form-select glass-input" [(ngModel)]="mediaForm.type">
+          <option value="video">Video</option>
+          <option value="pdf">PDF Document</option>
+          <option value="image">Image / Graphic</option>
+          <option value="archive">Zip / Archive</option>
+        </select>
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label text-slate-300 small fw-bold">Direct Resource / Cloud URL</label>
+        <input type="text" class="form-control glass-input" placeholder="https://..." [(ngModel)]="mediaForm.url">
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button class="btn btn-luxury-outline" (click)="mediaModalOpen = false">Cancel</button>
+        <button class="btn btn-luxury-primary px-4" (click)="saveMedia()">Save Asset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIRM DELETE MODAL -->
+  <div class="modal-backdrop-custom" *ngIf="confirmModalOpen">
+    <div class="glass-panel modal-card-custom p-4 text-center">
+      <div class="text-danger fs-1 mb-2">
+        <i class="bi bi-exclamation-octagon-fill"></i>
+      </div>
+      <h5 class="fw-bold text-white mb-2">{{ confirmTitle }}</h5>
+      <p class="text-muted small mb-4">{{ confirmMessage }}</p>
+
+      <div class="d-flex justify-content-center gap-3">
+        <button class="btn btn-luxury-outline px-4" (click)="confirmModalOpen = false">Cancel</button>
+        <button class="btn btn-danger rounded-3 px-4 fw-bold" (click)="executeConfirm()">Delete Permanently</button>
       </div>
     </div>
   </div>

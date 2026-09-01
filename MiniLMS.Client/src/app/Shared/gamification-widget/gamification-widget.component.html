@@ -1,0 +1,169 @@
+<div *ngIf="profile()" class="inline-flex items-center gap-2 sm:gap-3" dir="rtl">
+  <!-- Streak Counter -->
+  <div
+    class="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold shadow-sm"
+    title="سلسلة أيام التعلم المتواصلة">
+    <i class="bi bi-fire text-amber-500 text-sm animate-pulse"></i>
+    <span>{{ profile()?.currentStreakDays }} يوم 🔥</span>
+  </div>
+
+  <!-- Level & XP Badge -->
+  <div
+    (click)="openBadgesModal()"
+    class="flex items-center gap-2 px-3 py-1.5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-200 text-xs font-semibold cursor-pointer transition-all">
+    <div class="w-5 h-5 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-[10px]">
+      L{{ profile()?.level }}
+    </div>
+    <span class="text-cyan-400 font-bold">{{ profile()?.totalXP }} XP</span>
+  </div>
+
+  <!-- Leaderboard Button -->
+  <button
+    (click)="openLeaderboard()"
+    class="p-2 rounded-2xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-amber-400 hover:text-amber-300 transition-all cursor-pointer flex items-center justify-center"
+    title="لوحة المتصدرين">
+    <i class="bi bi-trophy-fill text-sm"></i>
+  </button>
+</div>
+
+<!-- Leaderboard Modal -->
+<div
+  *ngIf="showLeaderboard()"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
+  dir="rtl">
+  
+  <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+    <!-- Glow -->
+    <div class="absolute -top-20 -right-20 w-48 h-48 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+    <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg">
+          <i class="bi bi-trophy-fill"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-extrabold text-white">لوحة المتصدرين 🏆</h3>
+          <p class="text-xs text-slate-400">أنشط المتعلمين وأعلاهم نقاطاً على المنصة</p>
+        </div>
+      </div>
+
+      <button (click)="closeLeaderboard()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="bi bi-x-lg text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Leaderboard Items -->
+    <div class="space-y-2 max-h-[60vh] overflow-y-auto">
+      <div
+        *ngFor="let item of leaderboard()"
+        [class.bg-amber-500_10]="item.rank === 1"
+        [class.border-amber-500_40]="item.rank === 1"
+        [class.bg-slate-950]="item.rank !== 1"
+        [class.border-slate-800]="item.rank !== 1"
+        class="p-3.5 rounded-2xl border flex items-center justify-between gap-3">
+        
+        <div class="flex items-center gap-3">
+          <!-- Rank Badge -->
+          <div
+            [ngClass]="{
+              'bg-amber-400 text-slate-950 font-black shadow-md shadow-amber-400/30': item.rank === 1,
+              'bg-slate-300 text-slate-950 font-bold': item.rank === 2,
+              'bg-amber-700 text-white font-bold': item.rank === 3,
+              'bg-slate-800 text-slate-400 font-semibold': item.rank > 3
+            }"
+            class="w-7 h-7 rounded-xl flex items-center justify-center text-xs">
+            #{{ item.rank }}
+          </div>
+
+          <div>
+            <div class="text-xs font-bold text-slate-100">{{ item.studentName }}</div>
+            <div class="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
+              <span>المستوى {{ item.level }}</span>
+              <span>•</span>
+              <span>{{ item.streakDays }} يوم 🔥</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-left">
+          <span class="text-xs font-extrabold text-cyan-400">{{ item.totalXP }}</span>
+          <span class="text-[10px] text-slate-500 block">XP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Badges & Achievements Modal -->
+<div
+  *ngIf="showBadgesModal()"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in duration-200"
+  dir="rtl">
+  
+  <div class="max-w-lg w-full bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl relative overflow-hidden">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-lg">
+          <i class="bi bi-award-fill"></i>
+        </div>
+        <div>
+          <h3 class="text-base font-extrabold text-white">الأوسمة والإنجازات 🎖️</h3>
+          <p class="text-xs text-slate-400">{{ profile()?.levelTitle }}</p>
+        </div>
+      </div>
+
+      <button (click)="closeBadgesModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+        <i class="bi bi-x-lg text-sm"></i>
+      </button>
+    </div>
+
+    <!-- Progress to next level -->
+    <div class="mb-4 p-4 rounded-2xl bg-slate-950 border border-slate-800">
+      <div class="flex justify-between text-xs font-bold mb-1.5">
+        <span class="text-slate-300">التقدم نحو المستوى التالي:</span>
+        <span class="text-cyan-400">{{ profile()?.currentLevelProgressXP }} / {{ profile()?.nextLevelXP }} XP</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+        <div
+          class="h-full bg-gradient-to-r from-cyan-500 to-indigo-500 rounded-full transition-all duration-500"
+          [style.width.%]="profile()?.progressToNextLevelPercentage">
+        </div>
+      </div>
+    </div>
+
+    <!-- Badges Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+      <div
+        *ngFor="let badge of allBadges()"
+        [class.border-cyan-500_40]="badge.isEarned"
+        [class.bg-slate-950]="badge.isEarned"
+        [class.opacity-50]="!badge.isEarned"
+        [class.bg-slate-950_40]="!badge.isEarned"
+        class="p-3 rounded-2xl border border-slate-800 flex items-start gap-3">
+        
+        <div
+          [class.bg-cyan-500_20]="badge.isEarned"
+          [class.text-cyan-400]="badge.isEarned"
+          [class.bg-slate-800]="!badge.isEarned"
+          [class.text-slate-500]="!badge.isEarned"
+          class="w-10 h-10 rounded-2xl flex items-center justify-center text-lg flex-shrink-0">
+          <i [class]="'bi ' + (badge.iconUrl || 'bi-patch-check-fill')"></i>
+        </div>
+
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between">
+            <h5 class="text-xs font-bold text-slate-200 truncate">{{ badge.title }}</h5>
+            <span class="text-[10px] text-amber-400 font-bold">+{{ badge.xpReward }} XP</span>
+          </div>
+          <p class="text-[11px] text-slate-400 line-clamp-2 mt-0.5">{{ badge.description }}</p>
+          <span *ngIf="badge.isEarned" class="text-[10px] text-emerald-400 font-semibold block mt-1">
+            ✓ تم الحصول عليه
+          </span>
+          <span *ngIf="!badge.isEarned" class="text-[10px] text-slate-500 block mt-1">
+            🔒 مغلق حالياً
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

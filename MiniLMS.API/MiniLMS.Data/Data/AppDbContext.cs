@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MiniLMS.Data.Models;
+using GenAlpha.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniLMS.Data.Data
+namespace GenAlpha.Data.Data
 {
     public class AppDbContext : DbContext
     {
@@ -42,6 +42,16 @@ namespace MiniLMS.Data.Data
         // Reviews
         public DbSet<CourseReview> CourseReviews { get; set; }
 
+        // Gen Alpha: Certificates, Gamification, Notifications, Monetization
+        public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<StudentGamification> StudentGamifications { get; set; }
+        public DbSet<Badge> Badges { get; set; }
+        public DbSet<StudentBadge> StudentBadges { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<CoursePayment> CoursePayments { get; set; }
+        public DbSet<InstructorWallet> InstructorWallets { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -60,51 +70,60 @@ namespace MiniLMS.Data.Data
                 .HasForeignKey<Instructor>(i => i.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Instructor Courses (1-to-Many)
-            modelBuilder.Entity<Instructor>()
-                .HasMany(i => i.Courses)
-                .WithOne(c => c.Instructor)
+            // Course - Instructor (Many-to-1 optional)
+            modelBuilder.Entity<Course>()
+                .HasOne(c => c.Instructor)
+                .WithMany(i => i.Courses)
                 .HasForeignKey(c => c.InstructorId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Enrollment Unique constraint
-            modelBuilder.Entity<Enrollment>()
-                .HasIndex(e => new { e.StudentId, e.CourseId })
-                .IsUnique();
-
-            // Course Sections (Cascade delete)
+            // Course Sections (Cascade)
             modelBuilder.Entity<Course>()
                 .HasMany(c => c.Sections)
                 .WithOne(s => s.Course)
                 .HasForeignKey(s => s.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // Course Lessons (Cascade delete)
-            modelBuilder.Entity<Course>()
-                .HasMany(c => c.Lessons)
-                .WithOne(l => l.Course)
-                .HasForeignKey(l => l.CourseId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Section Lessons (Restrict to avoid multiple cascade paths)
+            // Section Lessons (Cascade)
             modelBuilder.Entity<Section>()
                 .HasMany(s => s.Lessons)
                 .WithOne(l => l.Section)
                 .HasForeignKey(l => l.SectionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Course Direct Lessons
+            modelBuilder.Entity<Course>()
+                .HasMany(c => c.Lessons)
+                .WithOne(l => l.Course)
+                .HasForeignKey(l => l.CourseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // Progress Enrollments & Lessons
+            // Enrollments
+            modelBuilder.Entity<Enrollment>()
+                .HasOne(e => e.Course)
+                .WithMany()
+                .HasForeignKey(e => e.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Enrollment>()
+                .HasOne(e => e.Student)
+                .WithMany(s => s.Enrollments)
+                .HasForeignKey(e => e.StudentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Lesson Progresses
             modelBuilder.Entity<LessonProgress>()
                 .HasOne(lp => lp.Enrollment)
                 .WithMany(e => e.LessonProgresses)
                 .HasForeignKey(lp => lp.EnrollmentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<LessonProgress>()
                 .HasOne(lp => lp.Lesson)
                 .WithMany(l => l.LessonProgresses)
                 .HasForeignKey(lp => lp.LessonId)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
             // Quizzes Relationships
             modelBuilder.Entity<Course>()
@@ -131,6 +150,12 @@ namespace MiniLMS.Data.Data
                 .HasForeignKey(qo => qo.QuestionId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            modelBuilder.Entity<Quiz>()
+                .HasMany(q => q.Attempts)
+                .WithOne(qa => qa.Quiz)
+                .HasForeignKey(qa => qa.QuizId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<QuizAttempt>()
                 .HasOne(qa => qa.Student)
                 .WithMany()
@@ -139,20 +164,20 @@ namespace MiniLMS.Data.Data
 
             modelBuilder.Entity<QuizAttempt>()
                 .HasMany(qa => qa.Answers)
-                .WithOne(a => a.Attempt)
-                .HasForeignKey(a => a.AttemptId)
+                .WithOne(ans => ans.Attempt)
+                .HasForeignKey(ans => ans.AttemptId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<QuizAnswer>()
-                .HasOne(a => a.Question)
-                .WithMany(q => q.Answers)
-                .HasForeignKey(a => a.QuestionId)
+                .HasOne(ans => ans.Question)
+                .WithMany()
+                .HasForeignKey(ans => ans.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<QuizAnswer>()
-                .HasOne(a => a.SelectedOption)
+                .HasOne(ans => ans.SelectedOption)
                 .WithMany()
-                .HasForeignKey(a => a.SelectedOptionId)
+                .HasForeignKey(ans => ans.SelectedOptionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Assignments Relationships
@@ -217,6 +242,58 @@ namespace MiniLMS.Data.Data
                 .WithMany()
                 .HasForeignKey(r => r.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Gen Alpha: Certificates Relationships
+            modelBuilder.Entity<Certificate>()
+                .HasOne(cert => cert.Student)
+                .WithMany()
+                .HasForeignKey(cert => cert.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Certificate>()
+                .HasOne(cert => cert.Course)
+                .WithMany()
+                .HasForeignKey(cert => cert.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Gamification Relationships
+            modelBuilder.Entity<StudentBadge>()
+                .HasOne(sb => sb.Student)
+                .WithMany()
+                .HasForeignKey(sb => sb.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<StudentBadge>()
+                .HasOne(sb => sb.Badge)
+                .WithMany(b => b.StudentBadges)
+                .HasForeignKey(sb => sb.BadgeId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Notification Relationships
+            modelBuilder.Entity<Notification>()
+                .HasOne(n => n.User)
+                .WithMany()
+                .HasForeignKey(n => n.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Course Payment Relationships
+            modelBuilder.Entity<CoursePayment>()
+                .HasOne(cp => cp.Student)
+                .WithMany()
+                .HasForeignKey(cp => cp.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CoursePayment>()
+                .HasOne(cp => cp.Course)
+                .WithMany()
+                .HasForeignKey(cp => cp.CourseId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<CoursePayment>()
+                .HasOne(cp => cp.Coupon)
+                .WithMany()
+                .HasForeignKey(cp => cp.CouponId)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

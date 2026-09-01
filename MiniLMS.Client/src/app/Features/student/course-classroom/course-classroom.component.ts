@@ -8,6 +8,11 @@ import { QuizService } from '../../../Core/Services/quiz.service';
 import { AssignmentService } from '../../../Core/Services/assignment.service';
 import { QnAService } from '../../../Core/Services/qna.service';
 import { ReviewService } from '../../../Core/Services/review.service';
+import { CertificateService } from '../../../Core/Services/certificate.service';
+import { GamificationService } from '../../../Core/Services/gamification.service';
+import { AiTutorWidgetComponent } from '../ai-tutor-widget/ai-tutor-widget.component';
+import { NotificationBellComponent } from '../../../Shared/notification-bell/notification-bell.component';
+import { GamificationWidgetComponent } from '../../../Shared/gamification-widget/gamification-widget.component';
 import {
   AssignmentDto,
   CourseDetailsDto,
@@ -29,7 +34,14 @@ type ClassroomTab = 'content' | 'qna' | 'quizzes' | 'assignments' | 'reviews';
 @Component({
   selector: 'app-course-classroom',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    AiTutorWidgetComponent,
+    NotificationBellComponent,
+    GamificationWidgetComponent
+  ],
   templateUrl: './course-classroom.component.html',
   styleUrl: './course-classroom.component.css'
 })
@@ -81,6 +93,10 @@ export class CourseClassroomComponent implements OnInit {
   toastType: 'success' | 'error' = 'success';
   private toastTimer: any = null;
 
+  // Certificates & Gamification
+  readonly earnedCertificateCode = signal<string | null>(null);
+  readonly isClaimingCertificate = signal(false);
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -89,6 +105,8 @@ export class CourseClassroomComponent implements OnInit {
     private assignmentService: AssignmentService,
     private qnaService: QnAService,
     private reviewService: ReviewService,
+    private certificateService: CertificateService,
+    private gamificationService: GamificationService,
     private sanitizer: DomSanitizer
   ) {}
 
@@ -97,9 +115,38 @@ export class CourseClassroomComponent implements OnInit {
     if (idParam) {
       this.courseId = Number(idParam);
       this.loadCourseData(this.courseId);
+      this.checkExistingCertificate(this.courseId);
     } else {
       this.router.navigate(['/student/dashboard']);
     }
+  }
+
+  checkExistingCertificate(courseId: number): void {
+    this.certificateService.getCertificateForCourse(courseId).subscribe({
+      next: (cert) => {
+        if (cert && cert.certificateCode) {
+          this.earnedCertificateCode.set(cert.certificateCode);
+        }
+      },
+      error: () => {}
+    });
+  }
+
+  claimCertificate(): void {
+    this.isClaimingCertificate.set(true);
+    this.certificateService.issueCertificate(this.courseId).subscribe({
+      next: (cert) => {
+        this.isClaimingCertificate.set(false);
+        this.earnedCertificateCode.set(cert.certificateCode);
+        this.showToast('success', '🏆 مبارك! تم إصدار شهادتك الرقمية المعتمدة بنجاح!');
+        // Award XP bonus
+        this.gamificationService.awardXP(250, 'Course Completed & Certificate Earned').subscribe();
+      },
+      error: (err) => {
+        this.isClaimingCertificate.set(false);
+        this.showToast('error', 'تعذر إصدار الشهادة: ' + (err.error?.message || err.message));
+      }
+    });
   }
 
   loadCourseData(courseId: number): void {

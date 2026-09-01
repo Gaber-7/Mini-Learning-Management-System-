@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiniLMS.Data.Models
+namespace GenAlpha.Data.Models
 {
     public class Course
     {
@@ -36,6 +36,12 @@ namespace MiniLMS.Data.Models
         public decimal AverageRating { get; set; } = 0;
 
         public int ReviewsCount { get; set; } = 0;
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal Price { get; set; } = 0; // 0 = Free
+
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? DiscountPrice { get; set; }
 
         [ForeignKey("InstructorId")]
         public virtual Instructor? Instructor { get; set; }
