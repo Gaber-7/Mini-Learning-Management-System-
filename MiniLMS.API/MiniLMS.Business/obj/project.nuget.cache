@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MugM8VEdJA0=",
+  "dgSpecHash": "Mwdw6XwzfrE=",
   "success": true,
-  "projectFilePath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
+  "projectFilePath": "C:\\Users\\EL3ATTY\\source\\repos\\Shaghaf-Platform\\LMS-Project\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\EL3ATTY\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
     "C:\\Users\\EL3ATTY\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

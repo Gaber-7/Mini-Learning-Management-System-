@@ -7,41 +7,41 @@
   display: block;
   min-height: 100vh;
 
-  --primary: #4f46e5;
-  --primary-dark: #3730a3;
-  --primary-light: #eef2ff;
+  --primary: #ff006e;
+  --primary-dark: #c9004c;
+  --primary-light: rgba(255, 0, 110, 0.15);
 
-  --success: #16a34a;
-  --success-light: #ecfdf3;
+  --success: #00ff88;
+  --success-light: rgba(0, 255, 136, 0.15);
 
-  --info: #0284c7;
-  --info-light: #e0f2fe;
+  --info: #00f5ff;
+  --info-light: rgba(0, 245, 255, 0.15);
 
-  --warning: #d97706;
-  --warning-light: #fff7ed;
+  --warning: #ff6b35;
+  --warning-light: rgba(255, 107, 53, 0.15);
 
-  --danger: #dc2626;
+  --danger: #ff0044;
 
-  --text: #172033;
-  --text-secondary: #64748b;
-  --text-muted: #94a3b8;
+  --text: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #6b6b6b;
 
-  --border: #e7eaf0;
-  --background: #f6f7fb;
-  --surface: #ffffff;
+  --border: rgba(255, 0, 110, 0.2);
+  --background: #0a0a0a;
+  --surface: #1a1a1a;
 
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 22px;
 
   --shadow-sm:
-    0 2px 8px rgba(15, 23, 42, 0.04);
+    0 2px 8px rgba(0, 0, 0, 0.4);
 
   --shadow-md:
-    0 10px 30px rgba(15, 23, 42, 0.07);
+    0 10px 30px rgba(0, 0, 0, 0.5);
 
   --shadow-lg:
-    0 20px 60px rgba(15, 23, 42, 0.14);
+    0 20px 60px rgba(0, 0, 0, 0.7);
 
   color: var(--text);
 }
@@ -68,14 +68,19 @@
   background:
     radial-gradient(
       circle at 85% 20%,
-      rgba(129, 140, 248, 0.35),
+      rgba(255, 0, 110, 0.4),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 15% 80%,
+      rgba(139, 92, 246, 0.3),
       transparent 35%
     ),
     linear-gradient(
       135deg,
-      #312e81 0%,
-      #4338ca 48%,
-      #4f46e5 100%
+      #0a0a0a 0%,
+      #1a0a1a 48%,
+      #0a0a1a 100%
     );
 
   color: white;
@@ -256,33 +261,37 @@
 }
 
 .hero-btn-primary {
-  color: #3730a3;
-  background: white;
-  border: 1px solid white;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff006e 0%, #ff69b4 100%);
+  border: 1px solid rgba(255, 0, 110, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
 }
 
 .hero-btn-primary:hover {
-  color: #3730a3;
-  background: #f8fafc;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff69b4 0%, #ff006e 100%);
 
   transform: translateY(-2px);
 
   box-shadow:
-    0 10px 25px rgba(0,0,0,.15);
+    0 10px 30px rgba(255, 0, 110, 0.6);
 }
 
 .hero-btn-secondary {
   color: white;
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  background: rgba(139, 92, 246, 0.15);
   backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
 }
 
 .hero-btn-secondary:hover {
   color: white;
-  background: rgba(255,255,255,.15);
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.6);
 
   transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
 }
 
 
@@ -464,9 +473,8 @@
 .stat-card:hover {
   transform: translateY(-3px);
 
-  border-color: #dce1eb;
-
-  box-shadow: var(--shadow-md);
+  border-color: rgba(255, 0, 110, 0.4);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
 }
 
 .stat-icon {
@@ -638,7 +646,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
 
-  background: white;
+  background: var(--surface);
 
   box-shadow: var(--shadow-sm);
 }
@@ -675,7 +683,7 @@
 
   color: var(--text);
 
-  background: #f8fafc;
+  background: #1a1a1a;
 
   font-size: 13px;
 
@@ -686,12 +694,12 @@
 }
 
 .course-search:focus {
-  background: white;
+  background: #1a1a1a;
 
-  border-color: #a5b4fc;
+  border-color: #ff006e;
 
   box-shadow:
-    0 0 0 4px rgba(79,70,229,.08);
+    0 0 0 4px rgba(255, 0, 110, 0.2);
 }
 
 .search-clear {
@@ -724,7 +732,8 @@
 
   border-radius: 11px;
 
-  background: #f1f3f7;
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 0, 110, 0.2);
 }
 
 .filter-btn {
@@ -775,10 +784,11 @@
 .filter-btn.active {
   color: var(--primary);
 
-  background: white;
+  background: rgba(255, 0, 110, 0.15);
+  border: 1px solid rgba(255, 0, 110, 0.3);
 
   box-shadow:
-    0 2px 7px rgba(15,23,42,.08);
+    0 2px 7px rgba(255, 0, 110, 0.2);
 }
 
 .filter-btn.active span {
@@ -837,7 +847,7 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 
-  background: white;
+  background: var(--surface);
 
   cursor: pointer;
 
@@ -866,7 +876,7 @@
     linear-gradient(
       90deg,
       var(--primary),
-      #818cf8
+      #ff69b4
     );
 
   transform: scaleX(0);
@@ -878,10 +888,10 @@
 .course-card:hover {
   transform: translateY(-5px);
 
-  border-color: #d9def0;
+  border-color: rgba(255, 0, 110, 0.4);
 
   box-shadow:
-    0 18px 45px rgba(15,23,42,.1);
+    0 18px 45px rgba(255, 0, 110, 0.2);
 }
 
 .course-card:hover::before {
@@ -892,8 +902,8 @@
   background:
     linear-gradient(
       90deg,
-      #16a34a,
-      #4ade80
+      #00ff88,
+      #00cc6a
     );
 }
 
@@ -926,27 +936,29 @@
   background:
     linear-gradient(
       135deg,
-      #4f46e5,
-      #7c3aed
+      #ff006e,
+      #ff69b4
     );
 
   box-shadow:
-    0 8px 20px rgba(79,70,229,.2);
+    0 8px 20px rgba(255, 0, 110, 0.4);
 }
 
 .course-avatar[data-status="completed"] {
   background:
     linear-gradient(
       135deg,
-      #16a34a,
-      #22c55e
+      #00ff88,
+      #00cc6a
     );
+  box-shadow:
+    0 8px 20px rgba(0, 255, 136, 0.4);
 }
 
 .course-avatar[data-status="not-started"] {
   color: var(--text-secondary);
 
-  background: #f1f5f9;
+  background: #1a1a1a;
 
   box-shadow: none;
 }
@@ -1067,7 +1079,7 @@
 
   border-radius: 100px;
 
-  background: #eef1f5;
+  background: rgba(255, 0, 110, 0.1);
 }
 
 .progress-value {
@@ -1078,8 +1090,8 @@
   background:
     linear-gradient(
       90deg,
-      #4f46e5,
-      #818cf8
+      #ff006e,
+      #ff69b4
     );
 
   transition: width .6s ease;
@@ -1089,8 +1101,8 @@
   background:
     linear-gradient(
       90deg,
-      #16a34a,
-      #4ade80
+      #00ff88,
+      #00cc6a
     );
 }
 
@@ -1410,8 +1422,8 @@
   background:
     linear-gradient(
       135deg,
-      #312e81,
-      #4f46e5
+      #ff006e,
+      #8b5cf6
     );
 }
 
@@ -1488,7 +1500,7 @@
 
   border-bottom: 1px solid var(--border);
 
-  background: #fafbff;
+  background: #1a1a1a;
 }
 
 .drawer-ring-wrapper {
@@ -1525,6 +1537,7 @@
   stroke-dashoffset: 326.7;
 
   transition: stroke-dashoffset .7s ease;
+  filter: drop-shadow(0 0 6px rgba(255, 0, 110, 0.6));
 }
 
 .drawer-ring-label {
@@ -1709,7 +1722,7 @@
   border: 1px solid var(--border);
   border-radius: 13px;
 
-  background: white;
+  background: var(--surface);
 
   transition:
     border-color .2s ease,
@@ -1718,18 +1731,18 @@
 }
 
 .lesson-item:hover {
-  border-color: #cfd5e2;
+  border-color: rgba(255, 0, 110, 0.4);
   transform: translateX(-2px);
 }
 
 .lesson-item.completed {
-  border-color: #d7f1df;
-  background: #fbfffc;
+  border-color: rgba(0, 255, 136, 0.3);
+  background: rgba(0, 255, 136, 0.1);
 }
 
 .lesson-item.next-lesson-item {
-  border-color: #c7d2fe;
-  background: #f8f8ff;
+  border-color: rgba(255, 0, 110, 0.4);
+  background: rgba(255, 0, 110, 0.1);
 }
 
 .lesson-number {
@@ -2245,8 +2258,40 @@ button:focus-visible,
 a:focus-visible,
 select:focus-visible,
 input:focus-visible {
-  outline: 3px solid rgba(79,70,229,.18);
+  outline: 3px solid rgba(255, 0, 110, 0.3);
   outline-offset: 2px;
+}
+
+/* =========================================================
+   NEON BUTTON STYLES
+   ========================================================== */
+
+.btn-neon-active {
+  background: linear-gradient(135deg, #ff006e 0%, #ff69b4 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 0, 110, 0.3);
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-active:hover {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff006e 100%);
+  box-shadow: 0 0 30px rgba(255, 0, 110, 0.6);
+  transform: translateY(-2px);
+}
+
+.btn-neon-inactive {
+  background: rgba(26, 26, 26, 0.8);
+  color: #a0a0a0;
+  border: 1px solid rgba(255, 0, 110, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-neon-inactive:hover {
+  background: rgba(255, 0, 110, 0.15);
+  color: #ffffff;
+  border-color: rgba(255, 0, 110, 0.4);
+  box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
 }
 
 /* =========================================================
@@ -2256,10 +2301,78 @@ input:focus-visible {
   cursor: pointer;
 }
 
+/* =========================================================
+   PROFESSIONAL ANIMATIONS
+   ========================================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(255, 0, 110, 0.3);
+}
+
+.course-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255, 0, 110, 0.5);
+  box-shadow: 0 15px 50px rgba(255, 0, 110, 0.3), 0 0 30px rgba(255, 0, 110, 0.2);
+}
+
+.btn-neon-active:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 0, 110, 0.6), 0 0 50px rgba(255, 0, 110, 0.4);
+}
+
+.btn-neon-inactive:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 0, 110, 0.2);
+  border-color: rgba(255, 0, 110, 0.5);
+  box-shadow: 0 4px 20px rgba(255, 0, 110, 0.3);
+}
+
+/* Smooth transitions for all interactive elements */
+.btn-neon-active,
+.btn-neon-inactive,
+.stat-card,
+.course-card {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .active-lesson-row {
-  border-color: #4f46e5 !important;
-  background-color: #eef2ff !important;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
+  border-color: #ff006e !important;
+  background-color: rgba(255, 0, 110, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(255, 0, 110, 0.3);
 }
 
 .section-group {
@@ -2306,19 +2419,19 @@ input:focus-visible {
 }
 
 .tab-btn {
-  color: #64748b;
+  color: #6b6b6b;
   border-bottom: 3px solid transparent !important;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .tab-btn:hover {
-  color: #4f46e5;
+  color: #ff006e;
 }
 
 .tab-btn.active-tab {
-  color: #4f46e5;
-  border-bottom: 3px solid #4f46e5 !important;
+  color: #ff006e;
+  border-bottom: 3px solid #ff006e !important;
 }
 
 .course-title-clamp {

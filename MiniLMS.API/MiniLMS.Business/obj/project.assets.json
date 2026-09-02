@@ -3216,11 +3216,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
+      "projectUniqueName": "C:\\Users\\EL3ATTY\\source\\repos\\Shaghaf-Platform\\LMS-Project\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
       "projectName": "GenAlpha.Business",
-      "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
+      "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Shaghaf-Platform\\LMS-Project\\MiniLMS.API\\MiniLMS.Business\\MiniLMS.Business.csproj",
       "packagesPath": "C:\\Users\\EL3ATTY\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Business\\obj\\",
+      "outputPath": "C:\\Users\\EL3ATTY\\source\\repos\\Shaghaf-Platform\\LMS-Project\\MiniLMS.API\\MiniLMS.Business\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3241,8 +3241,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj": {
-              "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Employee Management System using Angular & Dot Net Core Api\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj"
+            "C:\\Users\\EL3ATTY\\source\\repos\\Shaghaf-Platform\\LMS-Project\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj": {
+              "projectPath": "C:\\Users\\EL3ATTY\\source\\repos\\Shaghaf-Platform\\LMS-Project\\MiniLMS.API\\MiniLMS.Data\\MiniLMS.DAL.csproj"
             }
           }
         }

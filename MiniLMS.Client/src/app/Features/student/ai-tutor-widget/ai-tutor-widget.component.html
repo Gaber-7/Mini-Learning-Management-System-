@@ -1,5 +1,5 @@
 <!-- Floating AI Tutor Button -->
-<div class="fixed bottom-6 left-6 z-50 flex flex-col items-start" dir="rtl">
+<div class="fixed bottom-6 left-6 z-50 flex flex-col items-start">
   <!-- Main Button -->
   <button
     (click)="toggleOpen()"
@@ -7,7 +7,7 @@
     <div class="w-7 h-7 rounded-full bg-slate-950/20 flex items-center justify-center text-lg">
       <i class="bi bi-robot"></i>
     </div>
-    <span>المساعد الذكي (AI Tutor)</span>
+    <span>AI Tutor</span>
     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
   </button>
 
@@ -28,7 +28,7 @@
             <span class="text-[10px] px-2 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 font-mono">Gemini 1.5</span>
           </h4>
           <p class="text-[11px] text-slate-400 truncate max-w-[240px]">
-            {{ lesson?.lessonTitle || courseTitle || 'مساعدتك في فهم الدرس' }}
+            {{ lesson?.lessonTitle || courseTitle || 'Helping you understand the lesson' }}
           </p>
         </div>
       </div>
@@ -47,7 +47,7 @@
         [class.text-slate-400]="activeTab() !== 'explain'"
         class="flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
         <i class="bi bi-chat-dots-fill"></i>
-        <span>شرح مفهوم</span>
+        <span>Explain Concept</span>
       </button>
 
       <button
@@ -57,7 +57,7 @@
         [class.text-slate-400]="activeTab() !== 'summary'"
         class="flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
         <i class="bi bi-file-text-fill"></i>
-        <span>ملخص الدرس</span>
+        <span>Lesson Summary</span>
       </button>
 
       <button
@@ -67,7 +67,7 @@
         [class.text-slate-400]="activeTab() !== 'practice'"
         class="flex-1 py-2 px-3 rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer">
         <i class="bi bi-lightning-charge-fill"></i>
-        <span>أسئلة تدريبية</span>
+        <span>Practice Questions</span>
       </button>
     </div>
 
@@ -77,13 +77,13 @@
       <!-- TAB 1: EXPLAIN -->
       <div *ngIf="activeTab() === 'explain'" class="space-y-4">
         <div>
-          <label class="block text-xs font-medium text-slate-400 mb-1.5">اكتب أي سؤال أو جزء غير واضح في الدرس:</label>
+          <label class="block text-xs font-medium text-slate-400 mb-1.5">Type any question or unclear part of the lesson:</label>
           <div class="relative">
             <textarea
               [(ngModel)]="userPrompt"
               (keydown.enter)="$event.preventDefault(); askExplain()"
               rows="3"
-              placeholder="مثال: اشرح لي كيف يعمل الـ Dependency Injection في هذا الكود؟"
+              placeholder="Example: Explain how Dependency Injection works in this code?"
               class="w-full p-3 rounded-2xl bg-slate-950 border border-slate-800 focus:border-cyan-500 focus:outline-none text-xs text-slate-100 placeholder-slate-600 resize-none">
             </textarea>
             <button
@@ -91,7 +91,7 @@
               [disabled]="loading() || !userPrompt.trim()"
               class="absolute bottom-2.5 left-2.5 px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 disabled:opacity-40 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer">
               <i class="bi bi-send-fill"></i>
-              <span>اسأل</span>
+              <span>Ask</span>
             </button>
           </div>
         </div>

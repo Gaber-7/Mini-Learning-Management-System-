@@ -16,7 +16,7 @@
 .glow-sphere-1 {
   width: 380px;
   height: 380px;
-  background: rgba(30, 58, 138, 0.4);
+  background: rgba(255, 0, 110, 0.4);
   top: -80px;
   left: -80px;
 }
@@ -24,7 +24,7 @@
 .glow-sphere-2 {
   width: 450px;
   height: 450px;
-  background: rgba(159, 18, 57, 0.35);
+  background: rgba(139, 92, 246, 0.35);
   bottom: -100px;
   right: -100px;
 }
@@ -32,7 +32,7 @@
 .glow-sphere-3 {
   width: 250px;
   height: 250px;
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(0, 245, 255, 0.15);
   top: 40%;
   left: 60%;
 }
@@ -71,9 +71,9 @@
 }
 
 .role-tab.active-role {
-  background: linear-gradient(135deg, var(--burgundy-primary) 0%, var(--burgundy-accent) 100%);
+  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-pink-dark) 100%);
   color: #ffffff;
-  box-shadow: 0 4px 15px rgba(190, 18, 60, 0.35);
+  box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
 }
 
 .glass-input-icon {

@@ -10,7 +10,7 @@
 .sidebar {
   width: 280px;
   min-height: 100vh;
-  background: rgba(7, 13, 30, 0.85);
+  background: rgba(10, 10, 10, 0.9);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid var(--border-glass);
@@ -43,14 +43,14 @@
   width: 44px;
   height: 44px;
   min-width: 44px;
-  background: linear-gradient(135deg, var(--navy-light) 0%, var(--burgundy-primary) 100%);
+  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 100%);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   color: #ffffff;
   font-size: 1.3rem;
-  box-shadow: 0 4px 15px rgba(117, 18, 50, 0.4);
+  box-shadow: 0 4px 15px rgba(255, 0, 110, 0.4);
 }
 
 .brand-text h3 {
@@ -62,7 +62,7 @@
 }
 
 .brand-text span {
-  color: var(--gold-accent);
+  color: var(--neon-cyan);
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -102,10 +102,10 @@
 }
 
 .nav-item.active {
-  background: linear-gradient(135deg, var(--burgundy-primary) 0%, var(--burgundy-accent) 100%);
+  background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-pink-dark) 100%);
   color: #ffffff;
   font-weight: 600;
-  box-shadow: var(--shadow-glow-burgundy);
+  box-shadow: var(--shadow-neon-pink);
 }
 
 .sidebar-bottom {
@@ -185,7 +185,7 @@
 }
 
 .top-navbar {
-  background: rgba(13, 27, 62, 0.65);
+  background: rgba(26, 26, 26, 0.8);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--border-glass);

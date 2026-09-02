@@ -61,14 +61,14 @@ export class AiTutorWidgetComponent implements OnInit {
       prompt: this.userPrompt,
       lessonTitle: this.lesson?.lessonTitle || this.courseTitle,
       lessonContext: this.lesson?.content || '',
-      language: 'Arabic'
+      language: 'English'
     }).subscribe({
       next: (res) => {
         this.explanationResult.set(res.output);
         this.loading.set(false);
       },
       error: () => {
-        this.explanationResult.set('عذراً، حدث خطأ أثناء التواصل مع المعلم الذكي. يرجى المحاولة مرة أخرى.');
+        this.explanationResult.set('Sorry, an error occurred while communicating with the AI tutor. Please try again.');
         this.loading.set(false);
       }
     });
@@ -83,14 +83,14 @@ export class AiTutorWidgetComponent implements OnInit {
     this.aiTutorService.summarizeLesson({
       lessonTitle: this.lesson.lessonTitle,
       lessonContent: this.lesson.content || '',
-      language: 'Arabic'
+      language: 'English'
     }).subscribe({
       next: (res) => {
         this.summaryResult.set(res.output);
         this.loading.set(false);
       },
       error: () => {
-        this.summaryResult.set('تعذر توليد الملخص حالياً.');
+        this.summaryResult.set('Unable to generate summary at this time.');
         this.loading.set(false);
       }
     });
